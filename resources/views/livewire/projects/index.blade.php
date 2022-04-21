@@ -30,7 +30,7 @@
 @endforeach --}}
 
 
-@foreach ($projek as $item )
+{{-- @foreach ($projek as $item )
 @php
     $diff = abs(strtotime($item->tgl_deadline) - strtotime($item->tgl_buat));
     $years = floor($diff / (365*60*60*24));
@@ -42,79 +42,91 @@
 {{ $item->tgl_deadline}} <br>
 {{ $totalDaysDiff.' hari'}} <br>
 {{ $years . ' tahun ' .  $months.  ' bulan '.  $days .' hari ' }} <br> <br>
-@endforeach
+@endforeach --}}
 
 
-
-<div class="row">
-
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <button data-toggle="modal" data-target="#createmodal" type="button" class="btn btn-labeled btn-success"><span class="btn-label"><i class="di di-plus"></i></span>Input Data Karyawan Baru </button>
-
-                <div class="tools">
-                    <a class="btn-link collapses panel-collapse" href="javascript:;"></a>
-                    <a class="btn-link reload" href="javascript:;"><i class="ti-reload"></i></a>
+<div class="row g-5 g-xl-8">
+    <div class="col-xl-4">
+        <!--begin: Statistics Widget 6-->
+        <div class="card bg-light-success card-xl-stretch mb-xl-8">
+            <!--begin::Body-->
+            <div class="card-body my-3">
+                <a href="#" class="card-title fw-bolder text-success fs-5 mb-3 d-block">Project Progress</a>
+                <div class="py-1">
+                    <span class="text-dark fs-1 fw-bolder me-2">50%</span>
+                    <span class="fw-bold text-muted fs-7">Avarage</span>
+                </div>
+                <div class="progress h-7px bg-success bg-opacity-50 mt-7">
+                    <div class="progress-bar-animated progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 0%" aria-valuenow="{{ $aktif }}" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
-            <div class="panel-body">
-                <table class="table table-bordered table-dataTable table-hover">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>time</th>
-                            <th>marketing</th>
-                            <th>status</th>
-                            <th>progres</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @php
-                        $no=1
-                        @endphp
-                        @foreach ($projek as $item)
-                        <tr>
-                            <td>{{ $no++ }}</td>
-                            {{-- <td>{{ $item->no_project}}</td> --}}
-                            {{-- <td>{{ $item->no_client}}</td> --}}
-                            <td>{{ $item->nama_project}}</td>
-                            <td>{{ $item->tgl_buat}} <br> {{ $item->tgl_trial}} </td>
-                            <td>{{ $item->MarketingToProject->name}}</td>
-                            <td><span class="label
-                                {{ $item->status == '1'  ? 'label-programer' : ''}}
-                                {{ $item->status == '2'  ? 'label-secondary' : ''}}
-                                {{ $item->status == '3'  ? 'label-success' : ''}} "
-                                >
-                                {{ $item->status == '1'  ? 'Mulai' :
-                                ($item->status == '2'  ? 'Pending' :
-                                ($item->status == '3'  ? 'Selesai' : '')) }}
-
-                            </span></td>
-                            <td>
-                                <label >{{$item->total_progres}}%</label>
-                                <div class="progress progress-sm progress-striped active">
-                                    <div  class="progress-bar progress-bar-{{ $item->total_progres == '100' ? 'success' : 'info' }}" style="width: {{ $item->total_progres }}%;">
-                                       </div>
-                                </div>
-
-                            </td>
-                            {{-- <td>
-                                <div class="btn-group" role="group">
-                                    <button  data-toggle="modal" data-target="#editmodal" class="btn btn-default-outline btn-sm" wire:click.prevent="edit({{$item->id}})" >Edit</button>
-                                    <button wire:click.prevent="destroy({{$item->id}})"class="btn btn-danger-outline btn-sm">Delete</button>
-                                </div>
-                            </td> --}}
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+            <!--end:: Body-->
         </div>
+        <!--end: Statistics Widget 6-->
+    </div>
+    <div class="col-xl-4">
+        <!--begin: Statistics Widget 6-->
+        <div class="card bg-light-warning card-xl-stretch mb-xl-8">
+            <!--begin::Body-->
+            <div class="card-body my-3">
+                <a href="#" class="card-title fw-bolder text-warning fs-5 mb-3 d-block">Company Finance</a>
+                <div class="py-1">
+                    <span class="text-dark fs-1 fw-bolder me-2">15%</span>
+                    <span class="fw-bold text-muted fs-7">48k Goal</span>
+                </div>
+                <div class="progress h-7px bg-warning bg-opacity-50 mt-7">
+                    <div class="progress-bar-animated progress-bar-striped bg-warning" role="progressbar" style="width: 15%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+            <!--end:: Body-->
+        </div>
+        <!--end: Statistics Widget 6-->
+    </div>
+    <div class="col-xl-4">
+        <!--begin: Statistics Widget 6-->
+        <div class="card bg-light-primary card-xl-stretch mb-5 mb-xl-8">
+            <!--begin::Body-->
+            <div class="card-body my-3">
+                <a href="#" class="card-title fw-bolder text-primary fs-5 mb-3 d-block">Marketing Analysis</a>
+                <div class="py-1">
+                    <span class="text-dark fs-1 fw-bolder me-2">76%</span>
+                    <span class="fw-bold text-muted fs-7">400k Impressions</span>
+                </div>
+                <div class="progress h-7px bg-primary bg-opacity-50 mt-7">
+                    <div class="progress-bar-animated progress-bar progress-bar-striped bg-primary" role="progressbar" style="width: 0%" aria-valuenow="76" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+            <!--end:: Body-->
+        </div>
+        <!--end: Statistics Widget 6-->
+    </div>
+</div>
+<div wire:ignore class="progress bg-primary bg-opacity-50">
+    <div data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top" class="progress-bar-animated progress-bar progress-bar-striped bg-primary" role="progressbar" style="width: 0%" aria-valuenow="{{100/3}}" aria-valuemin="0" aria-valuemax="{{100/3}}">
+    </div>
+    <div data-bs-toggle="popover" data-bs-placement="top" title="Popover on top" data-bs-content="And here's some amazing content. It's very engaging. Right?" class="progress-bar-animated progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 0%" aria-valuenow="{{50/3}}" aria-valuemin="0" aria-valuemax="{{100/3}}">
+    </div>
+    <div class="progress-bar-animated progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 0%" aria-valuenow="{{76/3}}" aria-valuemin="0" aria-valuemax="{{100/3}}">
     </div>
 
 </div>
 
+<input type="text" class=" form-check-danger form-control" wire:model='coba'>
+{{$coba}}
+<button wire:ignore class=" btn btn-light" wire:click='coba()' > asdasd</button>
+
+<script wire:ignore >
+    $(document).ready(function() {
+        $('.progress .progress-bar').css("width",
+        function() {
+            return $(this).attr("aria-valuenow") + "%";
+        }
+        )
+    });
+
+
+    window.addEventListener('swal',function(e){
+            Swal.fire(e.detail);
+        });
+</script>
 </div>

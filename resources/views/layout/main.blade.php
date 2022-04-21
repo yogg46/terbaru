@@ -18,6 +18,8 @@
     <!--end::Fonts-->
     <!--begin::Page Vendor Stylesheets(used by this page)-->
     <link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.css" />
+
 
     {{-- <link href="assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" /> --}}
     <!--end::Page Vendor Stylesheets-->
@@ -175,13 +177,28 @@
     {{-- <script src="assets/js/custom/apps/customers/add.js"></script> --}}
     <script src="assets/plugins/global/plugins.bundle.js"></script>
     <script src="assets/js/scripts.bundle.js"></script>
-    <script src="assets/js/custom/widgets.js"></script>
+    {{-- <script src="assets/js/custom/widgets.js"></script> --}}
     <script src="assets/js/custom/apps/customers/list/list.js"></script>
     <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
-    <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
+    {{-- <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script> --}}
+	<script src="assets/js/custom/widgets.js"></script>
     @livewireScripts
     @include('sweetalert::alert')
+    <script>
+        $(document).ready(function() {
+            $('.progress .progress-bar').css("width",
+            function() {
+                return $(this).attr("aria-valuenow") + "%";
+            }
+            )
+        });
+    </script>
+        {{-- @include('livewire.projects.chart') --}}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
+
+    {{-- <script src="assets/js/custom/pages/projects/project/project.js"></script> --}}
+
 
 
     <!--end::Page Custom Javascript-->

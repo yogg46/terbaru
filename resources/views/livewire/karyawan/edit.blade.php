@@ -45,7 +45,7 @@
                 <div class="form-group">
 
                     <label class=" form-label fs-6 mb-2"><strong> Jabatan </strong> </label>
-                    <select wire:model='role'class="form-select form-select-solid" data-prompt-position="topLeft" >
+                    <select wire:ignore.self wire:model='role'class="form-select form-select-solid" data-prompt-position="topLeft" >
                         <option value="">Pilih Jabatan</option>
                             @foreach ($k_k as $k)
                             <option value="{{$k->no_kategori}}">{{$k->kategori}}</option>

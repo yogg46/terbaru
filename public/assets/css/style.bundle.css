@@ -4476,7 +4476,8 @@ textarea.form-control-lg{
     text-align:center;
     white-space:nowrap;
     background-color:#009ef7;
-    transition:width .6s ease
+    transition:width .6s ease;
+    transition-duration: 3s;
 }
 @media (prefers-reduced-motion:reduce){
     .progress-bar{

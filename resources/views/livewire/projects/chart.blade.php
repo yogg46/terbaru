@@ -1,4 +1,5 @@
-"use strict";
+<script type="text/javascript">
+    "use strict";
 var KTProjectOverview = function() {
     var t = KTUtil.getCssVariableValue("--bs-primary"),
         e = KTUtil.getCssVariableValue("--bs-light-primary"),
@@ -10,15 +11,15 @@ var KTProjectOverview = function() {
         init: function() {
             var s, i;
             ! function() {
-                var t = document.getElementById("project_overview_chart");
+                var t = document.getElementById("project");
                 if (t) {
                     var e = t.getContext("2d");
                     new Chart(e, {
                         type: "doughnut",
                         data: {
                             datasets: [{
-                                data: [30, 85,20, 25],
-                                backgroundColor: ["#00A3FF", "#50CD89", "#F1416C" ]
+                                data: [ {{$aktif}},{{$selesai}},{{$due}}],
+                                backgroundColor: ["#00A3FF", "#50CD89","#F1416C" ]
                             }],
                             labels: ["Active", "Completed","Overdue" ]
                         },
@@ -227,3 +228,7 @@ var KTProjectOverview = function() {
 KTUtil.onDOMContentLoaded((function() {
     KTProjectOverview.init()
 }));
+
+</script>
+
+

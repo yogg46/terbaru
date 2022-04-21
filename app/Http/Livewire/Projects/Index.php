@@ -12,6 +12,7 @@ class Index extends Component
 
     use WithPagination;
     public $marketing;
+    public $coba ;
     // public $id;
 
 
@@ -25,12 +26,21 @@ class Index extends Component
         [
             'projek'=>$project,
             'data_market'=>$data_marketing,
-            'nama_market'=>$nama_marketing
+            'nama_market'=>$nama_marketing,
+            'aktif'=> project::where('status','1')->count(),
+            'selesai'=> project::where('status','2')->count(),
+            'due'=> project::where('status','3')->count(),
+
             ])
             ->extends('layout.main',
             ['tittle' => 'Projects',
             'slug'=>'projects'])
             ->section('isi_page');
 
+    }
+
+    public function coba()
+    {
+        $this->dispatchBrowserEvent('swal', ['title' => 'hello from Livewire']);
     }
 }
