@@ -20,12 +20,12 @@ class UserFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => bcrypt('password'), // password
             'remember_token' => Str::random(10),
-            'NIK'=>'3306124403910302',
-            'role' => Arr::random(['1', '2', '3','4','5']),
+            'NIK' => '3306124403910302',
+            'role' => Arr::random(['1', '2', '3', '4', '5']),
             'status' => Arr::random(['1', '0']),
-            'no_telepon'=>$this->faker->phoneNumber(),
+            'no_telepon' => $this->faker->e164PhoneNumber(),
 
         ];
     }

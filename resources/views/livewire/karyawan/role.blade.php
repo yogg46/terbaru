@@ -1,24 +1,25 @@
-
 <div>
-@include('livewire.karyawan.edit')
-@include('livewire.karyawan.create')
-@include('livewire.karyawan.suspend')
+    @include('livewire.karyawan.edit')
+    @include('livewire.karyawan.create')
+    @include('livewire.karyawan.suspend')
 
 
-<div class="col-md-12">
+    <div class="col-md-12">
 
-    @if (session()->has('message'))
-    <div class="alert alert-success">{{session('message')}}</div>
+        @if (session()->has('message'))
+        <div class="alert alert-success">{{session('message')}}</div>
 
-    @endif
+        @endif
 
-</div>
+    </div>
     <div class="row">
 
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <button data-toggle="modal" data-target="#createmodal" type="button" class="btn btn-labeled btn-success"><span class="btn-label"><i class="di di-plus"></i></span>Input Data Karyawan Baru </button>
+                    <button data-toggle="modal" data-target="#createmodal" type="button"
+                        class="btn btn-labeled btn-success"><span class="btn-label"><i
+                                class="di di-plus"></i></span>Input Data Karyawan Baru </button>
 
                     <div class="tools">
                         <a class="btn-link collapses panel-collapse" href="javascript:;"></a>
@@ -57,22 +58,31 @@
                                     {{ $item->utk->kategori == 'Leader'  ? 'label-secondary' : ''}}
                                     {{ $item->utk->kategori == 'Management'  ? 'label-manager' : ''}}
                                     {{ $item->utk->kategori == 'Marketing'  ? 'label-marketing' : ''}}
-                                    {{ $item->utk->kategori == 'Administator'  ? 'label-danger' : ''}}"
-                                    >{{ $item->utk->kategori}}</span></td>
+                                    {{ $item->utk->kategori == 'Administator'  ? 'label-danger' : ''}}">{{
+                                        $item->utk->kategori}}</span></td>
                                 <td>
                                     <div class="btn-group" role="group">
-                                        {{-- <a data-target="#editmodal "data-toggle="modal"  wire:click.prevent="edit({{$item->id}})" > <span><i class="di di-trash"></i></a> --}}
+                                        {{-- <a data-target="#editmodal " data-toggle="modal"
+                                            wire:click.prevent="edit({{$item->id}})"> <span><i
+                                                    class="di di-trash"></i></a> --}}
 
-                                        <button  data-toggle="modal" data-target="#editmodal" class="btn btn-default-outline btn-sm" wire:click.prevent="edit({{$item->id}})" >Edit</button>
-                                        {{-- <button wire:click.prevent="destroy({{$item->id}})"class="btn btn-danger-outline btn-sm">Delete</button> --}}
-                                        <button data-toggle="modal" data-target="#deletemodal"  wire:click="deleteId({{ $item->id }})" class="btn btn-danger-outline btn-sm">Delete</button>
+                                        <button data-toggle="modal" data-target="#editmodal"
+                                            class="btn btn-default-outline btn-sm"
+                                            wire:click.prevent="edit({{$item->id}})">Edit</button>
+                                        {{-- <button wire:click.prevent="destroy({{$item->id}})"
+                                            class="btn btn-danger-outline btn-sm">Delete</button> --}}
+                                        <button data-toggle="modal" data-target="#deletemodal"
+                                            wire:click="deleteId({{ $item->id }})"
+                                            class="btn btn-danger-outline btn-sm">Delete</button>
                                     </div>
                                 </td>
                                 <td>
                                     @if ($item->status == 1)
-                                    <button   class="btn btn-success btn-sm" wire:click.prevent="presus({{$item->id}})" >Aktif</button>
+                                    <button class="btn btn-success btn-sm"
+                                        wire:click.prevent="presus({{$item->id}})">Aktif</button>
                                     @else
-                                    <button   class="btn btn-danger btn-sm" wire:click.prevent="presus({{$item->id}})" >Suspended</button>
+                                    <button class="btn btn-danger btn-sm"
+                                        wire:click.prevent="presus({{$item->id}})">Suspended</button>
                                     @endif
 
 

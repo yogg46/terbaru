@@ -70,6 +70,8 @@
 
     </div>
 
+
+
     <script>
         window.livewire.on('edit',()=>{
             $('#kt_modal_1').modal('hide');
