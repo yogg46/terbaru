@@ -137,7 +137,7 @@
 
             <div class="col-md-6 col-xl-4">
                 <!--begin::Card-->
-                <div href="" class="card border bg-hover-lighten
+                <div class="card border bg-hover-lighten
                         {{ $item->no_kc == 1 ? ' bg-hover-light-success' : '' }}
                         {{$item->no_kc == 2 ? ' bg-hover-light-dark' : '' }}
                         {{ $item->no_kc == 3 ? ' bg-hover-light-primary ' :'' }}
@@ -193,15 +193,14 @@
                                     <!--end::Heading-->
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-3">
+                                        <a href="/client/{{ $item->id}}" class=" menu-link px-3"> view</a>
+                                    </div>
+                                    {{-- <div class="menu-item px-3">
                                         <button wire:click.prevent='destroy({{$item->id}})'
                                             class="btn bg-hover-light-danger text-hover-danger  menu-link px-3"> Delete
                                         </button>
-                                    </div>
-                                    <div class="menu-item px-3">
-                                        <button wire:click.prevent='destroy({{$item->id}})'
-                                            class="btn bg-hover-light-danger text-hover-danger  menu-link px-3"> Delete
-                                        </button>
-                                    </div>
+                                    </div> --}}
+
                                 </div>
                             </div>
 

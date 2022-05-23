@@ -1,4 +1,6 @@
 <div>
+    @include('livewire.profil.edit')
+    @include('livewire.profil.gantiPass')
 
 
     <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
@@ -10,7 +12,9 @@
             </div>
             <!--end::Card title-->
             <!--begin::Action-->
-            <a href="../../demo1/dist/account/settings.html" class="btn btn-primary align-self-center">Edit Profile</a>
+            <button wire:ignore.self data-bs-toggle="modal" data-bs-target="#kt_modal_1"
+                wire:click.prevent="edit({{ auth()->user()->id}})" class=" btn btn-primary align-self-center">Edit
+                Profile</button>
             <!--end::Action-->
         </div>
         <!--begin::Card header-->
@@ -24,7 +28,18 @@
                 <!--begin::Col-->
                 <div class="col-lg-8">
                     <span class="fw-bolder fs-6 text-gray-800">{{ auth()->user()->name }}</span>
+                    {{-- <div>
+                        @if ($Enama == 1)
+                        <button class="btn btn-light-info"> edit </button>
+                        @else
+                        <div class="mb-1 mt-1">
+                            <input type="email" class="form-control form-control-solid" placeholder="Example input" />
+                        </div>
+                        <button class="btn btn-light-info "> save </button>
+                        @endif
+                    </div> --}}
                 </div>
+
                 <!--end::Col-->
             </div>
             <!--end::Row-->
@@ -45,7 +60,12 @@
                 <!--end::Label-->
                 <!--begin::Col-->
                 <div class="col-lg-8 fv-row">
-                    <span class="fw-bold text-gray-800 fs-6"><button class=" btn btn-light btn-active-light-primary btn-sm">Change Password</button></span>
+                    <span class="fw-bold text-gray-800 fs-6">
+                        <button wire:ignore.self data-bs-toggle="modal" data-bs-target="#kt_modal_2"
+                            class=" btn btn-light btn-active-light-primary btn-sm"
+                            wire:click.prevent="edit({{ auth()->user()->id}})">Change
+                            Password</button>
+                    </span>
                 </div>
                 <!--end::Col-->
             </div>
@@ -60,7 +80,7 @@
                 <!--end::Label-->
                 <!--begin::Col-->
                 <div class="col-lg-8">
-                    <span  class="fw-bold fs-6 text-gray-800 text-hover-primary">{{ auth()->user()->NIK }}</span>
+                    <span class="fw-bold fs-6 text-gray-800 text-hover-primary">{{ auth()->user()->NIK }}</span>
                 </div>
                 <!--end::Col-->
             </div>
@@ -85,7 +105,8 @@
                 <!--end::Label-->
                 <!--begin::Col-->
                 <div class="col-lg-8">
-                    <span class="fw-bolder fs-6 text-gray-800"> <span class="badge badge-success">{{ auth()->user()->utk->kategori }}</span></span>
+                    <span class="fw-bolder fs-6 text-gray-800"> <span class="badge badge-success">{{
+                            auth()->user()->utk->kategori }}</span></span>
                 </div>
                 <!--end::Col-->
             </div>
@@ -111,7 +132,8 @@
                     <div class="fw-bold">
                         <h4 class="text-gray-900 fw-bolder">We need your attention!</h4>
                         <div class="fs-6 text-gray-700">Your payment was declined. To start using tools, please
-                        <a class="fw-bolder" href="../../demo1/dist/account/billing.html">Add Payment Method</a>.</div>
+                            <a class="fw-bolder" href="../../demo1/dist/account/billing.html">Add Payment Method</a>.
+                        </div>
                     </div>
                     <!--end::Content-->
                 </div>

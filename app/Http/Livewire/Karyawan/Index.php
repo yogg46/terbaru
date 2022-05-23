@@ -54,7 +54,7 @@ class Index extends Component
 
 
     protected $rules = [
-        'name' => 'required|min:6|alpha',
+        'name' => 'required|min:6|regex:/^[a-zA-Z ]*$/',
         'email' => 'required|email|unique:karyawan',
         'NIK' => 'required|min:16',
         'no_telepon' => 'required|min:10|max:12 ',
@@ -100,7 +100,7 @@ class Index extends Component
     public function updated($field)
     {
         $this->validateOnly($field, [
-            'name' => 'required|min:6|alpha',
+            'name' => 'required|min:6|regex:/^[a-zA-Z ]*$/',
             'email' => 'required|email',
             'NIK' => 'required|min:16',
             'no_telepon' => 'required|min:10|max:12 ',
@@ -176,7 +176,7 @@ class Index extends Component
     public function update()
     {
         $this->validate([
-            'name' => 'required|min:6|alpha',
+            'name' => 'required|min:6|regex:/^[a-zA-Z ]*$/',
             'email' => 'required|email',
             'NIK' => 'required|min:16',
             'no_telepon' => 'required|min:10|max:12 ',

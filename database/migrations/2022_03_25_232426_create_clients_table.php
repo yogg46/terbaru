@@ -17,6 +17,7 @@ class CreateClientsTable extends Migration
             $table->id();
             $table->string('client_id');
             $table->string('nama');
+            $table->string('slug');
             $table->string('cp');
             $table->text('alamat');
             $table->unsignedBigInteger('no_kc');

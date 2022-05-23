@@ -15,11 +15,11 @@ class ClientFactory extends Factory
     public function definition()
     {
         return [
-                'client_id' => $this->faker->unique()->numerify('NMN-###'),
-                'nama' => $this->faker->company(),
-                'alamat'=> $this->faker->Address(),
-                'cp'=>$this->faker->tollFreePhoneNumber(),
-                'no_kc'=> Arr::random(['1', '2','3']),
+            // 'client_id' => $this->faker->unique()->numerify('NMN-###'),
+            'nama' => $this->faker->company(),
+            'alamat' => $this->faker->Address(),
+            'cp' => $this->faker->tollFreePhoneNumber(),
+            'no_kc' => Arr::random(['1', '2', '3']),
         ];
     }
 }

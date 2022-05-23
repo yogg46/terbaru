@@ -17,17 +17,17 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->string('nama_project');
             $table->unsignedBigInteger('no_client')->constrained()
-            ->onUpdate('cascade');
+                ->onUpdate('cascade');
             $table->string('no_project');
-            $table->string('status');
+            $table->string('status')->default(2);
             $table->date('tgl_buat');
             $table->date('tgl_deadline');
             $table->date('tgl_trial');
             $table->date('tgl_release');
             $table->unsignedBigInteger('marketing')->constrained()
-            ->onUpdate('cascade');
+                ->onUpdate('cascade');
             $table->unsignedBigInteger('leader')->constrained()
-            ->onUpdate('cascade');;
+                ->onUpdate('cascade');;
             $table->string('total_progres')->default('0');
             $table->timestamps();
         });

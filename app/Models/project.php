@@ -12,17 +12,29 @@ class project extends Model
     protected $primayKey = 'id';
     protected $table = 'projects';
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if ($model->total_progres > 50) {
+                $model->status = 1;
+            }
+        });
+    }
+
+
 
     public function ClientToProject()
     {
-        return $this->belongsTo(client::class,'no_client');
+        return $this->belongsTo(client::class, 'no_client');
     }
     public function LeaderToProject()
     {
-        return $this->belongsTo(User::class,'leader');
+        return $this->belongsTo(User::class, 'leader');
     }
     public function MarketingToProject()
     {
-        return $this->belongsTo(User::class,'marketing');
+        return $this->belongsTo(User::class, 'marketing');
     }
 }

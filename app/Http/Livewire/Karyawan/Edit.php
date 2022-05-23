@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Karyawan;
 
-use App\Models\Use
 use App\Models\User;
 use Livewire\Component;
 
@@ -13,8 +12,8 @@ class Edit extends Component
         return view('livewire.karyawan.edit');
     }
     /**
-    * define public variable
-    */
+     * define public variable
+     */
     public $name, $karyawan_id;
     public $NIK;
     public $email;
@@ -26,13 +25,13 @@ class Edit extends Component
      */
     public function mount(User $User)
     {
-        if($User) {
-            $this-> karyawan_id = $User->id;
-            $this-> name = $User->name;
-            $this-> NIK = $User->NIK;
-            $this-> email = $User->email;
-            $this-> no_telepon = $User->no_telepon;
-            $this-> kategori = $User->kategori;
+        if ($User) {
+            $this->karyawan_id = $User->id;
+            $this->name = $User->name;
+            $this->NIK = $User->NIK;
+            $this->email = $User->email;
+            $this->no_telepon = $User->no_telepon;
+            $this->kategori = $User->kategori;
         }
     }
 
@@ -45,9 +44,9 @@ class Edit extends Component
         $this->validateOnly($field, [
             'name' => 'required|min:6',
             'email' => 'required|email',
-            'NIK'=>'required',
-            'no_telepon'=>'required',
-            'kategori'=>'required',
+            'NIK' => 'required',
+            'no_telepon' => 'required|numeric',
+            'kategori' => 'required',
         ]);
     }
 
@@ -59,22 +58,22 @@ class Edit extends Component
         $this->validate([
             'name' => 'required|min:6',
             'email' => 'required|email',
-            'NIK'=>'required',
-            'no_telepon'=>'required',
-            'kategori'=>'required',
+            'NIK' => 'required',
+            'no_telepon' => 'required',
+            'kategori' => 'required',
         ]);
 
-        if($this->karyawan_id) {
+        if ($this->karyawan_id) {
 
             $karyawan = User::find($this->karyawan_id);
 
-            if($karyawan) {
+            if ($karyawan) {
                 $karyawan->update([
                     'name' => $this->name,
                     'email' => $this->email,
-                    'NIK'=>$this->NIK,
-                    'no_telepon'=>$this->no_telepon,
-                    'kategori'=>$this->kategori,
+                    'NIK' => $this->NIK,
+                    'no_telepon' => $this->no_telepon,
+                    'kategori' => $this->kategori,
                 ]);
             }
         }
@@ -84,9 +83,5 @@ class Edit extends Component
 
         //redirect
         return redirect()->route('karyawan.index');
-
     }
-
-
-
 }
