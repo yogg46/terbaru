@@ -20,6 +20,7 @@ class ClientFactory extends Factory
             'alamat' => $this->faker->Address(),
             'cp' => $this->faker->tollFreePhoneNumber(),
             'no_kc' => Arr::random(['1', '2', '3']),
+            'status' => Arr::random(['1', '2']),
         ];
     }
 }

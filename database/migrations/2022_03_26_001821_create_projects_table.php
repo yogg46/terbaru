@@ -16,6 +16,7 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('nama_project');
+            $table->string('slug');
             $table->unsignedBigInteger('no_client')->constrained()
                 ->onUpdate('cascade');
             $table->string('no_project');
