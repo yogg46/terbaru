@@ -22,41 +22,48 @@ class Index extends Component
     public $sortBy = 'created_at';
     public $sortDirection = 'asc';
     public $satu;
+    public $switch = 0;
 
 
     public function render()
     {
         $search = $this->search;
-        return view('livewire.client.index',
-        [
-            'client' => client::search('nama', $this->search)
-            ->whereLike(['nama', 'alamat','cp','no_kc','client_id'], $this->search)
-            ->orWhereHas('r_kc', static function ($query) use ($search) {
-                $query->where('nama', 'LIKE', "%{$search}%");})
-            ->orderBy($this->sortBy, $this->sortDirection)->get(),
-            'kc' => kc::all(),
-            'client2' => client::search('nama', $this->search)
-            ->orderBy($this->sortBy, $this->sortDirection)
-            ->whereLike(['nama', 'alamat','cp','no_kc','client_id'], $this->search)
-            ->orWhereHas('r_kc', static function ($query) use ($search) {
-                $query->where('nama', 'LIKE', "%{$search}%");})
-            ->paginate(9),
+        return view(
+            'livewire.client.index',
+            [
+                'client' => client::search('nama', $this->search)
+                    ->whereLike(['nama', 'alamat', 'cp', 'no_kc', 'client_id'], $this->search)
+                    ->orWhereHas('r_kc', static function ($query) use ($search) {
+                        $query->where('nama', 'LIKE', "%{$search}%");
+                    })
+                    ->orderBy($this->sortBy, $this->sortDirection)->get(),
+                'kc' => kc::all(),
+                'client2' => client::search('nama', $this->search)
+                    ->orderBy($this->sortBy, $this->sortDirection)
+                    ->whereLike(['nama', 'alamat', 'cp', 'no_kc', 'client_id'], $this->search)
+                    ->orWhereHas('r_kc', static function ($query) use ($search) {
+                        $query->where('nama', 'LIKE', "%{$search}%");
+                    })
+                    ->paginate(9),
 
-        ])
-        ->extends('layout.main',
-        [
-        'tittle' => 'Client',
-        'slug'=>''
-        ])
-        ->section('isi_page');;
+            ]
+        )
+            ->extends(
+                'layout.main',
+                [
+                    'tittle' => 'Client',
+                    'slug' => ''
+                ]
+            )
+            ->section('isi_page');
     }
 
     protected $rules = [
         'client_id' => 'required',
         'nama' => 'required|min:6',
-        'alamat'=>'required|min:16',
-        'cp'=>'required|min:12',
-        'no_kc'=>'required',
+        'alamat' => 'required|min:16',
+        'cp' => 'required|min:12',
+        'no_kc' => 'required',
 
     ];
 
@@ -82,7 +89,6 @@ class Index extends Component
 
         //redirect
         return redirect()->route('clients.index');
-
     }
 
     public function resetInput()
@@ -100,22 +106,22 @@ class Index extends Component
         $this->validateOnly($field, [
             'client_id' => 'required',
             'nama' => 'required',
-            'alamat'=>'required|min:16',
-            'cp'=>'required|min:12',
-            'no_kc'=>'required',
+            'alamat' => 'required|min:16',
+            'cp' => 'required|min:12',
+            'no_kc' => 'required',
 
         ]);
     }
 
     public function edit($id)
     {
-        $client= client::where('id',$id)->first();
-        $this-> ids = $client->id;
-        $this-> client_id = $client->client_id;
-        $this-> nama = $client->nama;
-        $this-> alamat = $client->alamat;
-        $this-> cp = $client->cp;
-        $this-> no_kc = $client->no_kc;
+        $client = client::where('id', $id)->first();
+        $this->ids = $client->id;
+        $this->client_id = $client->client_id;
+        $this->nama = $client->nama;
+        $this->alamat = $client->alamat;
+        $this->cp = $client->cp;
+        $this->no_kc = $client->no_kc;
     }
 
     public function update()
@@ -123,112 +129,104 @@ class Index extends Component
         $this->validate([
             'client_id' => 'required',
             'nama' => 'required',
-            'alamat'=>'required|min:16',
-            'cp'=>'required|min:12',
-            'no_kc'=>'required',
+            'alamat' => 'required|min:16',
+            'cp' => 'required|min:12',
+            'no_kc' => 'required',
 
         ]);
-        if($this->ids){
-            $client= client::find($this->ids);
+        if ($this->ids) {
+            $client = client::find($this->ids);
             $client->update([
-                'client_id'=> $this->client_id,
-                'nama'=> $this->nama,
-                'alamat'=> $this->alamat,
-                'cp'=> $this->cp,
-                'no_kc'=> $this->no_kc,
+                'client_id' => $this->client_id,
+                'nama' => $this->nama,
+                'alamat' => $this->alamat,
+                'cp' => $this->cp,
+                'no_kc' => $this->no_kc,
             ]);
 
-                //flash message
+            //flash message
             session()->flash('message', 'Data Berhasil Diupdate.');
             $this->resetInput();
             $this->emit('edit');
 
             //redirect
             return redirect()->route('clients.index');
-
-         }
+        }
     }
 
-        public function destroy($id)
-        {
+    public function destroy($id)
+    {
 
 
-            if($id){
-                client::where('id',$id)->delete();
-            }
-            //flash message
-            session()->flash('message', 'Data Berhasil Dihapus.');
-
-            //redirect
-            // return redirect()->route('clients.index');
+        if ($id) {
+            client::where('id', $id)->delete();
         }
+        //flash message
+        session()->flash('message', 'Data Berhasil Dihapus.');
+
+
+        //redirect
+        // $this->switch = 1;
+        // return redirect()->route('clients.index');
+    }
 
 
 
-        public function deleteCountries(){
+    public function deleteCountries()
+    {
+        client::query()
+            ->whereIn('id', $this->ceklis)
+            ->delete();
+        if ($this->selectAll = true) {
 
-
-
-            client::query()
-                ->whereIn('id', $this->ceklis)
-                ->delete();
-            if($this->selectAll = true){
-
-                $this->selectAll = false;
-
-            };
-            $this->ceklis = [];
             $this->selectAll = false;
-            session()->flash('message', 'Data Berhasil Dihapus.');
+        };
+        $this->ceklis = [];
+        $this->selectAll = false;
+        $this->switch = 1;
+        session()->flash('message', 'Data Berhasil Dihapus.');
+    }
 
+    public function updatedselectAll($value)
+    {
 
+        if ($value) {
+            $this->ceklis = client::pluck('id');
+        } else {
+            $this->ceklis = [];
+        }
+    }
 
+    public function sortBy($field)
+    {
+        if ($this->sortDirection == 'asc') {
+            $this->sortDirection = 'desc';
+        } else {
+            $this->sortDirection = 'asc';
         }
 
-        public function updatedselectAll($value){
+        return $this->sortBy = $field;
+    }
 
-            if($value){
-                $this->ceklis = client::pluck('id');
-            }else{
-                $this->ceklis = [];
-            }
 
+
+
+    public function sw()
+    {
+
+        if ($this->switch == 0) {
+            $this->switch = 1;
+        } elseif ($this->switch == 1) {
+            $this->switch = 0;
         }
+    }
+    public function sw2()
+    {
 
-        public function sortBy($field)
-        {
-            if ($this->sortDirection == 'asc') {
-                $this->sortDirection = 'desc';
-            } else {
-                $this->sortDirection = 'asc';
-            }
-
-            return $this->sortBy = $field;
+        if ($this->switch == '1') {
+            $this->switch = '0';
+        } else {
+            $this->switch = '1';
         }
-
-
-        public $switch = 0;
-
-        public function sw(){
-
-            if( $this->switch == 0 ){
-                $this->switch = 1 ;
-            }
-
-            elseif($this->switch == 1) {
-                $this->switch = 0;
-            }
-        }
-        public function sw2(){
-
-            if( $this->switch == '1'){
-                $this->switch = '0';
-            } else {
-                $this->switch = '1';
-            }
-        }
-
-
-
-
+    }
 }

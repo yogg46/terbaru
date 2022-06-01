@@ -164,44 +164,11 @@
                         <div class="card-toolbar">
 
                             <div>
-                                <button type="button"
-                                    class="btn btn-clean btn-sm btn-icon btn-icon-primary btn-active-light-primary me-n3"
-                                    data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                    <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
-                                    <span class="svg-icon svg-icon-3 svg-icon-primary">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px"
-                                            viewBox="0 0 24 24">
-                                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                                <rect x="5" y="5" width="5" height="5" rx="1" fill="#000000" />
-                                                <rect x="14" y="5" width="5" height="5" rx="1" fill="#000000"
-                                                    opacity="0.3" />
-                                                <rect x="5" y="14" width="5" height="5" rx="1" fill="#000000"
-                                                    opacity="0.3" />
-                                                <rect x="14" y="14" width="5" height="5" rx="1" fill="#000000"
-                                                    opacity="0.3" />
-                                            </g>
-                                        </svg>
-                                    </span>
-                                    <!--end::Svg Icon-->
-                                </button>
-
-                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold w-200px py-3"
-                                    data-kt-menu="true">
-                                    <div class="menu-item px-3">
-                                        <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">Action</div>
-                                    </div>
-                                    <!--end::Heading-->
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3">
-                                        <a href="/client/{{ $item->id}}" class=" menu-link px-3"> view</a>
-                                    </div>
-                                    {{-- <div class="menu-item px-3">
-                                        <button wire:click.prevent='destroy({{$item->id}})'
-                                            class="btn bg-hover-light-danger text-hover-danger  menu-link px-3"> Delete
-                                        </button>
-                                    </div> --}}
-
+                                <div>
+                                    <a href="/client/{{ $item->slug}}" class="btn btn-light-primary btn-sm ">
+                                        view</a>
                                 </div>
+
                             </div>
 
                         </div>
@@ -418,3 +385,4 @@
     @endif
     <!--end::Tab pane-->
 </div>
+

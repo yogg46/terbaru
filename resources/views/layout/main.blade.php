@@ -18,25 +18,25 @@
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
     <link rel="canonical" href="Https://preview.keenthemes.com/metronic8" />
-    <link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
+    <link rel="shortcut icon" href="/assets/media/logos/favicon.ico" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
     <!--begin::Page Vendor Stylesheets(used by this page)-->
-    <link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.css" />
 
 
     {{--
-    <link href="assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" /> --}}
+    <link href="/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" /> --}}
     <!--end::Page Vendor Stylesheets-->
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     @if (auth()->user()->hitam==0)
-    <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
     @else
-    <link href="assets/plugins/global/plugins.dark.bundle.css" rel="stylesheet" type="text/css" />
-    <link href="assets/css/style.dark.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/plugins/global/plugins.dark.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/style.dark.bundle.css" rel="stylesheet" type="text/css" />
 
     @endif
 
@@ -193,21 +193,21 @@
 
     <x-livewire-alert::scripts />
 
-    <script src="assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
+    <script src="/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
     <!--end::Page Vendors Javascript-->
     <!--begin::Page Custom Javascript(used by this page)-->
-    <script src="assets/js/custom/widgets.js"></script>
-    {{-- <script src="assets/js/custom/apps/chat/chat.js"></script>
-    <script src="assets/js/custom/modals/create-app.js"></script>
-    <script src="assets/js/custom/modals/upgrade-plan.js"></script> --}}
-    {{-- <script src="assets/js/custom/apps/customers/add.js"></script> --}}
-    <script src="assets/plugins/global/plugins.bundle.js"></script>
-    <script src="assets/js/scripts.bundle.js"></script>
-    {{-- <script src="assets/js/custom/widgets.js"></script> --}}
-    <script src="assets/js/custom/apps/customers/list/list.js"></script>
-    <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
-    {{-- <script src="assets/plugins/custom/datatables/datatables.bundle.js"></script> --}}
-    <script src="assets/js/custom/widgets.js"></script>
+    <script src="/assets/js/custom/widgets.js"></script>
+    {{-- <script src="/assets/js/custom/apps/chat/chat.js"></script>
+    <script src="/assets/js/custom/modals/create-app.js"></script>
+    <script src="/assets/js/custom/modals/upgrade-plan.js"></script> --}}
+    {{-- <script src="/assets/js/custom/apps/customers/add.js"></script> --}}
+    <script src="/assets/plugins/global/plugins.bundle.js"></script>
+    <script src="/assets/js/scripts.bundle.js"></script>
+    {{-- <script src="/assets/js/custom/widgets.js"></script> --}}
+    <script src="/assets/js/custom/apps/customers/list/list.js"></script>
+    <script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+    {{-- <script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script> --}}
+    <script src="/assets/js/custom/widgets.js"></script>
     @livewireScripts
     @include('sweetalert::alert')
     <script>
@@ -223,7 +223,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
 
-    {{-- <script src="assets/js/custom/pages/projects/project/project.js"></script> --}}
+    {{-- <script src="/assets/js/custom/pages/projects/project/project.js"></script> --}}
 
 
 

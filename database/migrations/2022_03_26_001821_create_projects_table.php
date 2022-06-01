@@ -16,11 +16,14 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string('nama_project');
+            $table->string('deskripsi_project');
             $table->string('slug');
             $table->unsignedBigInteger('no_client')->constrained()
                 ->onUpdate('cascade');
             $table->string('no_project');
-            $table->string('status')->default(2);
+            $table->string('status')->default(1);
+            $table->string('level')->default(1);
+            $table->string('kategori')->default(1);
             $table->date('tgl_buat');
             $table->date('tgl_deadline');
             $table->date('tgl_trial');

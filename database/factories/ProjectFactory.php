@@ -25,16 +25,18 @@ class ProjectFactory extends Factory
         return [
 
             'nama_project' => $this->faker->jobTitle(),
+            'deskripsi_project' => $this->faker->text(),
             'no_client' => $this->faker->randomElement($client),
             'no_project' => $this->faker->unique()->numerify('NMN-##-#-###'),
-            // 'status' => Arr::random(['1', '2','3']),
+            'level' => Arr::random(['1', '2', '3']),
+            'kategori' => Arr::random(['1', '2', '3']),
             'tgl_buat' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
             'tgl_deadline' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
             'tgl_trial' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
             'tgl_release' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
             'marketing' => $this->faker->randomElement($users),
             'leader' => $this->faker->randomElement($leader),
-            'total_progres' => $this->faker->numberBetween($min = 0, $max = 100),
+            // 'total_progres' => $this->faker->numberBetween($min = 0, $max = 100),
 
             //
         ];

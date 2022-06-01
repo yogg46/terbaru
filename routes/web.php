@@ -6,6 +6,7 @@ use App\Http\Livewire\Dashboard\Index;
 use App\Http\Livewire\Karyawan\Index as KaryawanIndex;
 use App\Http\Livewire\Projects\Index as ProjectsIndex;
 use App\Http\Livewire\Client\Index as ClientIndex;
+use App\Http\Livewire\Client\Show;
 use App\Http\Livewire\Profil\Index as Profilindex;
 use App\Http\Livewire\Report\Index as reportIndex;
 use App\Http\Livewire\Modul\Index as ModulIndex;
@@ -50,6 +51,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth', 'cekbanned');
 Route::get('/admin', KaryawanIndex::class)->middleware('checkRole:1');
 Route::get('/profil', Profilindex::class)->middleware('auth')->name('profil.index');
+Route::get('/client/{slug}', Show::class)->middleware('auth');
+
 
 // Admin
 // Route::group();

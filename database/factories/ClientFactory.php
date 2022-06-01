@@ -17,6 +17,7 @@ class ClientFactory extends Factory
         return [
             // 'client_id' => $this->faker->unique()->numerify('NMN-###'),
             'nama' => $this->faker->company(),
+            'email' => $this->faker->email(),
             'alamat' => $this->faker->Address(),
             'cp' => $this->faker->tollFreePhoneNumber(),
             'no_kc' => Arr::random(['1', '2', '3']),

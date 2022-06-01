@@ -19,10 +19,10 @@ class DatabaseSeeder extends Seeder
         $this->call(KK::class);
         // \App\Models\User::factory(10)->create();
         $this->call(Userseeder::class);
-        $this->call(ProjectSeedeer::class);
+        // $this->call(ProjectSeedeer::class);
         User::factory()->count(250)->create();
         client::factory()->count(80)->create();
-        project::factory()->count(10)->create();
+        project::factory()->count(40)->create();
         // User::factory()->count(20)->manager()->create();
         // User::factory()->count(20)->marketing()->create();
         // User::factory()->count(20)->leader()->create();
