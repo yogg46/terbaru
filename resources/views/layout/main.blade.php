@@ -75,12 +75,20 @@
                                 data-kt-swapper-parent="{default: '#kt_content_container', 'lg': '#kt_toolbar_container'}"
                                 class="page-title d-flex align-items-center flex-wrap me-3 mb-5 mb-lg-0">
                                 <!--begin::Title-->
-                                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">{{ $tittle }}
+                                <h1 class="d-flex align-items-center text-dark  text-capitalize fw-bolder fs-3 my-1">
+                                    {{ $tittle }}
                                     <!--begin::Separator-->
                                     <span class="h-20px border-gray-200 border-start ms-3 mx-2"></span>
                                     <!--end::Separator-->
                                     <!--begin::Description-->
-                                    <small class="text-muted fs-7 fw-bold my-1 ms-1"> </small>
+
+                                    <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
+                                        <!--end::Item-->
+                                        <!--begin::Item-->
+                                        <li class="breadcrumb-item text-muted  text-dark">{{ $slug }}</li>
+                                        <!--end::Item-->
+                                    </ul>
+                                    {{-- <small class="text-muted fs-7 fw-bold my-1 ms-1">{{ $tittle }} </small> --}}
                                     <!--end::Description-->
                                 </h1>
                                 <!--end::Title-->
@@ -89,7 +97,15 @@
                             <!--begin::Actions-->
 
                             <div class="d-flex align-items-center py-1">
-
+                                @if ($tittle == "client" )
+                                <a href="/client" class="btn btn-light-primary btn-sm"> Back</a>
+                                @endif
+                                @if ($tittle == "project" )
+                                <a href="/project" class="btn btn-light-primary btn-sm"> Back</a>
+                                @endif
+                                @if ($tittle == "report" )
+                                <a href="/report" class="btn btn-light-primary btn-sm"> Back</a>
+                                @endif
                             </div>
 
                             <!--end::Actions-->

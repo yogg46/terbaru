@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\client;
+use App\Models\Modul;
 use App\Models\project;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -21,8 +22,9 @@ class DatabaseSeeder extends Seeder
         $this->call(Userseeder::class);
         // $this->call(ProjectSeedeer::class);
         User::factory()->count(250)->create();
-        client::factory()->count(80)->create();
-        project::factory()->count(40)->create();
+        client::factory()->count(10)->create();
+        project::factory()->count(50)->create();
+        Modul::factory()->count(5)->create();
         // User::factory()->count(20)->manager()->create();
         // User::factory()->count(20)->marketing()->create();
         // User::factory()->count(20)->leader()->create();

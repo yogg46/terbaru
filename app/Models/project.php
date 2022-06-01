@@ -22,6 +22,7 @@ class project extends Model
         parent::boot();
 
         static::creating(function ($model) {
+
             if ($model->total_progres == 100) {
                 $model->status = 3;
             } elseif ($model->total_progres > 50) {
@@ -40,6 +41,7 @@ class project extends Model
             ],
         ];
     }
+
 
     public function sluggable(): array
     {
@@ -63,5 +65,9 @@ class project extends Model
     public function MarketingToProject()
     {
         return $this->belongsTo(User::class, 'marketing');
+    }
+    public function projectModul()
+    {
+        return $this->hasMany(Modul::class, 'no_project');
     }
 }

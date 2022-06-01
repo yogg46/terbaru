@@ -11,12 +11,14 @@ class Show extends Component
     public $client;
     public $total_project;
     public $sdh_project;
+    public $baru_project;
 
     public function mount($slug)
     {
         $this->client = client::where('slug', $slug)->first();
         $this->total_project = project::where('no_client', $this->client->id)->get();
         $this->sdh_project = project::where('no_client', $this->client->id)->where('status', 3)->get();
+        $this->baru_project = project::where('no_client', $this->client->id)->where('status', 1)->get();
     }
 
     public function render()
@@ -26,8 +28,8 @@ class Show extends Component
             ->extends(
                 'layout.main',
                 [
-                    'tittle' => 'Client',
-                    'slug' => ''
+                    'tittle' => 'client',
+                    'slug' => $this->client->nama,
                 ]
             )
             ->section('isi_page');
