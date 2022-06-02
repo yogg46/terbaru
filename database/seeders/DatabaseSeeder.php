@@ -23,8 +23,8 @@ class DatabaseSeeder extends Seeder
         // $this->call(ProjectSeedeer::class);
         User::factory()->count(250)->create();
         client::factory()->count(10)->create();
-        project::factory()->count(50)->create();
-        Modul::factory()->count(5)->create();
+        project::factory()->count(5)->create();
+        Modul::factory()->count(50)->create();
         // User::factory()->count(20)->manager()->create();
         // User::factory()->count(20)->marketing()->create();
         // User::factory()->count(20)->leader()->create();

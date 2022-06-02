@@ -12,7 +12,6 @@ class Show extends Component
 {
     public $project;
     public $total_progres;
-    // public $tes;
     public $sit;
 
     public function mount($slug)
@@ -36,7 +35,7 @@ class Show extends Component
     {
         $project = project::where('id', $tes)->first();
         $project->update([
-            'total_progres' => $this->total_progres = Modul::where('no_project', $tes)->sum('progres') / Modul::where('no_project', $tes)->count()
+            'total_progres' => $this->total_progres = round(Modul::where('no_project', $tes)->sum('progres') / Modul::where('no_project', $tes)->count())
         ]);
     }
 }

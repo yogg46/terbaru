@@ -229,4 +229,16 @@ class Index extends Component
             $this->switch = '1';
         }
     }
+
+    public function cobaa($ces)
+    {
+        // if (is_null($this->search)) {
+        //     $this->search = $ces;
+        // }
+        if ($this->search == $ces) {
+            $this->search = '';
+        } else {
+            $this->search = $ces;
+        }
+    }
 }

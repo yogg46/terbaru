@@ -11,7 +11,10 @@
     @include('livewire.client.edit')
     @include('livewire.client.create')
 
-
+    {{-- <button wire:click="cobaa('Perusahaan')" class="btn btn-sm bg-light-success btn-light btn-color-muted btn-active-success me-3
+    {{ $search == 'Perusahaan' ? " active" : '' }} ">
+        perusahaan</button>
+    <button class=" btn btn-light-success" wire:click='cobaa("Instansi")'> Instansi </button> --}}
     @if (session()->has('message'))
 
     <div class="d-flex flex-column pe-0 pe-sm-10">

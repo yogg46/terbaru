@@ -36,7 +36,7 @@ class ProjectFactory extends Factory
             'tgl_release' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
             'marketing' => $this->faker->randomElement($users),
             'leader' => $this->faker->randomElement($leader),
-            'total_progres' => $this->faker->numberBetween($min = 0, $max = 100),
+            // 'total_progres' => $this->faker->numberBetween($min = 0, $max = 100),
 
             //
         ];

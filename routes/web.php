@@ -12,6 +12,7 @@ use App\Http\Livewire\Report\Index as reportIndex;
 use App\Http\Livewire\Modul\Index as ModulIndex;
 use App\Http\Livewire\Karyawan\Role as KaryawanRole;
 use App\Http\Livewire\Karyawan\Edit;
+use App\Http\Livewire\Modul\Show as ModulShow;
 use App\Http\Livewire\Projects\Show as ProjectsShow;
 use App\Http\Livewire\Report\Show as ReportShow;
 use Illuminate\Support\Facades\Auth;
@@ -34,28 +35,37 @@ Route::get('/', function () {
 });
 // Route::get('/login',LoginController::class)->name('login');
 // Route::get('/karyawan',KaryawanIndex::class)->name('karyawan.index');
-Route::get('/dashboard', Index::class)->name('index')->middleware('auth');
-Route::get('/projects', ProjectsIndex::class)->name('projects.index')->middleware('auth');
-Route::get('/report', reportIndex::class)->name('report.index')->middleware('auth');
-Route::get('/client', ClientIndex::class)->name('clients.index')->middleware('auth');
-Route::get('/modul', ModulIndex::class)->name('modul.index')->middleware('auth');
+
 // Route::get('/karyawan/{h_kategori}',KaryawanRole::class);
 // // Route::get('/{id}',Edit::class )->name('edit');
 // Route::get('/edit',Edit::class,'liveware.karyawan.edit' );
 
 // Route::get('/detail/{id}', 'ArtikelController@detail');
 
-Route::get('/coba', function () {
-    return view('livewire.coba');
-});
+// Route::get('/coba', function () {
+//     return view('livewire.coba');
+// });
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth', 'cekbanned');
-Route::get('/admin', KaryawanIndex::class)->middleware('checkRole:1');
-Route::get('/profil', Profilindex::class)->middleware('auth')->name('profil.index');
-Route::get('/client/{slug}', ClientShow::class)->middleware('auth');
+Route::get('/dashboard', Index::class)->name('index')->middleware('auth');
+
+Route::get('/projects', ProjectsIndex::class)->name('projects.index')->middleware('auth');
 Route::get('/projects/{slug}', ProjectsShow::class)->middleware('auth');
+
+Route::get('/report', reportIndex::class)->name('report.index')->middleware('auth');
 Route::get('/report/{slug}', ReportShow::class)->middleware('auth');
+
+Route::get('/client', ClientIndex::class)->name('clients.index')->middleware('auth');
+Route::get('/client/{slug}', ClientShow::class)->middleware('auth');
+
+Route::get('/modul', ModulIndex::class)->name('modul.index')->middleware('auth');
+Route::get('/modul/{slug}', ModulShow::class)->middleware('auth');
+
+Route::get('/admin', KaryawanIndex::class)->middleware('checkRole:1');
+
+Route::get('/profil', Profilindex::class)->middleware('auth')->name('profil.index');
+
 
 
 // Admin

@@ -6,7 +6,7 @@
     {{-- {{ $project->projectModul->id }} --}}
     @foreach ($project->projectModul as $key )
 
-    {{ $key->nama}} <br>
+    {{ $key->nama}} <a href="/modul/{{$key->slug}}"> --> </a> <br>
     {{ $key->progres}} <br>
     {{-- {{ count($project->projectModul)}} <br> <br> --}}
     {{-- {{ $key->sum('progres')/count($project->projectModul) }} --}}

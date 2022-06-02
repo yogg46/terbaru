@@ -53,16 +53,19 @@ class User extends Authenticatable
 
     public function utk()
     {
-        return $this->belongsTo(Kategori_karyawan::class,'role');
-
+        return $this->belongsTo(Kategori_karyawan::class, 'role');
     }
     public function leaderKeprojek()
     {
-        return $this->hasMany(project::class ,'leader');
+        return $this->hasMany(project::class, 'leader');
     }
     public function marketingKeprojek()
     {
-        return $this->hasMany(project::class ,'marketing');
+        return $this->hasMany(project::class, 'marketing');
+    }
+    public function ProgramerKeModul()
+    {
+        return $this->hasMany(Modul::class, 'programer');
     }
     // public function UserToKaryawan()
     // {

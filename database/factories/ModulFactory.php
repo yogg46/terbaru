@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\project;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
 
@@ -17,10 +18,13 @@ class ModulFactory extends Factory
     public function definition()
     {
         $project = project::all()->pluck('id');
+        $programer = User::where('role', '5')->pluck('id');
+
         return [
             'nama' => $this->faker->jobTitle(), //
-            // 'no_project' => $this->faker->randomElement($project),
-            'no_project' => Arr::random(['1', '2', '3']),
+            'no_project' => $this->faker->randomElement($project),
+            'programer' => $this->faker->randomElement($programer),
+            // 'status' => Arr::random(['1', '0']),
             'progres' => $this->faker->numberBetween($min = 0, $max = 100),
 
 
