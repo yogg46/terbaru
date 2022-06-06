@@ -192,8 +192,8 @@
 
                             <button wire:ignore.self data-bs-toggle="modal" data-bs-target="#kt_modal_1"
                                 class="btn btn-light-warning btn-icon btn-active-light-primary btn-sm"
-                                data-bs-toggle="tooltip" data-bs-toggle="tooltip" data-bs-placement="buttom"
-                                title="Edit" wire:click.prevent="edit({{$item->id}})">
+                                data-bs-toggle="tooltip" data-bs-placement="left" title="Edit"
+                                wire:click.prevent="edit({{$item->id}})">
 
                                 <span class="svg-icon svg-icon-1"><svg xmlns="http://www.w3.org/2000/svg" width="24"
                                         height="24" viewBox="0 0 24 24" fill="none">

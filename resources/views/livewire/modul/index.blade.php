@@ -1,5 +1,5 @@
 <div>
-    {{ auth()->user()->id}}
+    {{-- {{ auth()->user()->id}} --}}
     {{-- <div class="row g-5 g-xl-8">
 
         <div class="col-xl-4">

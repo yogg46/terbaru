@@ -23,6 +23,7 @@
                                 <tr>
                                     <th class="p-0 w-50px"></th>
                                     <th class="p-0 min-w-200px"></th>
+                                    <th class="p-0 min-w-40px"></th>
                                     <th class="p-0 min-w-100px"></th>
                                     <th class="p-0 min-w-40px"></th>
                                 </tr>
@@ -52,17 +53,21 @@
                                         <span class="text-muted fw-bold d-block fs-7">{{ $item->no_project }}</span>
                                     </td>
                                     <td>
+                                        <span class="text-muted fw-bold d-block fs-7">{{ $item->status }}</span>
+                                    </td>
+                                    <td>
                                         <div class="d-flex flex-column w-100 me-2">
                                             <div wire:ignore class="d-flex flex-stack mb-2">
                                                 <span wire:ignore class="text-muted me-2 fs-7 fw-bold"
                                                     data-kt-countup="true"
-                                                    data-kt-countup-value="{{ $item->total_progres}}"
+                                                    data-kt-countup-value="{{ $item->total_progres > 100 ? 100 :$item->total_progres}}"
                                                     data-kt-countup-suffix="%">
                                                     0</span>
                                             </div>
                                             <div class="progress h-6px w-100">
                                                 <div wire:ignore.self class="progress-bar bg-primary" role="progressbar"
-                                                    style="width:0%" aria-valuenow="{{ $item->total_progres }}"
+                                                    style="width:0%"
+                                                    aria-valuenow="{{ $item->total_progres > 100 ? 100 : $item->total_progres }}"
                                                     aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
                                         </div>

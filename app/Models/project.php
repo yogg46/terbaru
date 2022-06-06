@@ -21,13 +21,27 @@ class project extends Model
     {
         parent::boot();
 
-        static::creating(function ($model) {
+        // static::creating(function ($model) {
 
-            if ($model->total_progres == 100) {
+        //     if ($model->total_progres == 100) {
+        //         $model->status = 3;
+        //     } elseif ($model->total_progres > 50) {
+        //         $model->status = 2;
+        //     } elseif ($model->total_progres > 0) {
+        //         $model->status = 1;
+        //     }
+        // });
+        static::updating(function ($model) {
+
+            if ($model->total_progres > 120) {
+                $model->status = 5;
+            } elseif ($model->total_progres > 110) {
+                $model->status = 4;
+            } elseif ($model->total_progres > 99) {
                 $model->status = 3;
             } elseif ($model->total_progres > 50) {
                 $model->status = 2;
-            } elseif ($model->total_progres > 0) {
+            } elseif ($model->total_progres >= 0) {
                 $model->status = 1;
             }
         });

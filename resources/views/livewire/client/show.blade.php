@@ -35,8 +35,8 @@
                                             class="text-gray-800 text-hover-primary  fs-2 fw-bolder me-3 text-capitalize">
                                             {{$client->nama}}
                                         </a>
-                                        <span class="badge badge-light-{{ $client->status == 1 ?  " badge-light-success"
-                                            : " danger" }} me-auto">
+                                        <span class="badge {{ $client->status == 1 ?  " badge-light-success"
+                                            : " badge-light-danger" }} me-auto">
                                             {{ $client->status == 1 ?
                                             "Active" : "Deactivate" }}
                                         </span>

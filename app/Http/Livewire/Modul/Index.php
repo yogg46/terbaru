@@ -20,7 +20,7 @@ class Index extends Component
                 'project' => project::paginate(2),
                 'project2' => project::where('status', 3)->paginate(2),
                 // 'project3' => project::where('status', 1)->paginate(2),
-                'modul_all' => Modul::where('programer',auth()->user()->id)->paginate(5),
+                'modul_all' => Modul::where('programer', auth()->user()->id)->paginate(5),
                 // 'modul_all' => Modul::paginate(5),
             ]
         )

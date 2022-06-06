@@ -85,6 +85,17 @@
                                     <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
                                         <!--end::Item-->
                                         <!--begin::Item-->
+                                        @if ($tittle == "project" )
+                                        <li class="breadcrumb-item text-muted  text-dark"><a
+                                                class="text-muted text-hover-primary" href="/projects/{{$sluk3}}">{{
+                                                $slug }} </a>
+                                        </li>
+                                        <li class="breadcrumb-item">
+                                            <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                                        </li>
+                                        <li class="breadcrumb-item text-muted  text-dark">{{ $slug2 }}</li>
+                                        @endif
+
                                         <li class="breadcrumb-item text-muted  text-dark">{{ $slug }}</li>
                                         <!--end::Item-->
                                     </ul>
@@ -100,12 +111,19 @@
                                 @if ($tittle == "client" )
                                 <a href="/client" class="btn btn-light-primary btn-sm"> Back</a>
                                 @endif
+                                @if ($tittle == "projects" )
+                                <a href="/projects" class="btn btn-light-primary btn-sm"> Back</a>
+                                @endif
                                 @if ($tittle == "project" )
-                                <a href="/project" class="btn btn-light-primary btn-sm"> Back</a>
+                                <a href="/projects/{{$sluk3}}" class="btn btn-light-primary btn-sm"> Back</a>
                                 @endif
                                 @if ($tittle == "report" )
                                 <a href="/report" class="btn btn-light-primary btn-sm"> Back</a>
                                 @endif
+                                @if ($tittle == "modul" )
+                                <a href="/projects/{{$slug2}}" class="btn btn-light-primary btn-sm"> Back</a>
+                                @endif
+
                             </div>
 
                             <!--end::Actions-->
@@ -207,7 +225,6 @@
     <script src="{{ asset('vendor/livewire-alert/livewire-alert.js') }}"></script>
 
 
-    <x-livewire-alert::scripts />
 
     <script src="/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
     <!--end::Page Vendors Javascript-->

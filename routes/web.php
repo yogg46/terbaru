@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\LoginController;
 use App\Http\Livewire\Dashboard\Index;
+use App\Http\Livewire\Bug\Index as BugIndex;
+use App\Http\Livewire\Trial\Index as TrialIndex;
 use App\Http\Livewire\Karyawan\Index as KaryawanIndex;
 use App\Http\Livewire\Projects\Index as ProjectsIndex;
 use App\Http\Livewire\Client\Index as ClientIndex;
@@ -12,6 +14,7 @@ use App\Http\Livewire\Report\Index as reportIndex;
 use App\Http\Livewire\Modul\Index as ModulIndex;
 use App\Http\Livewire\Karyawan\Role as KaryawanRole;
 use App\Http\Livewire\Karyawan\Edit;
+use App\Http\Livewire\Modul\Project as ProjectModulShow;
 use App\Http\Livewire\Modul\Show as ModulShow;
 use App\Http\Livewire\Projects\Show as ProjectsShow;
 use App\Http\Livewire\Report\Show as ReportShow;
@@ -51,7 +54,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/dashboard', Index::class)->name('index')->middleware('auth');
 
 Route::get('/projects', ProjectsIndex::class)->name('projects.index')->middleware('auth');
-Route::get('/projects/{slug}', ProjectsShow::class)->middleware('auth');
+Route::get('/projects/{slug}', ProjectsShow::class)->name('projects')->middleware('auth');
+Route::get('/projects/{slug}/{slug2}', ProjectModulShow::class)->name('projects2')->middleware('auth');
 
 Route::get('/report', reportIndex::class)->name('report.index')->middleware('auth');
 Route::get('/report/{slug}', ReportShow::class)->middleware('auth');
@@ -61,8 +65,12 @@ Route::get('/client/{slug}', ClientShow::class)->middleware('auth');
 
 Route::get('/modul', ModulIndex::class)->name('modul.index')->middleware('auth');
 Route::get('/modul/{slug}', ModulShow::class)->middleware('auth');
+// Route::get('/modul/{slug}/{slug2}', ModulShow::class)->middleware('auth');
 
-Route::get('/admin', KaryawanIndex::class)->middleware('checkRole:1');
+Route::get('/bug-report', BugIndex::class)->middleware('auth');
+Route::get('/trial-error', TrialIndex::class)->middleware('auth');
+
+// Route::get('/admin', KaryawanIndex::class)->middleware('checkRole:1');
 
 Route::get('/profil', Profilindex::class)->middleware('auth')->name('profil.index');
 
