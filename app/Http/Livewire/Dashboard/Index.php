@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Dashboard;
 
+use App\Models\LoginActicity;
 use App\Models\User;
 use Livewire\Component;
 
@@ -27,6 +28,7 @@ class Index extends Component
             'sus' => $sus,
             'dark' => $dark,
             'coba3' => User::where('role', '3')->pluck('id'),
+            'log1' => LoginActicity::all()->sortByDesc('id'),
         ])
             ->extends(
                 'layout.main',

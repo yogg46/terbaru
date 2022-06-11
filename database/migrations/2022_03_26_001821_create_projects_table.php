@@ -31,7 +31,7 @@ class CreateProjectsTable extends Migration
             $table->unsignedBigInteger('marketing')->constrained()
                 ->onUpdate('cascade');
             $table->unsignedBigInteger('leader')->constrained()
-                ->onUpdate('cascade');;
+                ->onUpdate('cascade')->nullable();
             $table->string('total_progres')->default('0');
             $table->timestamps();
         });

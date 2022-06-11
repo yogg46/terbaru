@@ -67,6 +67,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Modul::class, 'programer');
     }
+    public function Log()
+    {
+        return $this->hasMany(LoginActicity::class, 'user_id');
+    }
     // public function UserToKaryawan()
     // {
     //     return $this->belongsTo(Karyawans::class,'kategori');
