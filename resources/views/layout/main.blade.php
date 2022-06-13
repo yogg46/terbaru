@@ -217,9 +217,12 @@
     <!--end::Global Javascript Bundle-->
     <!--begin::Page Vendors Javascript(used by this page)-->
 
+    @include('sweetalert::alert')
+    {{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 
 
     @livewireScripts
+    <x-livewire-alert::scripts />
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('vendor/livewire-alert/livewire-alert.js') }}"></script>
@@ -242,8 +245,12 @@
     {{-- <script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script> --}}
     <script src="/assets/js/custom/widgets.js"></script>
     @livewireScripts
+    <script wire:ignore src="/assets/js/custom/modals/create-app.js"></script>
+    <script src="/assets/js/custom/apps/customers/list/list.js"></script>
+
+
     @include('sweetalert::alert')
-    <script>
+    <script wire:ignore.self>
         $(document).ready(function() {
             $('.progress .progress-bar').css("width",
             function() {
@@ -251,6 +258,54 @@
             }
             )
         });
+    </script>
+    <script wire:ignore>
+        window.addEventListener('swal:confirm', event => {
+        swal.fire({
+            title: event.detail.title,
+            text: event.detail.text,
+            icon: event.detail.type,
+            showCancelButton: true,
+            reverseButtons: true
+        })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    window.livewire.emit('delete', event.detail.id );
+                }
+            });
+    });
+
+
+
+    window.addEventListener('swal:confirmpass', event => {
+        swal.fire({
+            title: event.detail.title,
+            text: event.detail.text,
+            icon: event.detail.type,
+            showCancelButton: true,
+            reverseButtons: true
+        })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    window.livewire.emit('resetpass', event.detail.id);
+                }
+            });
+    });
+    window.addEventListener('swal:confirmSUS', event => {
+        swal.fire({
+            title: event.detail.title,
+            text: event.detail.text,
+            icon: event.detail.type,
+            showCancelButton: true,
+            reverseButtons: true
+        })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    window.livewire.emit('presus', event.detail.id);
+                }
+            });
+    });
+
     </script>
     {{-- @include('livewire.projects.chart') --}}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

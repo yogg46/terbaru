@@ -2,7 +2,8 @@
     <!--begin::Title-->
     <div class="d-flex flex-wrap align-items-center my-1">
 
-        <button class="fw-bolder btn btn-light-success btn-sm me-5 my-1"> <i class="las fs-3 la-plus "></i>Add
+        <button data-bs-toggle="modal" data-bs-target="#kt_modal_create_app"
+            class="fw-bolder btn btn-light-success btn-sm me-5 my-1"> <i class="las fs-3 la-plus "></i>Add
             Client</button>
         <div class="d-flex align-items-center position-relative my-1">
             <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
@@ -385,4 +386,3 @@
     @endif
     <!--end::Tab pane-->
 </div>
-

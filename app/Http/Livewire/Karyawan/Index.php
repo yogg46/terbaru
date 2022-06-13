@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Karyawan;
 
 use App\Models\User;
 use App\Models\Kategori_karyawan;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -13,7 +14,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 class Index extends Component
 {
     use WithPagination;
-    // use LivewireAlert;
+    use LivewireAlert;
 
     public $name;
     public $ids;
@@ -26,7 +27,7 @@ class Index extends Component
     public $hitam;
     public $search = '';
     public $ceklis = [];
-    protected $listeners = ['delete', 'deleteCheckedCountries'];
+    protected $listeners = ['delete', 'deleteCheckedCountries', 'resetpass', 'presus'];
     public $sortBy = 'created_at';
     public $sortDirection = 'asc';
 
@@ -79,6 +80,7 @@ class Index extends Component
         $this->resetInput();;
         $this->emit('save');
         $this->ceklis = [];
+
         //redirect
         return redirect()->route('karyawan.index');
     }
@@ -140,6 +142,32 @@ class Index extends Component
         }
     }
 
+    public function konfimasiSUS($id)
+    {
+        $nama = User::where('id', $id)->get();
+        if ($nama[0]->status == 1) {
+
+            $this->dispatchBrowserEvent('swal:confirmSUS', [
+                'type' => 'question',
+                'title' =>  'Apakah anda yakin akan mensuspend ' . $nama[0]->name . '?',
+                'text' => '',
+                'showConfirmButton' => true,
+                'showDenyButton' => true,
+                'id' => $id,
+            ]);
+        } else {
+            $this->dispatchBrowserEvent('swal:confirmSUS', [
+                'type' => 'question',
+                'title' =>  'Apakah anda yakin akan mengaktifkan ' . $nama[0]->name . '?',
+                'text' => '',
+                'showConfirmButton' => true,
+                'showDenyButton' => true,
+                'id' => $id,
+            ]);
+        }
+    }
+
+
     public function dark($id)
     {
         $User = User::where('id', $id)->first();
@@ -160,18 +188,7 @@ class Index extends Component
         return redirect()->route('karyawan.index');
     }
 
-    public function suspend()
-    {
-        if ($this->ids) {
-            $User = User::find($this->ids);
-            $User->update([
-                'status' => $this->status,
-            ]);
-            $this->ceklis = [];
-            return redirect()->route('karyawan.index');
-        }
-        # code...
-    }
+
 
     public function update()
     {
@@ -196,7 +213,7 @@ class Index extends Component
             //flash message
             session()->flash('message', 'Data Berhasil Diupdate.');
             $this->emit('edit');
-            $this->alret()->warning('Title', 'Lorem Lorem Lorem');
+            // $this->alret()->warning('Title', 'Lorem Lorem Lorem');
             $this->resetInput();
             $this->ceklis = [];
 
@@ -206,6 +223,27 @@ class Index extends Component
         }
     }
 
+    public function konfimasiDEL($id)
+    {
+        $nama = User::where('id', $id)->get();
+        $this->dispatchBrowserEvent('swal:confirm', [
+            'type' => 'warning',
+            'title' => 'Apakah anda yakin akan menghapus ' . $nama[0]->name . '?',
+            'text' => '',
+            'id' => $id,
+        ]);
+    }
+
+    public function delete($id)
+    {
+        User::where('name', $id)->delete();
+        $this->ceklis = [];
+
+        // $this->dispatchBrowserEvent();
+        //flash message
+        session()->flash('message', 'Data Berhasil Dihapus.');
+    }
+
     public function destroy($id)
     {
 
@@ -213,11 +251,13 @@ class Index extends Component
         if ($id) {
             User::where('id', $id)->delete();
         }
-        $this->emit('delete');
+        // $this->emit('delete');
         $this->ceklis = [];
 
+        // $this->dispatchBrowserEvent();
         //flash message
         session()->flash('message', 'Data Berhasil Dihapus.');
+
 
         //redirect
         return redirect()->route('karyawan.index');
@@ -229,29 +269,10 @@ class Index extends Component
         $this->deleteId = $id;
     }
 
-    /**
-     * Write code on Method
-     *
-     * @return response()
-     */
-    public function delete()
-    {
-        User::find($this->id)->delete();
-
-        $this->emit('delete');
-        //flash message
-        session()->flash('message', 'Data Berhasil Dihapus.');
-        $this->ceklis = [];
-        //redirect
-        return redirect()->route('karyawan.index');
-    }
 
 
     public function deleteCountries()
     {
-
-
-
         User::query()
             ->whereIn('id', $this->ceklis)
             ->delete();
@@ -285,16 +306,32 @@ class Index extends Component
         return $this->sortBy = $field;
     }
 
-    public function resetPass($id)
+    public function resetpass($id)
     {
+        $this->emit('resetpass');
+
         $User = User::where('id', $id)->first();
         $this->ids = $User->id;
         // $this->status = $User->status;
         $User = User::find($this->ids);
         $User->update([
+            'status' => 1,
             'password' => $this->password = bcrypt('password')
         ]);
+
+
         session()->flash('message', 'Data Berhasil Direset.');
         return redirect()->route('karyawan.index');
+    }
+
+    public function konfimasiReset($id)
+    {
+        $nama = User::where('id', $id)->get();
+        $this->dispatchBrowserEvent('swal:confirmpass', [
+            'type' => 'warning',
+            'title' => 'Apakah anda yakin akan mereset' . $nama[0]->name . '?',
+            'text' => '',
+            'id' => $id,
+        ]);
     }
 }

@@ -12,6 +12,7 @@ class Index extends Component
     use WithPagination;
     public $client_id;
     public $nama;
+    public $email;
     public $cp;
     public $alamat;
     public $no_kc;
@@ -77,6 +78,7 @@ class Index extends Component
 
         $simpan->client_id = $this->client_id;
         $simpan->nama = $this->nama;
+        $simpan->email = $this->email;
         $simpan->alamat = $this->alamat;
         $simpan->cp = $this->cp;
         $simpan->no_kc = $this->no_kc;
@@ -95,10 +97,11 @@ class Index extends Component
     {
         $this->client_id = null;
         $this->nama = null;
+        $this->email = null;
         $this->alamat = null;
         $this->cp = null;
         $this->no_kc = null;
-        return redirect()->route('clients.index');
+        // return redirect()->route('clients.index');
     }
 
     public function updated($field)
@@ -119,6 +122,7 @@ class Index extends Component
         $this->ids = $client->id;
         $this->client_id = $client->client_id;
         $this->nama = $client->nama;
+        $this->email = $client->email;
         $this->alamat = $client->alamat;
         $this->cp = $client->cp;
         $this->no_kc = $client->no_kc;
@@ -139,6 +143,7 @@ class Index extends Component
             $client->update([
                 'client_id' => $this->client_id,
                 'nama' => $this->nama,
+                'email' => $this->email,
                 'alamat' => $this->alamat,
                 'cp' => $this->cp,
                 'no_kc' => $this->no_kc,

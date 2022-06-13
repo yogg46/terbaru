@@ -22,11 +22,11 @@
                     <div class="modal-body">
                         <form action="" wire:submit.prevent="save">
 
-                            <input type="hidden" wire:model="ids">
-                            <input type="hidden" wire:model="status">
+                            <input type="hidden" wire:model.lazy="ids">
+                            <input type="hidden" wire:model.lazy="status">
                             <div class="form-group">
                                 <label class=" form-label fs-6 mb-2"> <strong>Nama </strong> </label>
-                                <input type="text" wire:model='name'
+                                <input type="text" wire:model.lazy='name'
                                     class="form-control form-control-lg form-control-solid" placeholder="Nama">
                                 @error('name') <span class="error  text-danger">{{ $message }}</span> @enderror
                             </div>
@@ -34,19 +34,19 @@
 
                             <div class="form-group">
                                 <label class=" form-label fs-6 mb-2"> <strong> NIK</strong> </label>
-                                <input type="number" wire:model='NIK'
+                                <input type="number" wire:model.lazy='NIK'
                                     class="form-control form-control-lg form-control-solid" placeholder="NIK">
                                 @error('NIK') <span class="error  text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="form-group">
                                 <label class=" form-label fs-6 mb-2"> <strong>Email </strong> </label>
-                                <input type="email" wire:model='email'
+                                <input type="email" wire:model.lazy='email'
                                     class="form-control form-control-lg form-control-solid" placeholder="Email">
                                 @error('email') <span class="error  text-danger">{{ $message }}</span> @enderror
                             </div>
                             <div class="form-group">
                                 <label class=" form-label fs-6 mb-2"> <strong>No Telepon </strong> </label>
-                                <input type="number" wire:model='no_telepon'
+                                <input type="number" wire:model.lazy='no_telepon'
                                     class="form-control form-control-lg form-control-solid" placeholder="No Telepon">
                                 @error('no_telepon') <span class="error  text-danger">{{ $message }}</span> @enderror
                             </div>
@@ -54,7 +54,7 @@
                             <div class="form-group">
 
                                 <label class=" form-label fs-6 mb-2"> <strong>Jabatan </strong> </label>
-                                <select wire:ignore.self wire:model='role' class="form-select form-select-solid"
+                                <select wire:ignore.self wire:model.lazy='role' class="form-select form-select-solid"
                                     data-hide-search="true" data-placeholder="Pilih Jabatan">
                                     {{-- <option></option> --}}
                                     <option value="">Pilih Jabatan</option>

@@ -60,7 +60,8 @@
             @if ($ceklis)
             <div class=" d-flex justify-content-end align-items-center">
                 <div class="fw-bolder me-5 me-2">{{count($ceklis)}} Selected</div><button type="button"
-                    wire:click="deleteCountries" class="btn btn-danger"> Delete Selected</button>
+                    data-bs-toggle="modal" data-bs-target="#kt_modal_46" class="btn btn-danger"> Delete
+                    Selected</button>
             </div>
 
 
@@ -153,28 +154,25 @@
                         <!--end::Product=-->
                         <!--begin::Date=-->
                         <td class="text-center">@if ($item->status == 1)
-                            <button
-                                onclick="confirm('Apakah anda yakin akan mensuspend {{$item->name}} ?') || event.stopImmediatePropagation()"
-                                data-kt-customer-table-select="delete_selected" class="btn btn-light-success btn-sm"
-                                wire:click.prevent="presus({{$item->id}})">Aktif</button>
+                            <button data-kt-customer-table-select="delete_selected" class="btn btn-light-success btn-sm"
+                                wire:click.prevent="konfimasiSUS({{$item->id}})">Aktif</button>
                             {{-- <button
                                 onclick="confirm('Apakah ada mau mensuspen {{$item->name}} ?') || event.stopImmediatePropagation()"
                                 class="btn btn-light-success btn-sm"
                                 wire:click.prevent="presus({{$item->id}})">Aktif</button> --}}
                             @else
-                            <button
-                                onclick="confirm('Apakah anda yakin akan mengaktifkan {{$item->name}} ?') || event.stopImmediatePropagation()"
-                                class="btn  btn-light-danger btn-sm"
-                                wire:click.prevent="presus({{$item->id}})">Suspended
+                            <button class="btn  btn-light-danger btn-sm"
+                                wire:click.prevent="konfimasiSUS({{$item->id}})">Suspended
                             </button>
                             @endif
                         </td>
                         <!--end::Date=-->
                         <!--begin::Action=-->
                         <td class="text-end ">
-                            <button wire:ignore.self class="btn btn-light-primary btn-icon btn-active-light-info btn-sm"
+                            <button wire:ignore
+                                class=" btn resetPASS btn-light-primary btn-icon btn-active-light-info btn-sm"
                                 data-bs-toggle="tooltip" data-bs-placement="top" title="Reset Password"
-                                wire:click.prevent="resetPass({{$item->id}})">
+                                wire:click.prevent="konfimasiReset({{$item->id}})">
 
                                 <!--begin::Svg Icon | path: assets/media/icons/duotune/arrows/arr029.svg-->
                                 <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg
@@ -190,7 +188,7 @@
                                 <!--end::Svg Icon-->
                             </button>
 
-                            <button wire:ignore.self data-bs-toggle="modal" data-bs-target="#kt_modal_1"
+                            <button wire:ignore data-bs-toggle="modal" data-bs-target="#kt_modal_1"
                                 class="btn btn-light-warning btn-icon btn-active-light-primary btn-sm"
                                 data-bs-toggle="tooltip" data-bs-placement="left" title="Edit"
                                 wire:click.prevent="edit({{$item->id}})">
@@ -205,11 +203,10 @@
                                             fill="black" />
                                     </svg></span>
                             </button>
-                            <button wire:ignore.self
-                                onclick="confirm('Apakah anda yakin akan menghapus {{$item->name}} ?') || event.stopImmediatePropagation()"
-                                class="btn btn-light-danger btn-icon btn-active-light-primary btn-sm"
+                            <button wire:ignore
+                                class=" btn delete btn-light-danger btn-icon btn-active-light-primary btn-sm"
                                 data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"
-                                wire:click.prevent="destroy({{$item->id}})">
+                                wire:click="konfimasiDEL({{ $item->id}})">
 
                                 <!--begin::Svg Icon | path: assets/media/icons/duotune/art/art004.svg-->
                                 <span class="svg-icon svg-icon-muted svg-icon-2hx"><svg
@@ -227,6 +224,8 @@
                                     </svg></span>
                                 <!--end::Svg Icon-->
                             </button>
+                            {{-- <a href="#" class="menu-link px-3"
+                                data-kt-customer-table-filter="delete_row">Delete</a> --}}
 
                             <!--end::Menu-->
                         </td>

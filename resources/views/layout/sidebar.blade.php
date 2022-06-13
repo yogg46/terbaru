@@ -65,7 +65,8 @@
                     </a>
                 </div>
                 <div class="menu-item ">
-                    <a class="menu-link {{ $tittle == 'Karyawan' ? 'active':''}}" href="/karyawan">
+                    <a class="menu-link {{ $tittle == 'Karyawan' || $tittle == 'karyawan' ? 'active':''}}"
+                        href="/karyawan">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -85,7 +86,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link {{ $tittle == 'Client' ? 'active':''}}" href="/client">
+                    <a class="menu-link {{ $tittle == 'Client' || $tittle == 'client'   ? 'active':''}}" href="/client">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/abstract/abs027.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -105,7 +106,8 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link {{ $tittle == 'Projects' ? 'active':''}}" href="/projects">
+                    <a class="menu-link {{ $tittle == 'Projects' ||  $tittle == 'project' ? 'active':''}}"
+                        href="/projects">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/layouts/lay010.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -125,7 +127,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link {{ $tittle == 'Modul' ? 'active':''}}" href="/modul">
+                    <a class="menu-link {{ $tittle == 'Modul' || $tittle == 'modul' ? 'active':''}}" href="/modul">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/communication/com001.svg-->
                             <span class="svg-icon svg-icon-2">

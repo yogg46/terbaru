@@ -126,7 +126,8 @@
                             <div class="timeline-item">
                                 <!--begin::Label-->
                                 <div class="timeline-label fw-bolder text-gray-800 fs-6"> {{
-                                    date ("H:i",(strtotime($item->date_time)))}}</div>
+                                    date("H:i",(strtotime($item->date_time)))}}
+                                </div>
                                 <!--end::Label-->
                                 <!--begin::Badge-->
                                 <div class="timeline-badge">
@@ -138,6 +139,10 @@
                                 <div class="timeline-content d-flex">
                                     <span class="fw-bolder text-gray-800 ps-3"> {{ $item->user->name }}
                                         <span class="text-muted ps-0"> {{ $item->deskripsi }}</span>
+                                        on
+                                        <span class="text-muted ps-0"> {{
+                                            date("d-m-y",(strtotime($item->date_time)))}}</span>
+
                                     </span>
 
                                 </div>
@@ -172,102 +177,9 @@
                 </h3>
                 <div class="card-toolbar">
                     <!--begin::Menu-->
-                    <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
-                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                        <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
-                        <span class="svg-icon svg-icon-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24">
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <rect x="5" y="5" width="5" height="5" rx="1" fill="#000000" />
-                                    <rect x="14" y="5" width="5" height="5" rx="1" fill="#000000" opacity="0.3" />
-                                    <rect x="5" y="14" width="5" height="5" rx="1" fill="#000000" opacity="0.3" />
-                                    <rect x="14" y="14" width="5" height="5" rx="1" fill="#000000" opacity="0.3" />
-                                </g>
-                            </svg>
-                        </span>
-                        <!--end::Svg Icon-->
-                    </button>
+
                     <!--begin::Menu 1-->
-                    <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true"
-                        id="kt_menu_61322d25a4f1e">
-                        <!--begin::Header-->
-                        <div class="px-7 py-5">
-                            <div class="fs-5 text-dark fw-bolder">Filter Options</div>
-                        </div>
-                        <!--end::Header-->
-                        <!--begin::Menu separator-->
-                        <div class="separator border-gray-200"></div>
-                        <!--end::Menu separator-->
-                        <!--begin::Form-->
-                        <div class="px-7 py-5">
-                            <!--begin::Input group-->
-                            <div class="mb-10">
-                                <!--begin::Label-->
-                                <label class="form-label fw-bold">Status:</label>
-                                <!--end::Label-->
-                                <!--begin::Input-->
-                                <div>
-                                    <select class="form-select form-select-solid" data-kt-select2="true"
-                                        data-placeholder="Select option" data-dropdown-parent="#kt_menu_61322d25a4f1e"
-                                        data-allow-clear="true">
-                                        <option></option>
-                                        <option value="1">Approved</option>
-                                        <option value="2">Pending</option>
-                                        <option value="2">In Process</option>
-                                        <option value="2">Rejected</option>
-                                    </select>
-                                </div>
-                                <!--end::Input-->
-                            </div>
-                            <!--end::Input group-->
-                            <!--begin::Input group-->
-                            <div class="mb-10">
-                                <!--begin::Label-->
-                                <label class="form-label fw-bold">Member Type:</label>
-                                <!--end::Label-->
-                                <!--begin::Options-->
-                                <div class="d-flex">
-                                    <!--begin::Options-->
-                                    <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
-                                        <input class="form-check-input" type="checkbox" value="1" />
-                                        <span class="form-check-label">Author</span>
-                                    </label>
-                                    <!--end::Options-->
-                                    <!--begin::Options-->
-                                    <label class="form-check form-check-sm form-check-custom form-check-solid">
-                                        <input class="form-check-input" type="checkbox" value="2" checked="checked" />
-                                        <span class="form-check-label">Customer</span>
-                                    </label>
-                                    <!--end::Options-->
-                                </div>
-                                <!--end::Options-->
-                            </div>
-                            <!--end::Input group-->
-                            <!--begin::Input group-->
-                            <div class="mb-10">
-                                <!--begin::Label-->
-                                <label class="form-label fw-bold">Notifications:</label>
-                                <!--end::Label-->
-                                <!--begin::Switch-->
-                                <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                                    <input class="form-check-input" type="checkbox" value="" name="notifications"
-                                        checked="checked" />
-                                    <label class="form-check-label">Enabled</label>
-                                </div>
-                                <!--end::Switch-->
-                            </div>
-                            <!--end::Input group-->
-                            <!--begin::Actions-->
-                            <div class="d-flex justify-content-end">
-                                <button type="reset" class="btn btn-sm btn-light btn-active-light-primary me-2"
-                                    data-kt-menu-dismiss="true">Reset</button>
-                                <button type="submit" class="btn btn-sm btn-primary"
-                                    data-kt-menu-dismiss="true">Apply</button>
-                            </div>
-                            <!--end::Actions-->
-                        </div>
-                        <!--end::Form-->
-                    </div>
+
                     <!--end::Menu 1-->
                     <!--end::Menu-->
                 </div>
@@ -275,17 +187,7 @@
             <!--end::Header-->
             <!--begin::Body-->
             <div class="card-body d-flex flex-column">
-                <div class="flex-grow-1">
-                    <div class="mixed-widget-4-chart" data-kt-chart-color="primary" style="height: 225px"></div>
-                </div>
-                <div class="pt-5">
-                    <p class="text-center fs-6 pb-5">
-                        <span class="badge badge-light-danger fs-8">Notes:</span>&#160; Current sprint requires
-                        stakeholders
-                        <br />to approve newly amended policies
-                    </p>
-                    <a href="#" class="btn btn-primary w-100 py-3">Take Action</a>
-                </div>
+
             </div>
             <!--end::Body-->
         </div>
@@ -303,100 +205,7 @@
                     <span class="text-muted fw-bold fs-7">Latest trends</span>
                 </h3>
                 <div class="card-toolbar">
-                    <!--begin::Menu-->
-                    <button type="button" class="btn btn-sm btn-icon btn-color-primary btn-active-light-primary"
-                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                        <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
-                        <span class="svg-icon svg-icon-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24">
-                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                    <rect x="5" y="5" width="5" height="5" rx="1" fill="#000000" />
-                                    <rect x="14" y="5" width="5" height="5" rx="1" fill="#000000" opacity="0.3" />
-                                    <rect x="5" y="14" width="5" height="5" rx="1" fill="#000000" opacity="0.3" />
-                                    <rect x="14" y="14" width="5" height="5" rx="1" fill="#000000" opacity="0.3" />
-                                </g>
-                            </svg>
-                        </span>
-                        <!--end::Svg Icon-->
-                    </button>
-                    <!--begin::Menu 3-->
-                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-bold w-200px py-3"
-                        data-kt-menu="true">
-                        <!--begin::Heading-->
-                        <div class="menu-item px-3">
-                            <div class="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">Payments</div>
-                        </div>
-                        <!--end::Heading-->
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-3">
-                            <a href="#" class="menu-link px-3">Create Invoice</a>
-                        </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-3">
-                            <a href="#" class="menu-link flex-stack px-3">Create Payment
-                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
-                                    title="Specify a target name for future usage and reference"></i></a>
-                        </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-3">
-                            <a href="#" class="menu-link px-3">Generate Bill</a>
-                        </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-3" data-kt-menu-trigger="hover" data-kt-menu-placement="right-end">
-                            <a href="#" class="menu-link px-3">
-                                <span class="menu-title">Subscription</span>
-                                <span class="menu-arrow"></span>
-                            </a>
-                            <!--begin::Menu sub-->
-                            <div class="menu-sub menu-sub-dropdown w-175px py-4">
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-3">Plans</a>
-                                </div>
-                                <!--end::Menu item-->
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-3">Billing</a>
-                                </div>
-                                <!--end::Menu item-->
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-3">Statements</a>
-                                </div>
-                                <!--end::Menu item-->
-                                <!--begin::Menu separator-->
-                                <div class="separator my-2"></div>
-                                <!--end::Menu separator-->
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-3">
-                                    <div class="menu-content px-3">
-                                        <!--begin::Switch-->
-                                        <label class="form-check form-switch form-check-custom form-check-solid">
-                                            <!--begin::Input-->
-                                            <input class="form-check-input w-30px h-20px" type="checkbox" value="1"
-                                                checked="checked" name="notifications" />
-                                            <!--end::Input-->
-                                            <!--end::Label-->
-                                            <span class="form-check-label text-muted fs-6">Recuring</span>
-                                            <!--end::Label-->
-                                        </label>
-                                        <!--end::Switch-->
-                                    </div>
-                                </div>
-                                <!--end::Menu item-->
-                            </div>
-                            <!--end::Menu sub-->
-                        </div>
-                        <!--end::Menu item-->
-                        <!--begin::Menu item-->
-                        <div class="menu-item px-3 my-1">
-                            <a href="#" class="menu-link px-3">Settings</a>
-                        </div>
-                        <!--end::Menu item-->
-                    </div>
+
                     <!--end::Menu 3-->
                     <!--end::Menu-->
                 </div>
@@ -405,84 +214,10 @@
             <!--begin::Body-->
             <div class="card-body d-flex flex-column">
                 <!--begin::Chart-->
-                <div class="mixed-widget-5-chart card-rounded-top" data-kt-chart-color="danger" style="height: 150px">
-                </div>
+
                 <!--end::Chart-->
                 <!--begin::Items-->
-                <div class="mt-5">
-                    <!--begin::Item-->
-                    <div class="d-flex flex-stack mb-5">
-                        <!--begin::Section-->
-                        <div class="d-flex align-items-center me-2">
-                            <!--begin::Symbol-->
-                            <div class="symbol symbol-50px me-3">
-                                <div class="symbol-label bg-light">
-                                    <img src="assets/media/svg/brand-logos/plurk.svg" class="h-50" alt="" />
-                                </div>
-                            </div>
-                            <!--end::Symbol-->
-                            <!--begin::Title-->
-                            <div>
-                                <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bolder">Top Authors</a>
-                                <div class="fs-7 text-muted fw-bold mt-1">Ricky Hunt, Sandra Trepp</div>
-                            </div>
-                            <!--end::Title-->
-                        </div>
-                        <!--end::Section-->
-                        <!--begin::Label-->
-                        <div class="badge badge-light fw-bold py-4 px-3">+82$</div>
-                        <!--end::Label-->
-                    </div>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <div class="d-flex flex-stack mb-5">
-                        <!--begin::Section-->
-                        <div class="d-flex align-items-center me-2">
-                            <!--begin::Symbol-->
-                            <div class="symbol symbol-50px me-3">
-                                <div class="symbol-label bg-light">
-                                    <img src="assets/media/svg/brand-logos/figma-1.svg" class="h-50" alt="" />
-                                </div>
-                            </div>
-                            <!--end::Symbol-->
-                            <!--begin::Title-->
-                            <div>
-                                <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bolder">Top Sales</a>
-                                <div class="fs-7 text-muted fw-bold mt-1">PitStop Emails</div>
-                            </div>
-                            <!--end::Title-->
-                        </div>
-                        <!--end::Section-->
-                        <!--begin::Label-->
-                        <div class="badge badge-light fw-bold py-4 px-3">+82$</div>
-                        <!--end::Label-->
-                    </div>
-                    <!--end::Item-->
-                    <!--begin::Item-->
-                    <div class="d-flex flex-stack">
-                        <!--begin::Section-->
-                        <div class="d-flex align-items-center me-2">
-                            <!--begin::Symbol-->
-                            <div class="symbol symbol-50px me-3">
-                                <div class="symbol-label bg-light">
-                                    <img src="assets/media/svg/brand-logos/vimeo.svg" class="h-50" alt="" />
-                                </div>
-                            </div>
-                            <!--end::Symbol-->
-                            <!--begin::Title-->
-                            <div class="py-1">
-                                <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bolder">Top Engagement</a>
-                                <div class="fs-7 text-muted fw-bold mt-1">KT.com</div>
-                            </div>
-                            <!--end::Title-->
-                        </div>
-                        <!--end::Section-->
-                        <!--begin::Label-->
-                        <div class="badge badge-light fw-bold py-4 px-3">+82$</div>
-                        <!--end::Label-->
-                    </div>
-                    <!--end::Item-->
-                </div>
+
                 <!--end::Items-->
             </div>
             <!--end::Body-->
