@@ -125,8 +125,8 @@
 
                             <div class="timeline-item">
                                 <!--begin::Label-->
-                                <div class="timeline-label fw-bolder text-gray-800 fs-6"> {{
-                                    date("H:i",(strtotime($item->date_time)))}}
+                                <div class="timeline-label fw-bolder text-gray-800  fs-4">
+
                                 </div>
                                 <!--end::Label-->
                                 <!--begin::Badge-->
@@ -137,11 +137,15 @@
                                 <!--end::Badge-->
                                 <!--begin::Content-->
                                 <div class="timeline-content d-flex">
-                                    <span class="fw-bolder text-gray-800 ps-3"> {{ $item->user->name }}
+                                    <span
+                                        class="fw-bolder {{ $item->deskripsi == 'has log out' ? 'text-danger' : 'text-success'}} ps-3">
+                                        {{ $item->user->name }}
                                         <span class="text-muted ps-0"> {{ $item->deskripsi }}</span>
-                                        on
+                                        <span class="text-gray-800">
+                                            on
+                                        </span>
                                         <span class="text-muted ps-0"> {{
-                                            date("d-m-y",(strtotime($item->date_time)))}}</span>
+                                            $item->date_time}}</span>
 
                                     </span>
 
