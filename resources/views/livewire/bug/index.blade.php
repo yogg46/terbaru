@@ -1,5 +1,12 @@
 <div>
     {{ auth()->user()->id }} <br>
+    @foreach ($bug3 as $key )
+    {{ $key->BugProject->nama_project}} <br>
+    status project {{ $key->BugProject->status}} <br>
+    {{ $key->status}} <br> <br>
+    @endforeach
+
+
     {{-- {{ var_dump($bug1) }} --}}
     @foreach ($bug1 as $item )
     id project {{ $item->id}} <br>

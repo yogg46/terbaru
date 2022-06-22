@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Bug;
 
+use App\Models\Bug;
 use Livewire\Component;
 use App\Models\project;
 use Illuminate\Database\Eloquent\Builder;
@@ -23,6 +24,7 @@ class Index extends Component
                     $query->where('programer', auth()->user()->id);
                 })->orWhere('leader', auth()->user()->id)->get(),
                 'bug' => project::where('status', 2)->orWhere('leader', auth()->user()->id)->paginate(5),
+                'bug3' => Bug::all(),
             ]
         )->extends(
             'layout.main',

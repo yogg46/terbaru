@@ -84,4 +84,12 @@ class project extends Model
     {
         return $this->hasMany(Modul::class, 'no_project');
     }
+    public function ProjectBug()
+    {
+        return $this->hasMany(Bug::class, 'project_id');
+    }
+    public function ProjectTrial()
+    {
+        return $this->hasMany(Trial::class, 'project_id');
+    }
 }
