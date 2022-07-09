@@ -1,5 +1,180 @@
 <div>
-    <div>
+    <div class="d-flex flex-wrap flex-stack my-3 ">
+        <!--begin::Heading-->
+        @if (Auth::user()->role == 3 || Auth::user()->role == 1)
+            <button data-bs-toggle="modal" data-bs-target="#modal_addPro"
+                class="fw-bolder btn btn-light-success btn-sm me-5 my-1"> <i class="las fs-3 la-plus "></i>Add
+                Project</button>
+            @include('livewire.projects.add')
+        @endif
+        <h2 class="fs-2 fw-bold my-2">
+
+            <span class="fs-6 text-gray-400 ms-1"></span>
+        </h2>
+
+        <!--end::Heading-->
+        <!--begin::Controls-->
+        <div class="d-flex flex-wrap my-1">
+            <!--begin::Select wrapper-->
+            <div wire:ignore class="m-0">
+                <!--begin::Select-->
+                <select wire:model="select"
+                    class="form-control form-select form-select-white form-control-lg select2 form-select-white form-select-sm fw-bolder w-125px">
+                    <option value="" selected>All</option>
+                    <option value="1">Project Baru</option>
+                    <option value="2">On progres</option>
+                    <option value="3">Bug report</option>
+                    <option value="4">Trial error</option>
+                    <option value="5">Revisi</option>
+                    <option value="6">Realese</option>
+                </select>
+                {{-- <span class="select2 select2-container select2-container--bootstrap5" dir="ltr"
+                    data-select2-id="select2-data-11-aydx" style="width: 100%;"><span class="selection"><span
+                            class="select2-selection select2-selection--single form-select form-select-white form-select-sm fw-bolder w-125px"
+                            role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0"
+                            aria-disabled="false" aria-labelledby="select2-status-70-container"
+                            aria-controls="select2-status-70-container"><span class="select2-selection__rendered"
+                                id="select2-status-70-container" role="textbox" aria-readonly="true"
+                                title="Active">Active</span><span class="select2-selection__arrow"
+                                role="presentation"><b role="presentation"></b></span></span></span><span
+                        class="dropdown-wrapper" aria-hidden="true"></span></span> --}}
+                <!--end::Select-->
+            </div>
+            <!--end::Select wrapper-->
+        </div>
+        <!--end::Controls-->
+    </div>
+
+
+    <div class="row g-6 g-xl-9">
+        <!--begin::Col-->
+        @foreach ($project as $item)
+            <div class="col-md-6 col-xl-4">
+                <!--begin::Card-->
+                <a href="/projects/{{ $item->slug }}" class="card border border-2 border-gray-300 border-hover">
+                    <!--begin::Card header-->
+                    <div class="card-header border-0 pt-9">
+                        <!--begin::Card Title-->
+                        <div class="card-title m-0">
+                            <!--begin::Avatar-->
+                            <div class="symbol symbol-50px w-50px bg-light">
+                                <span class="symbol-label bg-primary fs-2 text-inverse-warning fw-bolder">
+
+                                    {{ Str::substr($item->nama_project, 0, 2) }}
+                                </span>
+                            </div>
+                            <!--end::Avatar-->
+                        </div>
+                        <!--end::Car Title-->
+                        <!--begin::Card toolbar-->
+                        <div class="card-toolbar">
+                            <span class="badge @include('layout.badge_status') fw-bolder me-auto px-4 py-3">
+                                @include('layout.status') </span>
+                        </div>
+                        <!--end::Card toolbar-->
+                    </div>
+                    <!--end:: Card header-->
+                    <!--begin:: Card body-->
+                    <div class="card-body p-9">
+                        <!--begin::Name-->
+                        <div class="fs-3 fw-bolder text-dark">{{ $item->nama_project }}</div>
+                        <!--end::Name-->
+                        <!--begin::Description-->
+                        <p class="text-gray-400 fw-bold fs-5 mt-1 mb-7">
+                            {{ Str::substr($item->deskripsi_project, 0, 30) . '...' }}</p>
+                        <!--end::Description-->
+                        <!--begin::Info-->
+                        <div class="d-flex flex-wrap mb-5">
+                            <!--begin::Due-->
+                            <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-7 mb-3">
+                                <div class="fs-6 text-gray-800 fw-bolder">@include('layout.kategori')</div>
+                                <div class="fw-bold text-gray-400">kategori</div>
+                            </div>
+                            <!--end::Due-->
+                            <!--begin::Budget-->
+                            <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 mb-3">
+                                <div class="fs-6 text-gray-800 fw-bolder">@include('layout.level')</div>
+                                <div class="fw-bold text-gray-400">Level</div>
+                            </div>
+                            <!--end::Budget-->
+                        </div>
+                        <!--end::Info-->
+                        <!--begin::Progress-->
+                        <div wire:ignore.self class="h-4px w-100 bg-light mb-5" data-bs-toggle="tooltip" title=""
+                            data-bs-original-title="This project {{ $item->total_progres . '%' }} completed">
+                            <div class="bg-primary rounded h-4px" role="progressbar"
+                                style="width: {{ $item->total_progres . '%' }}"
+                                aria-valuenow="{{ $item->total_progres }}" aria-valuemin="0" aria-valuemax="100">
+                            </div>
+                        </div>
+                        <!--end::Progress-->
+                        <!--begin::Users-->
+
+
+                        <div wire:ignore class="symbol-group symbol-hover">
+                            <!--begin::User-->
+                            <div wire:ignore class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
+                                title=""
+                                data-bs-original-title="Marketing : {{ $item->MarketingToProject->name }}">
+                                <span class="symbol-label bg-info fs-4 text-inverse-warning fw-bolder">
+
+                                    {{ Str::substr($item->MarketingToProject->name, 0, 2) }}
+                                </span>
+                            </div>
+                            @if (!is_null($item->leader))
+                                <div wire:ignore class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
+                                    title=""
+                                    data-bs-original-title=" Leader: {{ $item->LeaderToProject->name }}">
+                                    <span class="symbol-label bg-warning fs-4 text-inverse-warning fw-bolder">
+
+                                        {{ Str::substr($item->LeaderToProject->name, 0, 2) }}
+                                    </span>
+                                </div>
+                            @endif
+
+                            <div wire:ignore class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
+                                data-bs-placement="right" title=""
+                                data-bs-original-title="Programmer : @foreach ($item->projectModul as $key) {{ $key->ModulProgramer->name . ', ' }} @endforeach">
+                                <span class="symbol-label bg-danger fs-7 text-inverse-warning fw-bolder">
+
+                                    {{ '+' . count($item->projectModul) }}
+                                </span>
+                            </div>
+
+
+                            {{-- @foreach ($item->projectModul as $key)
+                                <div class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip" title=""
+                                    data-bs-original-title="{{ $key->ModulProgramer->name }}">
+                                    <span class="symbol-label bg-danger fs-4 text-inverse-warning fw-bolder">
+                                        {{ Str::substr($key->ModulProgramer->name, 0, 2) }}
+                                    </span>
+                                </div>
+                            @endforeach --}}
+                            <!--begin::User-->
+                            <!--begin::User-->
+                            <!--begin::User-->
+                        </div>
+
+                        <!--end::Users-->
+                    </div>
+                    <!--end:: Card body-->
+                </a>
+                <!--end::Card-->
+            </div>
+        @endforeach
+        <!--end::Col-->
+        <!--begin::Col-->
+
+        <!--end::Col-->
+        {{-- @json($project) --}}
+
+    </div>
+    <div class="d-flex flex-stack flex-wrap pt-10">
+
+        {{ $project->links('layout.pagination-link') }}
+    </div>
+
+    {{-- <div>
         <div class="post d-flex flex-column-fluid" id="kt_post">
             <!--begin::Container-->
             <div id="kt_content_container" class="container-xxl">
@@ -31,65 +206,66 @@
                             <!--end::Table head-->
                             <!--begin::Table body-->
                             <tbody>
-                                @foreach ( $project as $item )
+                                @foreach ($project as $item)
+                                    <tr>
+                                        <th>
+                                            <div class="symbol symbol-50px me-2">
+                                                <span class="symbol-label">
+                                                    <span
+                                                        class="symbol-label bg-primary fs-2 text-inverse-warning fw-bolder">
 
-                                <tr>
-                                    <th>
-                                        <div class="symbol symbol-50px me-2">
-                                            <span class="symbol-label">
-                                                <span
-                                                    class="symbol-label bg-primary fs-2 text-inverse-warning fw-bolder">
+                                                        {{ Str::substr($item->nama_project, 0, 2) }}
 
-                                                    {{ Str::substr( $item->nama_project,0,2 ) }}
-
+                                                    </span>
                                                 </span>
-                                            </span>
-                                        </div>
-                                    </th>
-                                    <td>
-                                        <a href="/projects/{{$item->slug}}"
-                                            class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{
-                                            $item->nama_project}}</a>
-                                        <span class="text-muted fw-bold d-block fs-7">{{ $item->no_project }}</span>
-                                    </td>
-                                    <td>
-                                        <span class="text-muted fw-bold d-block fs-7">{{ $item->status }}</span>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex flex-column w-100 me-2">
-                                            <div wire:ignore class="d-flex flex-stack mb-2">
-                                                <span wire:ignore class="text-muted me-2 fs-7 fw-bold"
-                                                    data-kt-countup="true"
-                                                    data-kt-countup-value="{{ $item->total_progres > 100 ? 100 :$item->total_progres}}"
-                                                    data-kt-countup-suffix="%">
-                                                    0</span>
                                             </div>
-                                            <div class="progress h-6px w-100">
-                                                <div wire:ignore.self class="progress-bar bg-primary" role="progressbar"
-                                                    style="width:0%"
-                                                    aria-valuenow="{{ $item->total_progres > 100 ? 100 : $item->total_progres }}"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                        </th>
+                                        <td>
+                                            <a href="/projects/{{ $item->slug }}"
+                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{ $item->nama_project }}</a>
+                                            <span
+                                                class="text-muted fw-bold d-block fs-7">{{ $item->no_project }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="text-center badge @include('layout.badge_status')  fw-bold fs-7">
+                                                @include ('layout.status')</span>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex flex-column w-100 me-2">
+                                                <div wire:ignore class="d-flex flex-stack mb-2">
+                                                    <span wire:ignore class="text-muted me-2 fs-7 fw-bold"
+                                                        data-kt-countup="true"
+                                                        data-kt-countup-value="{{ $item->total_progres > 100 ? 100 : $item->total_progres }}"
+                                                        data-kt-countup-suffix="%">
+                                                        0</span>
+                                                </div>
+                                                <div class="progress h-6px w-100">
+                                                    <div wire:ignore.self class="progress-bar bg-primary"
+                                                        role="progressbar" style="width:0%"
+                                                        aria-valuenow="{{ $item->total_progres > 100 ? 100 : $item->total_progres }}"
+                                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-end">
-                                        <a href="/projects/{{$item->slug}}"
-                                            class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                            <span class="svg-icon svg-icon-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    viewBox="0 0 24 24" fill="none">
-                                                    <rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1"
-                                                        transform="rotate(-180 18 13)" fill="black"></rect>
-                                                    <path
-                                                        d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                        fill="black"></path>
-                                                </svg>
-                                            </span>
-                                            <!--end::Svg Icon-->
-                                        </a>
-                                    </td>
-                                </tr>
+                                        </td>
+                                        <td class="text-end">
+                                            <a href="/projects/{{ $item->slug }}"
+                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
+                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
+                                                <span class="svg-icon svg-icon-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" viewBox="0 0 24 24" fill="none">
+                                                        <rect opacity="0.5" x="18" y="13"
+                                                            width="13" height="2" rx="1"
+                                                            transform="rotate(-180 18 13)" fill="black"></rect>
+                                                        <path
+                                                            d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
+                                                            fill="black"></path>
+                                                    </svg>
+                                                </span>
+                                                <!--end::Svg Icon-->
+                                            </a>
+                                        </td>
+                                    </tr>
                                 @endforeach
 
                             </tbody>
@@ -101,7 +277,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- {{ $marketing }}
 
@@ -118,7 +294,7 @@
     </form>
 
 
-    @foreach ($projek as $p )
+    @foreach ($projek as $p)
     {{ $p->nama_project }} <br>
     {{ $p->LeaderToProject->name }} <br>
     {{ $p->MarketingToProject->name }} <br>
@@ -133,7 +309,7 @@
     @endforeach --}}
 
 
-    {{-- @foreach ($projek as $item )
+    {{-- @foreach ($projek as $item)
     @php
     $diff = abs(strtotime($item->tgl_deadline) - strtotime($item->tgl_buat));
     $years = floor($diff / (365*60*60*24));
@@ -148,7 +324,7 @@
     @endforeach --}}
 
 
-    <div class="row g-5 g-xl-8">
+    {{-- <div class="row g-5 g-xl-8">
         <div class="col-xl-4">
             <!--begin: Statistics Widget 6-->
             <div class="card bg-light-success card-xl-stretch mb-xl-8">
@@ -208,8 +384,8 @@
             </div>
             <!--end: Statistics Widget 6-->
         </div>
-    </div>
-    <div wire:ignore class="progress bg-primary bg-opacity-50">
+    </div> --}}
+    {{-- <div wire:ignore class="progress bg-primary bg-opacity-50">
         <div data-bs-toggle="tooltip" data-bs-placement="top" title="Tooltip on top"
             class="progress-bar-animated progress-bar progress-bar-striped bg-primary" role="progressbar"
             style="width: 0%" aria-valuenow="{{100/3}}" aria-valuemin="0" aria-valuemax="{{100/3}}">
@@ -227,19 +403,19 @@
 
     <input type="text" class=" form-check-danger form-control" wire:model='coba'>
     {{$coba}}
-    <button wire:ignore class=" btn btn-light" wire:click='coba()'> asdasd</button>
+    <button wire:ignore class=" btn btn-light" wire:click='coba()'> asdasd</button> --}}
 
     <script wire:ignore>
         $(document).ready(function() {
-        $('.progress .progress-bar').css("width",
-        function() {
-            return $(this).attr("aria-valuenow") + "%";
-        }
-        )
-    });
+            $('.progress .progress-bar').css("width",
+                function() {
+                    return $(this).attr("aria-valuenow") + "%";
+                }
+            )
+        });
 
 
-    window.addEventListener('swal',function(e){
+        window.addEventListener('swal', function(e) {
             Swal.fire(e.detail);
         });
     </script>

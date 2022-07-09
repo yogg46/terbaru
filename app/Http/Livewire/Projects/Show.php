@@ -17,6 +17,13 @@ class Show extends Component
     public function mount($slug)
     {
         $this->project = project::where('slug', $slug)->first();
+
+        // if ($projects->ClientToProject()->count()) {
+        //     $this->project = project::where('slug', $slug)->first();
+        // } else {
+        //     $this->project = project::where('slug', $slug)->first();
+        //     $this->client = client::onlyTrashed()->where('id', $projects->no_client)->first();
+        // };
     }
     public function render()
     {

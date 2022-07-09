@@ -19,6 +19,7 @@ class CreateTrialsTable extends Migration
                 ->onUpdate('cascade');
             $table->string('status')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

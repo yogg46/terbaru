@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -11,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -53,23 +55,23 @@ class User extends Authenticatable
 
     public function utk()
     {
-        return $this->belongsTo(Kategori_karyawan::class, 'role');
+        return $this->belongsTo(Kategori_karyawan::class, 'role')->withTrashed();
     }
     public function leaderKeprojek()
     {
-        return $this->hasMany(project::class, 'leader');
+        return $this->hasMany(project::class, 'leader')->withTrashed();
     }
     public function marketingKeprojek()
     {
-        return $this->hasMany(project::class, 'marketing');
+        return $this->hasMany(project::class, 'marketing')->withTrashed();
     }
     public function ProgramerKeModul()
     {
-        return $this->hasMany(Modul::class, 'programer');
+        return $this->hasMany(Modul::class, 'programer')->withTrashed();
     }
     public function Log()
     {
-        return $this->hasMany(LoginActicity::class, 'user_id');
+        return $this->hasMany(LoginActicity::class, 'user_id')->withTrashed();
     }
     // public function UserToKaryawan()
     // {

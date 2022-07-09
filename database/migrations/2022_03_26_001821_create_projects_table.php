@@ -24,16 +24,17 @@ class CreateProjectsTable extends Migration
             $table->string('status')->default(1);
             $table->string('level')->default(1);
             $table->string('kategori')->default(1);
-            $table->date('tgl_buat');
-            $table->date('tgl_deadline');
-            $table->date('tgl_trial');
-            $table->date('tgl_release');
+            $table->date('tgl_buat')->nullable();
+            $table->date('tgl_deadline')->nullable();
+            $table->date('tgl_trial')->nullable();
+            $table->date('tgl_release')->nullable();
             $table->unsignedBigInteger('marketing')->constrained()
                 ->onUpdate('cascade');
             $table->unsignedBigInteger('leader')->constrained()
                 ->onUpdate('cascade')->nullable();
             $table->string('total_progres')->default('0');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

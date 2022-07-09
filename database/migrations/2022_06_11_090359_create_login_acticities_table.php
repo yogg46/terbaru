@@ -20,6 +20,7 @@ class CreateLoginActicitiesTable extends Migration
             $table->string('deskripsi');
             $table->string('date_time');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

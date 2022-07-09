@@ -20,7 +20,7 @@ class ProjectFactory extends Factory
 
         $users = User::where('role', '3')->pluck('id');
         $client = client::all()->pluck('id');
-        $leader = User::where('role', '2')->pluck('id');
+        $leader = User::where('role', '4')->pluck('id');
 
         return [
 

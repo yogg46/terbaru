@@ -24,6 +24,7 @@ class CreateModulsTable extends Migration
             $table->unsignedBigInteger('no_project')->constrained()
                 ->onUpdate('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

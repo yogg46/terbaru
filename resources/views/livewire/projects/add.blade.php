@@ -1,5 +1,4 @@
-<div wire:ignore.self class="modal fade" data-bs-backdrop="static" id="kt_modal_create_app" tabindex="-1"
-    aria-hidden="true">
+<div wire:ignore.self class="modal fade" data-bs-backdrop="static" id="modal_addPro" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-900px">
         <!--begin::Modal content-->

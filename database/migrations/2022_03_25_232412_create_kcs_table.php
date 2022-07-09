@@ -18,6 +18,7 @@ class CreateKcsTable extends Migration
             $table->string('kc_id');
             $table->string('nama');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

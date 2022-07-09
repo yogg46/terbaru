@@ -17,13 +17,14 @@ class CreateClientsTable extends Migration
             $table->id();
             $table->string('client_id');
             $table->string('nama');
-            $table->string('slug');
-            $table->string('email');
-            $table->string('cp');
-            $table->string('status');
-            $table->text('alamat');
-            $table->unsignedBigInteger('no_kc');
+            $table->string('slug')->nullable();
+            $table->string('email')->nullable();
+            $table->string('cp')->nullable();
+            $table->string('status')->default(1)->nullable();
+            $table->text('alamat')->nullable();
+            $table->unsignedBigInteger('no_kc')->onUpdate('cascade')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

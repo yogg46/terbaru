@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Wuwx\LaravelAutoNumber\AutoNumberTrait;
 
 class client extends Model
@@ -12,6 +13,7 @@ class client extends Model
     use HasFactory;
     use Sluggable;
     use AutoNumberTrait;
+    use SoftDeletes;
 
 
 
@@ -38,11 +40,11 @@ class client extends Model
     }
     public function r_kc()
     {
-        return $this->belongsTo(kc::class, 'no_kc');
+        return $this->belongsTo(kc::class, 'no_kc')->withTrashed();
     }
 
     public function projectClient()
     {
-        return $this->hasMany(project::class, 'no_client');
+        return $this->hasMany(project::class, 'no_client')->withTrashed();
     }
 }

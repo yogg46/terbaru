@@ -5,6 +5,7 @@ namespace App\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Wuwx\LaravelAutoNumber\AutoNumberTrait;
 
 class Modul extends Model
@@ -12,6 +13,7 @@ class Modul extends Model
     use HasFactory;
     use Sluggable;
     // use AutoNumberTrait;
+    use SoftDeletes;
 
     protected $guarded  = ['id'];
     protected $primayKey = 'id';
@@ -39,10 +41,10 @@ class Modul extends Model
     }
     public function ModulToProject()
     {
-        return $this->belongsTo(project::class, 'no_project');
+        return $this->belongsTo(project::class, 'no_project')->withTrashed();
     }
     public function ModulProgramer()
     {
-        return $this->belongsTo(User::class, 'programer');
+        return $this->belongsTo(User::class, 'programer')->withTrashed();
     }
 }

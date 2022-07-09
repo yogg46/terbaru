@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\LoginController as AuthLoginController;
 use App\Http\Controllers\LoginController;
 use App\Http\Livewire\Dashboard\Index;
 use App\Http\Livewire\Bug\Index as BugIndex;
+use App\Http\Livewire\Client\Edit as ClientEdit;
 use App\Http\Livewire\Trial\Index as TrialIndex;
 use App\Http\Livewire\Karyawan\Index as KaryawanIndex;
 use App\Http\Livewire\Projects\Index as ProjectsIndex;
@@ -61,6 +62,7 @@ Route::get('/report', reportIndex::class)->name('report.index')->middleware('aut
 Route::get('/report/{slug}', ReportShow::class)->middleware('auth');
 
 Route::get('/client', ClientIndex::class)->name('clients.index')->middleware('auth');
+Route::get('/client/edit/{slug}', ClientEdit::class)->middleware('auth');
 Route::get('/client/{slug}', ClientShow::class)->middleware('auth');
 
 Route::get('/modul', ModulIndex::class)->name('modul.index')->middleware('auth');

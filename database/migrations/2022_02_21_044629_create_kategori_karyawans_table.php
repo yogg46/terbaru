@@ -18,6 +18,7 @@ class CreateKategoriKaryawansTable extends Migration
             $table->string('no_kategori');
             $table->string('kategori');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -20,9 +20,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->default(bcrypt('password'));
             $table->unsignedBigInteger('role')->constrained()
-            ->onUpdate('cascade')
-            ->onDelete('cascade')
-            ->default('1');
+                ->onUpdate('cascade')
+                ->default('1');
             // $table->unsignedBigInteger('id_karyawan')->constrained()
             // ->onUpdate('cascade')
             // ->onDelete('cascade');
@@ -33,7 +32,7 @@ class CreateUsersTable extends Migration
             $table->string('no_telepon')->nullable();
             $table->timestamps();
             $table->integer('status')->default(1);
-
+            $table->softDeletes();
         });
     }
 

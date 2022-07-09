@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Wuwx\LaravelAutoNumber\AutoNumberTrait;
 
 class project extends Model
@@ -12,6 +13,7 @@ class project extends Model
     use HasFactory;
     use Sluggable;
     use AutoNumberTrait;
+    use SoftDeletes;
 
     protected $guarded  = ['id'];
     protected $primayKey = 'id';
@@ -33,15 +35,17 @@ class project extends Model
         // });
         static::updating(function ($model) {
 
-            if ($model->total_progres > 120) {
+            if ($model->total_progres > 130) {
+                $model->status = 6;
+            } elseif ($model->total_progres > 120) {
                 $model->status = 5;
             } elseif ($model->total_progres > 110) {
                 $model->status = 4;
             } elseif ($model->total_progres > 99) {
                 $model->status = 3;
-            } elseif ($model->total_progres > 50) {
+            } elseif ($model->total_progres > 1) {
                 $model->status = 2;
-            } elseif ($model->total_progres >= 0) {
+            } elseif ($model->total_progres == 0) {
                 $model->status = 1;
             }
         });
@@ -70,26 +74,26 @@ class project extends Model
 
     public function ClientToProject()
     {
-        return $this->belongsTo(client::class, 'no_client');
+        return $this->belongsTo(client::class, 'no_client')->withTrashed();
     }
     public function LeaderToProject()
     {
-        return $this->belongsTo(User::class, 'leader');
+        return $this->belongsTo(User::class, 'leader')->withTrashed();
     }
     public function MarketingToProject()
     {
-        return $this->belongsTo(User::class, 'marketing');
+        return $this->belongsTo(User::class, 'marketing')->withTrashed();
     }
     public function projectModul()
     {
-        return $this->hasMany(Modul::class, 'no_project');
+        return $this->hasMany(Modul::class, 'no_project')->withTrashed();
     }
     public function ProjectBug()
     {
-        return $this->hasMany(Bug::class, 'project_id');
+        return $this->hasMany(Bug::class, 'project_id')->withTrashed();
     }
     public function ProjectTrial()
     {
-        return $this->hasMany(Trial::class, 'project_id');
+        return $this->hasMany(Trial::class, 'project_id')->withTrashed();
     }
 }

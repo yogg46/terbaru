@@ -24,6 +24,8 @@ class Index extends Component
     public $sortDirection = 'asc';
     public $satu;
     public $switch = 0;
+    protected $listeners = ['delete', 'deleteCountries', 'resetpass', 'presus'];
+
 
 
     public function render()
@@ -60,19 +62,17 @@ class Index extends Component
     }
 
     protected $rules = [
-        'client_id' => 'required',
+        // 'client_id' => 'required',
         'nama' => 'required|min:6',
-        'alamat' => 'required|min:16',
-        'cp' => 'required|min:12',
-        'no_kc' => 'required',
+        // 'alamat' => 'required|min:16',
+        // 'cp' => 'required|min:12',
+        // 'no_kc' => 'required',
 
     ];
 
     public function save()
     {
         $this->validate();
-
-
 
         $simpan = new client;
 
@@ -86,7 +86,7 @@ class Index extends Component
         $simpan->save();
         session()->flash('message', 'Data Berhasil Disimpan.');
         $this->resetInput();
-
+        $this->step = 0;
         $this->emit('save');
 
         //redirect
@@ -101,6 +101,7 @@ class Index extends Component
         $this->alamat = null;
         $this->cp = null;
         $this->no_kc = null;
+        $this->step = 0;
         // return redirect()->route('clients.index');
     }
 
@@ -159,7 +160,7 @@ class Index extends Component
         }
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
 
 
@@ -186,9 +187,11 @@ class Index extends Component
 
             $this->selectAll = false;
         };
+        $this->emit('deleteall');
         $this->ceklis = [];
         $this->selectAll = false;
         $this->switch = 1;
+
         session()->flash('message', 'Data Berhasil Dihapus.');
     }
 
@@ -219,20 +222,22 @@ class Index extends Component
     public function sw()
     {
 
-        if ($this->switch == 0) {
-            $this->switch = 1;
-        } elseif ($this->switch == 1) {
-            $this->switch = 0;
-        }
+        // if ($this->switch == 0) {
+        //     $this->switch = 1;
+        // } elseif ($this->switch == 1) {
+        //     $this->switch = 0;
+        // }
+        $this->switch = 1;
     }
     public function sw2()
     {
 
-        if ($this->switch == '1') {
-            $this->switch = '0';
-        } else {
-            $this->switch = '1';
-        }
+        // if ($this->switch == '1') {
+        //     $this->switch = '0';
+        // } else {
+        //     $this->switch = '1';
+        // }
+        $this->switch = 0;
     }
 
     public function cobaa($ces)
@@ -245,5 +250,85 @@ class Index extends Component
         } else {
             $this->search = $ces;
         }
+    }
+
+
+    public function confrimDel1($id)
+    {
+        $nama = client::where('id', $id)->first();
+        $this->dispatchBrowserEvent('swal:confirm', [
+            'type' => 'warning',
+            'title' => 'Apakah anda yakin akan menghapus ' . $nama->nama . '?',
+            'text' => '',
+            'id' => $id,
+        ]);
+    }
+    public $step;
+
+    public $clients;
+
+    private $stepActions = [
+        'submit1',
+        'submit2',
+        'submit3',
+    ];
+
+    public function mount()
+    {
+        $this->step = 0;
+    }
+
+
+    public function decreaseStep()
+    {
+        $this->step--;
+    }
+
+    public function submit()
+    {
+
+        $action = $this->stepActions[$this->step];
+
+        $this->$action();
+    }
+
+    public function submit1()
+    {
+        $this->validate([
+            'nama' => 'required|min:4',
+            'no_kc' => 'required',
+        ]);
+
+        if ($this->clients) {
+            $this->clients = tap($this->clients)->update(['nama' => $this->nama, 'no_kc' => $this->no_kc]);
+            session()->flash('message1', 'successfully updated.');
+        } else {
+            $this->clients = client::create(['nama' => $this->nama, 'no_kc' => $this->no_kc]);
+            session()->flash('message1', 'successfully created.');
+        }
+
+
+        $this->step++;
+    }
+
+    public function submit2()
+    {
+        // $this->validate([]);
+
+        $this->clients = tap($this->clients)->update(['email' => $this->email, 'cp' => $this->cp, 'alamat' => $this->alamat]);
+
+        $this->step++;
+    }
+    public function submit3()
+    {
+        // $this->validate([]);
+
+        $this->clients = tap($this->clients)->update(['cp' => $this->cp]);
+
+        session()->flash('message', 'Data Berhasil Disimpan.');
+
+        // $this->step = 0;
+        $this->resetInput();
+        $this->emit('save');
     }
 }

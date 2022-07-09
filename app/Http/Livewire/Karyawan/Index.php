@@ -27,7 +27,7 @@ class Index extends Component
     public $hitam;
     public $search = '';
     public $ceklis = [];
-    protected $listeners = ['delete', 'deleteCheckedCountries', 'resetpass', 'presus'];
+    protected $listeners = ['delete', 'deleteCheckedCountries', 'resetpass', 'presus', 'deleteall'];
     public $sortBy = 'created_at';
     public $sortDirection = 'asc';
 
@@ -282,6 +282,7 @@ class Index extends Component
         };
         $this->ceklis = [];
         $this->selectAll = false;
+        $this->emit('deleteall');
         session()->flash('message', 'Data Berhasil Dihapus.');
     }
 

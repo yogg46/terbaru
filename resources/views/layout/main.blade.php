@@ -4,8 +4,7 @@
 <head>
     <base href="">
     <title> {{ $tittle }} </title>
-    {{--
-    <meta name="description"
+    {{-- <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
         content="Metronic, bootstrap, bootstrap 5, Angular, VueJs, React, Laravel, admin themes, web design, figma, web development, free templates, free admin themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon" />
@@ -27,17 +26,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.css" />
 
 
-    {{--
-    <link href="/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" /> --}}
+    {{-- <link href="/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css" rel="stylesheet" type="text/css" /> --}}
     <!--end::Page Vendor Stylesheets-->
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
-    @if (auth()->user()->hitam==0)
-    <link href="/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    @if (auth()->user()->hitam == 0)
+        <link href="/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
     @else
-    <link href="/assets/plugins/global/plugins.dark.bundle.css" rel="stylesheet" type="text/css" />
-    <link href="/assets/css/style.dark.bundle.css" rel="stylesheet" type="text/css" />
-
+        <link href="/assets/plugins/global/plugins.dark.bundle.css" rel="stylesheet" type="text/css" />
+        <link href="/assets/css/style.dark.bundle.css" rel="stylesheet" type="text/css" />
     @endif
 
 
@@ -85,15 +82,16 @@
                                     <ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1">
                                         <!--end::Item-->
                                         <!--begin::Item-->
-                                        @if ($tittle == "project" )
-                                        <li class="breadcrumb-item text-muted  text-dark"><a
-                                                class="text-muted text-hover-primary" href="/projects/{{$sluk3}}">{{
-                                                $slug }} </a>
-                                        </li>
-                                        <li class="breadcrumb-item">
-                                            <span class="bullet bg-gray-200 w-5px h-2px"></span>
-                                        </li>
-                                        <li class="breadcrumb-item text-muted  text-dark">{{ $slug2 }}</li>
+                                        @if ($tittle == 'project')
+                                            <li class="breadcrumb-item text-muted  text-dark"><a
+                                                    class="text-muted text-hover-primary"
+                                                    href="/projects/{{ $sluk3 }}">{{ $slug }}
+                                                </a>
+                                            </li>
+                                            <li class="breadcrumb-item">
+                                                <span class="bullet bg-gray-200 w-5px h-2px"></span>
+                                            </li>
+                                            <li class="breadcrumb-item text-muted  text-dark">{{ $slug2 }}</li>
                                         @endif
 
                                         <li class="breadcrumb-item text-muted  text-dark">{{ $slug }}</li>
@@ -108,21 +106,23 @@
                             <!--begin::Actions-->
 
                             <div class="d-flex align-items-center py-1">
-                                @if ($tittle == "client" )
-                                <a href="/client" class="btn btn-light-primary btn-sm"> Back</a>
+                                @if ($tittle == 'client')
+                                    <a href="/client" class="btn btn-light-primary btn-sm"> Back</a>
+                                @elseif ($tittle == 'projects')
+                                    <a href="/projects" class="btn btn-light-primary btn-sm"> Back</a>
+                                @elseif ($tittle == 'project')
+                                    <a href="/projects/{{ $sluk3 }}" class="btn btn-light-primary btn-sm">
+                                        Back</a>
+                                @elseif ($tittle == 'report')
+                                    <a href="/report" class="btn btn-light-primary btn-sm"> Back</a>
+                                @elseif ($tittle == 'modul')
+                                    <a href="/projects/{{ $slug2 }}" class="btn btn-light-primary btn-sm">
+                                        Back</a>
+                                @elseif ($tittle == 'Client')
+                                    <a href="{{ redirect()->back()->getTargetUrl() }}"
+                                        class="btn btn-light-primary btn-sm"> Back</a>
                                 @endif
-                                @if ($tittle == "projects" )
-                                <a href="/projects" class="btn btn-light-primary btn-sm"> Back</a>
-                                @endif
-                                @if ($tittle == "project" )
-                                <a href="/projects/{{$sluk3}}" class="btn btn-light-primary btn-sm"> Back</a>
-                                @endif
-                                @if ($tittle == "report" )
-                                <a href="/report" class="btn btn-light-primary btn-sm"> Back</a>
-                                @endif
-                                @if ($tittle == "modul" )
-                                <a href="/projects/{{$slug2}}" class="btn btn-light-primary btn-sm"> Back</a>
-                                @endif
+
 
                             </div>
 
@@ -200,9 +200,10 @@
     <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
         <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
         <span class="svg-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1" transform="rotate(90 13 6)"
-                    fill="black" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                fill="none">
+                <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1"
+                    transform="rotate(90 13 6)" fill="black" />
                 <path
                     d="M12.5657 8.56569L16.75 12.75C17.1642 13.1642 17.8358 13.1642 18.25 12.75C18.6642 12.3358 18.6642 11.6642 18.25 11.25L12.7071 5.70711C12.3166 5.31658 11.6834 5.31658 11.2929 5.70711L5.75 11.25C5.33579 11.6642 5.33579 12.3358 5.75 12.75C6.16421 13.1642 6.83579 13.1642 7.25 12.75L11.4343 8.56569C11.7467 8.25327 12.2533 8.25327 12.5657 8.56569Z"
                     fill="black" />
@@ -253,59 +254,58 @@
     <script wire:ignore.self>
         $(document).ready(function() {
             $('.progress .progress-bar').css("width",
-            function() {
-                return $(this).attr("aria-valuenow") + "%";
-            }
+                function() {
+                    return $(this).attr("aria-valuenow") + "%";
+                }
             )
         });
     </script>
     <script wire:ignore>
         window.addEventListener('swal:confirm', event => {
-        swal.fire({
-            title: event.detail.title,
-            text: event.detail.text,
-            icon: event.detail.type,
-            showCancelButton: true,
-            reverseButtons: true
-        })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    window.livewire.emit('delete', event.detail.id );
-                }
-            });
-    });
+            swal.fire({
+                    title: event.detail.title,
+                    text: event.detail.text,
+                    icon: event.detail.type,
+                    showCancelButton: true,
+                    reverseButtons: true
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('delete', event.detail.id);
+                    }
+                });
+        });
 
 
 
-    window.addEventListener('swal:confirmpass', event => {
-        swal.fire({
-            title: event.detail.title,
-            text: event.detail.text,
-            icon: event.detail.type,
-            showCancelButton: true,
-            reverseButtons: true
-        })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    window.livewire.emit('resetpass', event.detail.id);
-                }
-            });
-    });
-    window.addEventListener('swal:confirmSUS', event => {
-        swal.fire({
-            title: event.detail.title,
-            text: event.detail.text,
-            icon: event.detail.type,
-            showCancelButton: true,
-            reverseButtons: true
-        })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    window.livewire.emit('presus', event.detail.id);
-                }
-            });
-    });
-
+        window.addEventListener('swal:confirmpass', event => {
+            swal.fire({
+                    title: event.detail.title,
+                    text: event.detail.text,
+                    icon: event.detail.type,
+                    showCancelButton: true,
+                    reverseButtons: true
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('resetpass', event.detail.id);
+                    }
+                });
+        });
+        window.addEventListener('swal:confirmSUS', event => {
+            swal.fire({
+                    title: event.detail.title,
+                    text: event.detail.text,
+                    icon: event.detail.type,
+                    showCancelButton: true,
+                    reverseButtons: true
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('presus', event.detail.id);
+                    }
+                });
+        });
     </script>
     {{-- @include('livewire.projects.chart') --}}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
