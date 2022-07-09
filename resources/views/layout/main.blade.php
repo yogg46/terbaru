@@ -248,6 +248,10 @@
     @livewireScripts
     <script wire:ignore src="/assets/js/custom/modals/create-app.js"></script>
     <script src="/assets/js/custom/apps/customers/list/list.js"></script>
+    <script src="/assets/js/custom/documentation/forms/daterangepicker.js"></script>
+    <script src="/assets/plugins/custom/prismjs/prismjs.bundle.js"></script>
+
+
 
 
     @include('sweetalert::alert')

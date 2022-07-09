@@ -323,7 +323,7 @@ class Index extends Component
     {
         // $this->validate([]);
 
-        $this->clients = tap($this->clients)->update(['cp' => $this->cp]);
+        // $this->clients = tap($this->clients)->update(['cp' => $this->cp]);
 
         session()->flash('message', 'Data Berhasil Disimpan.');
 

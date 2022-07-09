@@ -1,4 +1,4 @@
-<div wire:ignore.self class="modal fade" data-bs-backdrop="static" id="modal_addPro" tabindex="-1" aria-hidden="true">
+<div wire:ignore.self class="modal fade" data-bs-backdrop="static" id="modal_add" tabindex="-1" aria-hidden="true">
     <!--begin::Modal dialog-->
     <div class="modal-dialog modal-dialog-centered mw-900px">
         <!--begin::Modal content-->
@@ -6,11 +6,11 @@
             <!--begin::Modal header-->
             <div class="modal-header">
                 <!--begin::Modal title-->
-                <h2>Add Client </h2>
+                <h2>Add Project </h2>
                 <!--end::Modal title-->
                 <!--begin::Close-->
                 <div class="btn btn-sm btn-icon btn-active-color-primary"
-                    wire:click="{{ $step == 2 ? 'resetInput()' : '' }}" data-bs-dismiss="modal">
+                    wire:click="{{ $step == 3 ? 'resetInput()' : '' }}" data-bs-dismiss="modal">
                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                     <span class="svg-icon svg-icon-1">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -36,7 +36,8 @@
                         <!--begin::Nav-->
                         <div class="stepper-nav ps-lg-10">
                             <!--begin::Step 1-->
-                            <div class="stepper-item ">
+                            <div
+                                class="stepper-item    {{ $step == 0 ? 'current' : ($step > 0 ? 'completed' : '') }}">
                                 <!--begin::Line-->
                                 <div class="stepper-line w-40px"></div>
                                 <!--end::Line-->
@@ -48,15 +49,15 @@
                                 <!--end::Icon-->
                                 <!--begin::Label-->
                                 <div class="stepper-label">
-                                    <h3 class="stepper-title">Nama</h3>
-                                    <div class="stepper-desc">Nama client</div>
+                                    <h3 class="stepper-title">Details</h3>
+                                    <div class="stepper-desc">Nama Project</div>
                                 </div>
                                 <!--end::Label-->
                             </div>
 
                             <!--end::Step 1-->
                             <!--begin::Step 2-->
-                            <div class="stepper-item">
+                            <div class="stepper-item {{ $step == 1 ? 'current' : ($step > 1 ? 'completed' : '') }}">
                                 <!--begin::Line-->
                                 <div class="stepper-line w-40px"></div>
                                 <!--end::Line-->
@@ -68,8 +69,8 @@
                                 <!--begin::Icon-->
                                 <!--begin::Label-->
                                 <div class="stepper-label">
-                                    <h3 class="stepper-title">Details</h3>
-                                    <div class="stepper-desc">Detail client</div>
+                                    <h3 class="stepper-title">Category</h3>
+                                    <div class="stepper-desc">Katetori Project</div>
                                 </div>
                                 <!--begin::Label-->
                             </div>
@@ -81,7 +82,7 @@
 
                             <!--end::Step 4-->
                             <!--begin::Step 5-->
-                            <div class="stepper-item">
+                            <div class="stepper-item {{ $step == 2 ? 'current' : ($step > 2 ? 'completed' : '') }}">
                                 <!--begin::Line-->
                                 <div class="stepper-line w-40px"></div>
                                 <!--end::Line-->
@@ -93,8 +94,25 @@
                                 <!--end::Icon-->
                                 <!--begin::Label-->
                                 <div class="stepper-label">
+                                    <h3 class="stepper-title">Date</h3>
+                                    <div class="stepper-desc">Tanggal Deadline </div>
+                                </div>
+                                <!--end::Label-->
+                            </div>
+                            <div class="stepper-item {{ $step == 3 ? 'current' : ($step > 3 ? 'completed' : '') }}">
+                                <!--begin::Line-->
+                                <div class="stepper-line w-40px"></div>
+                                <!--end::Line-->
+                                <!--begin::Icon-->
+                                <div class="stepper-icon w-40px h-40px">
+                                    <i class="stepper-check fas fa-check"></i>
+                                    <span class="stepper-number">4</span>
+                                </div>
+                                <!--end::Icon-->
+                                <!--begin::Label-->
+                                <div class="stepper-label">
                                     <h3 class="stepper-title">Completed</h3>
-                                    <div class="stepper-desc">Review and Submit</div>
+                                    <div class="stepper-desc">Review and Submit </div>
                                 </div>
                                 <!--end::Label-->
                             </div>
@@ -116,20 +134,22 @@
                             @if ($step == 0)
                                 <div class="current">
                                     <div class="w-100">
+
+                                        {{-- <input type="hidden" wire:model="marketing"> --}}
                                         <!--begin::Input group-->
-                                        <div class="fv-row mb-10">
+                                        <div class="fv-row mb-6">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                <span class="required">Nama Client</span>
+                                                <span class="required">Nama Project</span>
                                                 <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
                                                     title="Specify your unique app name"></i>
                                             </label>
                                             <!--end::Label-->
                                             <!--begin::Input-->
-                                            <input type="text" wire:model="nama"
+                                            <input type="text" wire:model="nama_project"
                                                 class="form-control form-control-lg form-control-solid" name="name"
                                                 placeholder="" value="" />
-                                            @error('nama')
+                                            @error('nama_project')
                                                 <div class="fv-plugins-message-container invalid-feedback">
                                                     <div> <span class="error  text-danger">{{ $message }}</span></div>
                                                 </div>
@@ -139,12 +159,63 @@
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
+                                        <div class="fv-row mb-6">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                <span class="required">Client </span>
+                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                                    title="Select your app category"></i>
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin:Options-->
+
+                                            <select wire:model="no_client"
+                                                class=" form-select select2 form-select-solid ">
+
+                                                @foreach ($client as $item)
+                                                    <option value="{{ $item->id }}"> {{ $item->nama }} </option>
+                                                @endforeach
+                                            </select>
+                                            @error('no_client')
+                                                <div class="fv-plugins-message-container invalid-feedback">
+                                                    <div> <span class="error  text-danger">{{ $message }}</span>
+                                                    </div>
+                                                </div>
+                                            @enderror
+
+                                            <!--end:Options-->
+                                        </div>
+
                                         <div class="fv-row">
+                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
+                                                <span class="required">Deskripsi Project
+                                                </span>
+                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                    data-bs-toggle="tooltip" title="Select your app category"></i>
+                                            </label>
+                                            <textarea wire:model="deskripsi_project" class="form-control form-control-solid mb-8" rows="3"
+                                                placeholder="Type here"></textarea>
+                                            @error('deskripsi_project')
+                                                <div class="fv-plugins-message-container invalid-feedback">
+                                                    <div> <span class="error  text-danger">{{ $message }}</span>
+                                                    </div>
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <!--end::Input group-->
+                                    </div>
+                                </div>
+                            @endif
+                            @if ($step == 1)
+                                <div class="">
+                                    <div class="w-100">
+                                        <!--begin::Input group-->
+                                        <div class="fv-row mb-6">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-5 fw-bold mb-4">
                                                 <span class="required">Category</span>
-                                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
-                                                    title="Select your app category"></i>
+                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                    data-bs-toggle="tooltip" title="Select your app category"></i>
                                             </label>
                                             <!--end::Label-->
                                             <!--begin:Options-->
@@ -175,7 +246,7 @@
                                                         <!--end:Icon-->
                                                         <!--begin:Info-->
                                                         <span class="d-flex flex-column">
-                                                            <span class="fw-bolder fs-6">Instansi</span>
+                                                            <span class="fw-bolder fs-6">Web</span>
                                                             <span class="fs-7 text-muted">Creating a clear text
                                                                 structure
                                                                 is
@@ -187,7 +258,7 @@
                                                     <!--begin:Input-->
                                                     <span class="form-check form-check-custom form-check-solid">
                                                         <input required class="form-check-input" type="radio"
-                                                            wire:model='no_kc' name="category" value="1" />
+                                                            wire:model='kategori' name="kategori" value="1" />
                                                     </span>
                                                     <!--end:Input-->
                                                 </label>
@@ -202,26 +273,11 @@
                                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
                                                                 <span class="svg-icon svg-icon-1 svg-icon-danger">
                                                                     <svg xmlns="http://www.w3.org/2000/svg"
-                                                                        width="24px" height="24px"
-                                                                        viewBox="0 0 24 24">
-                                                                        <g stroke="none" stroke-width="1"
-                                                                            fill="none" fill-rule="evenodd">
-                                                                            <rect x="5" y="5"
-                                                                                width="5" height="5"
-                                                                                rx="1" fill="#000000" />
-                                                                            <rect x="14" y="5"
-                                                                                width="5" height="5"
-                                                                                rx="1" fill="#000000"
-                                                                                opacity="0.3" />
-                                                                            <rect x="5" y="14"
-                                                                                width="5" height="5"
-                                                                                rx="1" fill="#000000"
-                                                                                opacity="0.3" />
-                                                                            <rect x="14" y="14"
-                                                                                width="5" height="5"
-                                                                                rx="1" fill="#000000"
-                                                                                opacity="0.3" />
-                                                                        </g>
+                                                                        width="24" height="24"
+                                                                        viewBox="0 0 24 24" fill="none">
+                                                                        <path opacity="0.3"
+                                                                            d="M12.3 4.11104L20.7 3.01094C21.4 2.91094 22 3.51102 22 4.21102V11.211H12.3V4.11104ZM10.3 11.311V4.41097L3.10001 5.31099C2.50001 5.41099 2 5.91094 2 6.51094V11.311H10.3ZM12.3 13.311V20.5109L20.7 21.611C21.4 21.711 22 21.111 22 20.411V13.411H12.3V13.311ZM10.3 13.311H2V18.111C2 18.711 2.50001 19.211 3.10001 19.311L10.3 20.211V13.311Z"
+                                                                            fill="black" />
                                                                     </svg>
                                                                 </span>
                                                                 <!--end::Svg Icon-->
@@ -230,7 +286,7 @@
                                                         <!--end:Icon-->
                                                         <!--begin:Info-->
                                                         <span class="d-flex flex-column">
-                                                            <span class="fw-bolder fs-6">Perusahaan</span>
+                                                            <span class="fw-bolder fs-6">Desktop</span>
                                                             <span class="fs-7 text-muted">Creating a clear text
                                                                 structure
                                                                 is
@@ -241,8 +297,8 @@
                                                     <!--end:Label-->
                                                     <!--begin:Input-->
                                                     <span class="form-check form-check-custom form-check-solid">
-                                                        <input required class="form-check-input" wire:model='no_kc'
-                                                            type="radio" name="category" value="2" />
+                                                        <input required class="form-check-input" wire:model='kategori'
+                                                            type="radio" name="kategori" value="2" />
                                                     </span>
                                                     <!--end:Input-->
                                                 </label>
@@ -259,11 +315,14 @@
                                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                                         width="24" height="24"
                                                                         viewBox="0 0 24 24" fill="none">
+                                                                        <path
+                                                                            d="M6 21C6 21.6 6.4 22 7 22H17C17.6 22 18 21.6 18 21V20H6V21Z"
+                                                                            fill="black" />
                                                                         <path opacity="0.3"
-                                                                            d="M20.9 12.9C20.3 12.9 19.9 12.5 19.9 11.9C19.9 11.3 20.3 10.9 20.9 10.9H21.8C21.3 6.2 17.6 2.4 12.9 2V2.9C12.9 3.5 12.5 3.9 11.9 3.9C11.3 3.9 10.9 3.5 10.9 2.9V2C6.19999 2.5 2.4 6.2 2 10.9H2.89999C3.49999 10.9 3.89999 11.3 3.89999 11.9C3.89999 12.5 3.49999 12.9 2.89999 12.9H2C2.5 17.6 6.19999 21.4 10.9 21.8V20.9C10.9 20.3 11.3 19.9 11.9 19.9C12.5 19.9 12.9 20.3 12.9 20.9V21.8C17.6 21.3 21.4 17.6 21.8 12.9H20.9Z"
+                                                                            d="M17 2H7C6.4 2 6 2.4 6 3V20H18V3C18 2.4 17.6 2 17 2Z"
                                                                             fill="black" />
                                                                         <path
-                                                                            d="M16.9 10.9H13.6C13.4 10.6 13.2 10.4 12.9 10.2V5.90002C12.9 5.30002 12.5 4.90002 11.9 4.90002C11.3 4.90002 10.9 5.30002 10.9 5.90002V10.2C10.6 10.4 10.4 10.6 10.2 10.9H9.89999C9.29999 10.9 8.89999 11.3 8.89999 11.9C8.89999 12.5 9.29999 12.9 9.89999 12.9H10.2C10.4 13.2 10.6 13.4 10.9 13.6V13.9C10.9 14.5 11.3 14.9 11.9 14.9C12.5 14.9 12.9 14.5 12.9 13.9V13.6C13.2 13.4 13.4 13.2 13.6 12.9H16.9C17.5 12.9 17.9 12.5 17.9 11.9C17.9 11.3 17.5 10.9 16.9 10.9Z"
+                                                                            d="M12 4C11.4 4 11 3.6 11 3V2H13V3C13 3.6 12.6 4 12 4Z"
                                                                             fill="black" />
                                                                     </svg>
                                                                 </span>
@@ -273,7 +332,7 @@
                                                         <!--end:Icon-->
                                                         <!--begin:Info-->
                                                         <span class="d-flex flex-column">
-                                                            <span class="fw-bolder fs-6">Kesehatan</span>
+                                                            <span class="fw-bolder fs-6">Mobile</span>
                                                             <span class="fs-7 text-muted">Creating a clear text
                                                                 structure
                                                                 copywriting</span>
@@ -283,8 +342,150 @@
                                                     <!--end:Label-->
                                                     <!--begin:Input-->
                                                     <span class="form-check form-check-custom form-check-solid">
-                                                        <input required class="form-check-input" wire:model='no_kc'
-                                                            type="radio" name="category" value="3" />
+                                                        <input required class="form-check-input" wire:model='kategori'
+                                                            type="radio" name="kategori" value="3" />
+                                                    </span>
+                                                    <!--end:Input-->
+                                                </label>
+                                                <!--end::Option-->
+                                            </div>
+
+                                            <!--end:Options-->
+                                        </div>
+                                        <div class="fv-row mb-6">
+                                            <!--begin::Label-->
+                                            <label class="d-flex align-items-center fs-5 fw-bold mb-4">
+                                                <span class="required">Level</span>
+                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
+                                                    data-bs-toggle="tooltip" title="Select your app category"></i>
+                                            </label>
+                                            <!--end::Label-->
+                                            <!--begin:Options-->
+                                            <div class="fv-row">
+                                                <!--begin:Option-->
+                                                <label class="d-flex flex-stack mb-5 cursor-pointer">
+                                                    <!--begin:Label-->
+                                                    <span class="d-flex align-items-center me-2">
+                                                        <!--begin:Icon-->
+                                                        <span class="symbol symbol-50px me-6">
+                                                            <span class="symbol-label bg-light-danger">
+                                                                <!--begin::Svg Icon | path: icons/duotune/maps/map004.svg-->
+                                                                <span class="svg-icon svg-icon-1 svg-icon-danger">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width="24" height="24"
+                                                                        viewBox="0 0 24 24" fill="none">
+                                                                        <path opacity="0.3"
+                                                                            d="M14.1 15.013C14.6 16.313 14.5 17.813 13.7 19.113C12.3 21.513 9.29999 22.313 6.89999 20.913C5.29999 20.013 4.39999 18.313 4.39999 16.613C5.09999 17.013 5.99999 17.313 6.89999 17.313C8.39999 17.313 9.69998 16.613 10.7 15.613C11.1 15.713 11.5 15.813 11.9 15.813C12.7 15.813 13.5 15.513 14.1 15.013ZM8.5 12.913C8.5 12.713 8.39999 12.513 8.39999 12.313C8.39999 11.213 8.89998 10.213 9.69998 9.613C9.19998 8.313 9.30001 6.813 10.1 5.513C10.6 4.713 11.2 4.11299 11.9 3.71299C10.4 2.81299 8.49999 2.71299 6.89999 3.71299C4.49999 5.11299 3.70001 8.113 5.10001 10.513C5.80001 11.813 7.1 12.613 8.5 12.913ZM16.9 7.313C15.4 7.313 14.1 8.013 13.1 9.013C14.3 9.413 15.1 10.513 15.3 11.713C16.7 12.013 17.9 12.813 18.7 14.113C19.2 14.913 19.3 15.713 19.3 16.613C20.8 15.713 21.8 14.113 21.8 12.313C21.9 9.513 19.7 7.313 16.9 7.313Z"
+                                                                            fill="black" />
+                                                                        <path
+                                                                            d="M9.69998 9.61307C9.19998 8.31307 9.30001 6.81306 10.1 5.51306C11.5 3.11306 14.5 2.31306 16.9 3.71306C18.5 4.61306 19.4 6.31306 19.4 8.01306C18.7 7.61306 17.8 7.31306 16.9 7.31306C15.4 7.31306 14.1 8.01306 13.1 9.01306C12.7 8.91306 12.3 8.81306 11.9 8.81306C11.1 8.81306 10.3 9.11307 9.69998 9.61307ZM8.5 12.9131C7.1 12.6131 5.90001 11.8131 5.10001 10.5131C4.60001 9.71306 4.5 8.91306 4.5 8.01306C3 8.91306 2 10.5131 2 12.3131C2 15.1131 4.2 17.3131 7 17.3131C8.5 17.3131 9.79999 16.6131 10.8 15.6131C9.49999 15.1131 8.7 14.1131 8.5 12.9131ZM18.7 14.1131C17.9 12.8131 16.7 12.0131 15.3 11.7131C15.3 11.9131 15.4 12.1131 15.4 12.3131C15.4 13.4131 14.9 14.4131 14.1 15.0131C14.6 16.3131 14.5 17.8131 13.7 19.1131C13.2 19.9131 12.6 20.5131 11.9 20.9131C13.4 21.8131 15.3 21.9131 16.9 20.9131C19.3 19.6131 20.1 16.5131 18.7 14.1131Z"
+                                                                            fill="black" />
+                                                                    </svg>
+                                                                </span>
+                                                                <!--end::Svg Icon-->
+                                                            </span>
+                                                        </span>
+                                                        <!--end:Icon-->
+                                                        <!--begin:Info-->
+                                                        <span class="d-flex flex-column">
+                                                            <span class="fw-bolder fs-6">Urgent</span>
+                                                            <span class="fs-7 text-muted">Creating a clear text
+                                                                structure
+                                                                is
+                                                                just one SEO</span>
+                                                        </span>
+                                                        <!--end:Info-->
+                                                    </span>
+                                                    <!--end:Label-->
+                                                    <!--begin:Input-->
+                                                    <span class="form-check form-check-custom form-check-solid">
+                                                        <input required class="form-check-input" type="radio"
+                                                            wire:model='level' name="level" value="1" />
+                                                    </span>
+                                                    <!--end:Input-->
+                                                </label>
+                                                <!--end::Option-->
+                                                <!--begin:Option-->
+                                                <label class="d-flex flex-stack mb-5 cursor-pointer">
+                                                    <!--begin:Label-->
+                                                    <span class="d-flex align-items-center me-2">
+                                                        <!--begin:Icon-->
+                                                        <span class="symbol symbol-50px me-6">
+                                                            <span class="symbol-label bg-light-primary">
+                                                                <!--begin::Svg Icon | path: icons/duotune/general/gen024.svg-->
+                                                                <span class="svg-icon svg-icon-1 svg-icon-primary">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width="24" height="24"
+                                                                        viewBox="0 0 24 24" fill="none">
+                                                                        <path opacity="0.3"
+                                                                            d="M22 12C22 13.8 21.5 15.5 20.7 17L14.9 7H20.7C21.5 8.5 22 10.2 22 12ZM3.3 7L6.2 12L12 2C8.3 2 5.1 4 3.3 7ZM3.3 17C5 20 8.3 22 12 22L14.9 17H3.3Z"
+                                                                            fill="black" />
+                                                                        <path
+                                                                            d="M20.7 7H9.2L12.1 2C15.7 2 18.9 4 20.7 7ZM3.3 7C2.4 8.5 2 10.2 2 12C2 13.8 2.5 15.5 3.3 17H9.10001L3.3 7ZM17.8 12L12 22C15.7 22 18.9 20 20.7 17L17.8 12Z"
+                                                                            fill="black" />
+                                                                    </svg>
+                                                                </span>
+                                                                <!--end::Svg Icon-->
+                                                            </span>
+                                                        </span>
+                                                        <!--end:Icon-->
+                                                        <!--begin:Info-->
+                                                        <span class="d-flex flex-column">
+                                                            <span class="fw-bolder fs-6">Medium</span>
+                                                            <span class="fs-7 text-muted">Creating a clear text
+                                                                structure
+                                                                is
+                                                                just one aspect</span>
+                                                        </span>
+                                                        <!--end:Info-->
+                                                    </span>
+                                                    <!--end:Label-->
+                                                    <!--begin:Input-->
+                                                    <span class="form-check form-check-custom form-check-solid">
+                                                        <input required class="form-check-input" wire:model='level'
+                                                            type="radio" name="level" value="2" />
+                                                    </span>
+                                                    <!--end:Input-->
+                                                </label>
+                                                <!--end::Option-->
+                                                <!--begin:Option-->
+                                                <label class="d-flex flex-stack cursor-pointer">
+                                                    <!--begin:Label-->
+                                                    <span class="d-flex align-items-center me-2">
+                                                        <!--begin:Icon-->
+                                                        <span class="symbol symbol-50px me-6">
+                                                            <span class="symbol-label bg-light-success">
+                                                                <!--begin::Svg Icon | path: icons/duotune/general/gen013.svg-->
+                                                                <span class="svg-icon svg-icon-1 svg-icon-success">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                                        width="24" height="24"
+                                                                        viewBox="0 0 24 24" fill="none">
+                                                                        <path
+                                                                            d="M19.0963 4.92704C20.0963 5.92704 20.8963 7.12705 21.2963 8.32705L17.6963 11.927L8.39633 2.62705C11.8963 1.32705 16.1963 2.02704 19.0963 4.92704ZM2.69633 15.627C3.19633 16.827 3.89634 18.027 4.89634 19.027C7.79634 21.927 11.9963 22.627 15.5963 21.227L6.29634 11.927L2.69633 15.627Z"
+                                                                            fill="black" />
+                                                                        <path opacity="0.3"
+                                                                            d="M8.39634 2.72705L11.9963 6.32706L2.69634 15.6271C1.29634 12.0271 1.99634 7.82705 4.89634 4.92705C5.89634 3.92705 7.09634 3.22705 8.39634 2.72705ZM11.9963 17.7271L15.5963 21.3271C16.7963 20.8271 17.9963 20.1271 18.9963 19.1271C21.8963 16.2271 22.5963 12.027 21.1963 8.42705L11.9963 17.7271Z"
+                                                                            fill="black" />
+                                                                    </svg>
+                                                                </span>
+                                                                <!--end::Svg Icon-->
+                                                            </span>
+                                                        </span>
+                                                        <!--end:Icon-->
+                                                        <!--begin:Info-->
+                                                        <span class="d-flex flex-column">
+                                                            <span class="fw-bolder fs-6">Low</span>
+                                                            <span class="fs-7 text-muted">Creating a clear text
+                                                                structure
+                                                                copywriting</span>
+                                                        </span>
+                                                        <!--end:Info-->
+                                                    </span>
+                                                    <!--end:Label-->
+                                                    <!--begin:Input-->
+                                                    <span class="form-check form-check-custom form-check-solid">
+                                                        <input required class="form-check-input" wire:model='level'
+                                                            type="radio" name="level" value="3" />
                                                     </span>
                                                     <!--end:Input-->
                                                 </label>
@@ -294,74 +495,6 @@
                                             <!--end:Options-->
                                         </div>
                                         <!--end::Input group-->
-                                    </div>
-                                </div>
-                            @endif
-                            @if ($step == 1)
-                                <div class="">
-                                    <div class="w-100">
-                                        <!--begin::Input group-->
-                                        <div class="fv-row mb-10">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                <span class="required">Email Client</span>
-                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
-                                                    data-bs-toggle="tooltip" title="Specify your unique app name"></i>
-                                            </label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input type="text" wire:model="email"
-                                                class="form-control form-control-lg form-control-solid" name="email"
-                                                placeholder="" value="" />
-                                            @error('email')
-                                                <div class="fv-plugins-message-container invalid-feedback">
-                                                    <div> <span class="error  text-danger">{{ $message }}</span></div>
-                                                </div>
-                                            @enderror
-
-                                            <!--end::Input-->
-                                        </div>
-                                        <div class="fv-row ">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                <span class="required">No telpon Client</span>
-                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
-                                                    data-bs-toggle="tooltip" title="Specify your unique app name"></i>
-                                            </label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input type="text" wire:model="cp"
-                                                class="form-control form-control-lg form-control-solid"
-                                                name="No telpon Client" placeholder="" value="" />
-                                            @error('cp')
-                                                <div class="fv-plugins-message-container invalid-feedback">
-                                                    <div> <span class="error  text-danger">{{ $message }}</span></div>
-                                                </div>
-                                            @enderror
-
-                                            <!--end::Input-->
-                                        </div>
-                                        <div class="fv-row ">
-                                            <!--begin::Label-->
-                                            <label class="d-flex align-items-center fs-5 fw-bold mb-2">
-                                                <span class="required">Alamat Client</span>
-                                                <i class="fas fa-exclamation-circle ms-2 fs-7"
-                                                    data-bs-toggle="tooltip" title="Specify your unique app name"></i>
-                                            </label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input type="text" wire:model="alamat"
-                                                class="form-control form-control-lg form-control-solid"
-                                                name="Alamat Client" placeholder="" value="" />
-                                            @error('alamat')
-                                                <div class="fv-plugins-message-container invalid-feedback">
-                                                    <div> <span class="error  text-danger">{{ $message }}</span></div>
-                                                </div>
-                                            @enderror
-
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Input group-->
                                         <!--begin::Input group-->
 
                                         <!--end::Input group-->
@@ -369,6 +502,34 @@
                                 </div>
                             @endif
                             @if ($step == 2)
+                                <div class="w-100 text-center">
+                                    <!--begin::Heading-->
+                                    <div class="fv-row mb-6">
+                                        <!--begin::Label-->
+                                        <label class="d-flex align-items-center fs-5 fw-bold mb-4">
+                                            <span class="required">Category</span>
+                                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
+                                                title="Select your app category"></i>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin:Options-->
+                                        <div wire:ignore class="fv-row">
+                                            <!--begin:Option-->
+                                            <input wire:model="tgl_deadline"
+                                                class="form-control form-control-range form-control-solid"
+                                                type="date" />
+
+
+                                            <!--end::Option-->
+                                        </div>
+
+                                        <!--end:Options-->
+                                    </div>
+                                    <!--end::Illustration-->
+                                </div>
+                            @endif
+
+                            @if ($step == 3)
                                 <div class="w-100 text-center">
                                     <!--begin::Heading-->
                                     <h1 class="fw-bolder text-dark mb-3">Release!</h1>
@@ -402,7 +563,7 @@
                             <div class="d-flex flex-stack pt-10">
                                 <!--begin::Wrapper-->
                                 <div class="me-2">
-                                    @if ($step > 0 && $step <= 2)
+                                    @if ($step > 0 && $step <= 3)
                                         <button type="button" wire:click="decreaseStep"
                                             class="btn btn-lg btn-light-primary me-3">
                                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr063.svg-->
@@ -425,8 +586,9 @@
                                 <!--end::Wrapper-->
                                 <!--begin::Wrapper-->
                                 <div>
-                                    @if ($step == 2)
-                                        <button class="btn btn-lg btn-primary" type="submit"> <span>
+                                    @if ($step == 3)
+                                        <button data-bs-dismiss="modal" class="btn btn-lg btn-primary"
+                                            type="submit"> <span>
                                                 Simpan<span class="svg-icon svg-icon-3 ms-2 me-0">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24"
                                                         height="24" viewBox="0 0 24 24" fill="none">
@@ -439,7 +601,7 @@
                                                     </svg>
                                                 </span></span></button>
                                     @endif
-                                    @if ($step <= 1)
+                                    @if ($step <= 2)
                                         <button type="sumbit" class="btn btn-lg btn-primary">Continue
                                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
                                             <span class="svg-icon svg-icon-3 ms-1 me-0">

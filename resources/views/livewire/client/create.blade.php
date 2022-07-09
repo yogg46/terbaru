@@ -37,7 +37,7 @@
                         <!--begin::Nav-->
                         <div class="stepper-nav ps-lg-10">
                             <!--begin::Step 1-->
-                            <div class="stepper-item ">
+                            <div class="stepper-item {{ $step == 0 ? 'current' : ($step > 0 ? 'completed' : '') }} ">
                                 <!--begin::Line-->
                                 <div class="stepper-line w-40px"></div>
                                 <!--end::Line-->
@@ -57,7 +57,7 @@
 
                             <!--end::Step 1-->
                             <!--begin::Step 2-->
-                            <div class="stepper-item">
+                            <div class="stepper-item {{ $step == 1 ? 'current' : ($step > 1 ? 'completed' : '') }}">
                                 <!--begin::Line-->
                                 <div class="stepper-line w-40px"></div>
                                 <!--end::Line-->
@@ -82,7 +82,7 @@
 
                             <!--end::Step 4-->
                             <!--begin::Step 5-->
-                            <div class="stepper-item">
+                            <div class="stepper-item {{ $step == 2 ? 'current' : '' }}">
                                 <!--begin::Line-->
                                 <div class="stepper-line w-40px"></div>
                                 <!--end::Line-->
@@ -302,7 +302,7 @@
                                 <div class="">
                                     <div class="w-100">
                                         <!--begin::Input group-->
-                                        <div class="fv-row mb-10">
+                                        <div class="fv-row mb-6">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                                 <span class="required">Email Client</span>
@@ -322,7 +322,7 @@
 
                                             <!--end::Input-->
                                         </div>
-                                        <div class="fv-row ">
+                                        <div class="fv-row mb-6">
                                             <!--begin::Label-->
                                             <label class="d-flex align-items-center fs-5 fw-bold mb-2">
                                                 <span class="required">No telpon Client</span>
