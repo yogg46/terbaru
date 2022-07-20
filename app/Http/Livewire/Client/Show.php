@@ -17,7 +17,7 @@ class Show extends Component
     {
         $this->client = client::where('slug', $slug)->first();
         $this->total_project = project::where('no_client', $this->client->id)->get();
-        $this->sdh_project = project::where('no_client', $this->client->id)->where('status', 3)->get();
+        $this->sdh_project = project::where('no_client', $this->client->id)->where('status', 6)->get();
         $this->baru_project = project::where('no_client', $this->client->id)->where('status', 1)->get();
     }
 

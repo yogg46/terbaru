@@ -11,6 +11,7 @@ use Livewire\Component;
 class Show extends Component
 {
     public $project;
+    // public $total_project;
     public $total_progres;
     public $sit;
 
