@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -23,32 +24,24 @@ class project extends Model
     {
         parent::boot();
 
-        // static::creating(function ($model) {
 
-        //     if ($model->total_progres == 100) {
+        // static::updating(function ($model) {
+
+        //     if ($model->total_progres > 130) {
+        //         $model->status = 6;
+        //     } elseif ($model->total_progres > 120) {
+        //         $model->status = 5;
+        //     } elseif ($model->total_progres > 110) {
         //         $model->status = 3;
-        //     } elseif ($model->total_progres > 50) {
-        //         $model->status = 2;
+        //     } elseif ($model->total_progres > 99) {
+        //         $model->status = 4;
+        //         $model->tgl_trial = Carbon::now();
         //     } elseif ($model->total_progres > 0) {
+        //         $model->status = 2;
+        //     } elseif ($model->total_progres == 0) {
         //         $model->status = 1;
         //     }
         // });
-        static::updating(function ($model) {
-
-            if ($model->total_progres > 130) {
-                $model->status = 6;
-            } elseif ($model->total_progres > 120) {
-                $model->status = 5;
-            } elseif ($model->total_progres > 110) {
-                $model->status = 4;
-            } elseif ($model->total_progres > 99) {
-                $model->status = 3;
-            } elseif ($model->total_progres > 1) {
-                $model->status = 2;
-            } elseif ($model->total_progres == 0) {
-                $model->status = 1;
-            }
-        });
     }
     public function getAutoNumberOptions()
     {

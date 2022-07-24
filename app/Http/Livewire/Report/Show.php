@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Report;
 
 use App\Models\client;
+use App\Models\Modul;
 use App\Models\project;
 use Livewire\Component;
 
@@ -15,7 +16,11 @@ class Show extends Component
     }
     public function render()
     {
-        return view('livewire.report.show')->extends(
+        $cek =  Modul::where('no_project', $this->project->id)->get();
+
+        return view('livewire.report.show', [
+            'pro1' => $cek->groupBy('programer'),
+        ])->extends(
             'layout.main',
             [
                 'tittle' => 'report',

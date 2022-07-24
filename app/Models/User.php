@@ -27,7 +27,8 @@ class User extends Authenticatable
         'NIK',
         'no_telepon',
         'status',
-        'hitam'
+        'hitam',
+        'deleted_at'
     ];
     // protected $guarded  = ['id'];
 
@@ -68,6 +69,10 @@ class User extends Authenticatable
     public function ProgramerKeModul()
     {
         return $this->hasMany(Modul::class, 'programer')->withTrashed();
+    }
+    public function ProgramerKeBug()
+    {
+        return $this->hasMany(Bug::class, 'programer')->withTrashed();
     }
     public function Log()
     {

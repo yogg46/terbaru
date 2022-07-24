@@ -17,7 +17,13 @@ class CreateBugsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('project_id')->constrained()
                 ->onUpdate('cascade');
+            $table->unsignedBigInteger('programer')->constrained()
+                ->onUpdate('cascade');
+            $table->string('deadline')->nullable();
+            $table->string('nama')->nullable();
+            $table->string('slug')->nullable();
             $table->string('status')->default(0);
+            $table->string('deskripsi')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

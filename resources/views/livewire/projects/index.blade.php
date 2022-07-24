@@ -91,10 +91,11 @@
                         <!--end::Info-->
                         <!--begin::Progress-->
                         <div wire:ignore.self class="h-4px w-100 bg-light mb-5" data-bs-toggle="tooltip" title=""
-                            data-bs-original-title="This project {{ $item->total_progres . '%' }} completed">
+                            data-bs-original-title="This project {{ $item->total_progres == 1 ? '0%' : $item->total_progres . '%' }} completed">
                             <div class="bg-primary rounded h-4px" role="progressbar"
-                                style="width: {{ $item->total_progres . '%' }}"
-                                aria-valuenow="{{ $item->total_progres }}" aria-valuemin="0" aria-valuemax="100">
+                                style="width: {{ $item->total_progres == 1 ? 0 : $item->total_progres }}%"
+                                aria-valuenow="{{ $item->total_progres == 1 ? 0 : $item->total_progres }}"
+                                aria-valuemin="0" aria-valuemax="100">
                             </div>
                         </div>
                         <!--end::Progress-->
@@ -113,8 +114,7 @@
                             </div>
                             @if (!is_null($item->leader))
                                 <div wire:ignore class="symbol symbol-35px symbol-circle" data-bs-toggle="tooltip"
-                                    title=""
-                                    data-bs-original-title=" Leader: {{ $item->LeaderToProject->name }}">
+                                    title="" data-bs-original-title=" Leader: {{ $item->LeaderToProject->name }}">
                                     <span class="symbol-label bg-warning fs-4 text-inverse-warning fw-bolder">
 
                                         {{ Str::substr($item->LeaderToProject->name, 0, 2) }}
@@ -178,8 +178,8 @@
         });
 
 
-        window.addEventListener('swal', function(e) {
-            Swal.fire(e.detail);
-        });
+        // window.addEventListener('swal', function(e) {
+        //     Swal.fire(e.detail);
+        // });
     </script>
 </div>

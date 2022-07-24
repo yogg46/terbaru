@@ -17,6 +17,8 @@ class CreateTrialsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('project_id')->constrained()
                 ->onUpdate('cascade');
+            $table->string('nama')->nullable();
+            $table->string('slug')->nullable();
             $table->string('status')->default(0);
             $table->timestamps();
             $table->softDeletes();

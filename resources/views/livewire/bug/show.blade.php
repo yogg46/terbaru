@@ -1,9 +1,4 @@
 <div>
-    @if (session()->has('message'))
-        <div class="alert alert-success">
-            {{ session('message1') }}
-        </div>
-    @endif
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
@@ -65,33 +60,51 @@
                                         </div>
                                     @endif --}}
 
-                                    @if (Auth::user()->role == 4 && $project->status == 1 && is_null($project->leader))
+
+                                    @if ((in_array(Auth::user()->id, $buger) || $project->leader == Auth::user()->id) && $project->status != 6)
                                         <div class="me-0">
-                                            <a wire:click.prefetch="ambil({{ $project->id }}) "
-                                                class="btn btn-sm  btn-bg-light btn-active-color-primary">
-                                                Ambil </a>
+                                            <a data-bs-toggle="modal" data-bs-target="#modal_release"
+                                                class="btn btn-sm  btn-light-success text-hover-white  btn-active-color-success">
+                                                <span class="text-active-white text-hover-white">
+
+                                                    Release
+                                                </span>
+                                            </a>
+                                        </div>
+
+                                        <div wire:ignore.self class="modal fade" tabindex="-1" id="modal_release">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Release</h5>
+
+                                                        <!--begin::Close-->
+                                                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
+                                                            data-bs-dismiss="modal" aria-label="Close">
+                                                            <span class="svg-icon svg-icon-2x"></span>
+                                                        </div>
+                                                        <!--end::Close-->
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <p>Apakah Anda yakin akan merilis {{ $project->nama_project }}
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-light"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <button type="button"
+                                                            wire:click.prefetch="release({{ $project->id }}) "
+                                                            class="btn btn-primary">Save changes</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     @endif
-
 
                                     <!--begin::Menu-->
-                                    @if (Auth::user()->role == 3)
-                                        <div class="me-0">
-                                            <button data-bs-target="#modal_edit" data-bs-toggle="modal"
-                                                class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                <span class="svg-icon svg-icon-3">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                        height="24" viewBox="0 0 24 24" fill="none">
-                                                        <path opacity="0.3"
-                                                            d="M21.4 8.35303L19.241 10.511L13.485 4.755L15.643 2.59595C16.0248 2.21423 16.5426 1.99988 17.0825 1.99988C17.6224 1.99988 18.1402 2.21423 18.522 2.59595L21.4 5.474C21.7817 5.85581 21.9962 6.37355 21.9962 6.91345C21.9962 7.45335 21.7817 7.97122 21.4 8.35303ZM3.68699 21.932L9.88699 19.865L4.13099 14.109L2.06399 20.309C1.98815 20.5354 1.97703 20.7787 2.03189 21.0111C2.08674 21.2436 2.2054 21.4561 2.37449 21.6248C2.54359 21.7934 2.75641 21.9115 2.989 21.9658C3.22158 22.0201 3.4647 22.0084 3.69099 21.932H3.68699Z"
-                                                            fill="black"></path>
-                                                        <path
-                                                            d="M5.574 21.3L3.692 21.928C3.46591 22.0032 3.22334 22.0141 2.99144 21.9594C2.75954 21.9046 2.54744 21.7864 2.3789 21.6179C2.21036 21.4495 2.09202 21.2375 2.03711 21.0056C1.9822 20.7737 1.99289 20.5312 2.06799 20.3051L2.696 18.422L5.574 21.3ZM4.13499 14.105L9.891 19.861L19.245 10.507L13.489 4.75098L4.13499 14.105Z"
-                                                            fill="black"></path>
-                                                    </svg>
-                                                </span> </button>
-                                        </div>
-                                    @endif
+
 
                                     <!--end::Menu-->
                                 </div>
@@ -200,6 +213,7 @@
 
         <!--end::Container-->
     </div>
+
     <div class="container-xxl">
         <div class="row g-xxl-9">
             <!--begin::Col-->
@@ -210,16 +224,17 @@
                     <div class="card-header ">
                         <!--begin::Title-->
                         <div class="card-title">
-                            <h3 class="m-0 text-gray-900">Modul</h3>
+                            <h3 class="m-0 text-gray-900">Bug</h3>
                         </div>
                         <!--end::Title-->
                         <!--begin::Toolbar-->
                         {{-- @json($project->leader) --}}
+
                         @if (Auth::user()->id == $project->leader)
                             <div wire:ignore.self class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top"
                                 data-bs-trigger="hover" title="" data-bs-original-title="Click to add a Modul">
                                 <a href="#" class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal"
-                                    data-bs-target="#add_modul">
+                                    data-bs-target="#kt_modal_new_target">
                                     <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
                                     <span class="svg-icon svg-icon-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -231,7 +246,7 @@
                                                 rx="1" fill="black"></rect>
                                         </svg>
                                     </span>
-                                    <!--end::Svg Icon-->Add Modul
+                                    <!--end::Svg Icon-->Add Bug
                                 </a>
                             </div>
                         @endif
@@ -252,15 +267,18 @@
                                         <th class="p-0 min-w-200px"></th>
                                         <th class="p-0 min-w-100px"></th>
                                         <th class="p-0 min-w-40px"></th>
+                                        <th class="p-0 min-w-40px"></th>
                                     </tr>
                                 </thead>
                                 <!--end::Table head-->
                                 <!--begin::Table body-->
                                 <tbody>
-                                    @foreach ($modul as $item)
+                                    @foreach ($bug as $item)
                                         <tr>
                                             <th>
-                                                <div class="symbol symbol-50px me-2">
+                                                <div class="symbol symbol-50px me-2" wire:ignore.self
+                                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                    title="Deadline : {{ $item->deadline }}">
                                                     <span class="symbol-label">
                                                         <span
                                                             class="symbol-label bg-primary fs-2 text-inverse-warning fw-bolder">
@@ -272,49 +290,37 @@
                                                 </div>
                                             </th>
                                             <td>
-                                                <a href="/report/{{ $item->slug }}"
-                                                    class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{ $item->nama }}</a>
+                                                <span wire:ignore.self data-bs-toggle="tooltip"
+                                                    data-bs-placement="bottom"
+                                                    title="Deadline : {{ $item->deadline }}"
+                                                    class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{ $item->nama }}</span>
                                                 <span
-                                                    class="text-muted fw-bold d-block fs-7">{{ $item->ModulProgramer->name }}</span>
+                                                    class="text-muted fw-bold d-block fs-7">{{ $item->BugProgramer->name }}
+                                                </span>
                                             </td>
                                             <td>
-                                                <div class="d-flex flex-column w-100 me-2">
-                                                    <div class="d-flex flex-stack mb-2">
-                                                        <span wire:ignore.self class="text-muted me-2 fs-7 fw-bold"
-                                                            data-kt-countup="true"
-                                                            data-kt-countup-value="{{ $item->progres }}"
-                                                            data-kt-countup-suffix="%">
-                                                            0</span>
-                                                    </div>
-                                                    <div class="progress h-6px w-100">
-                                                        <div wire:ignore.self class="progress-bar bg-primary"
-                                                            role="progressbar" style="width:0%"
-                                                            aria-valuenow="{{ $item->progres }}" aria-valuemin="0"
-                                                            aria-valuemax="100"></div>
-                                                    </div>
-                                                </div>
+                                                <span wire:ignore.self class="text-muted fw-bold d-block  fs-7"
+                                                    data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                                    title="{{ $item->deskripsi }}">
+                                                    {{ Str::substr($item->deskripsi, 0, 10) }}
+
+                                                    {{-- Str::substr($project->deskripsi_project, 0, 110) . '...' --}}
+                                                </span>
                                             </td>
                                             <td class="text-end">
-                                                @if (Auth::user()->id == $item->programer || Auth::user()->id == $item->ModulToProject->leader)
-                                                    <a href="/projects/{{ $item->ModulToProject->slug . '/' . $item->slug }}"
-                                                        class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary">
-                                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr064.svg-->
-                                                        <span class="svg-icon svg-icon-2">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                height="24" viewBox="0 0 24 24" fill="none">
-                                                                <rect opacity="0.5" x="18" y="13"
-                                                                    width="13" height="2" rx="1"
-                                                                    transform="rotate(-180 18 13)" fill="black">
-                                                                </rect>
-                                                                <path
-                                                                    d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z"
-                                                                    fill="black"></path>
-                                                            </svg>
-                                                        </span>
-                                                        <!--end::Svg Icon-->
-                                                    </a>
-                                                @endif
+                                                <span
+                                                    class="text-white  badge badge-danger fw-bolder  mb-1 fs-7">{{ $item->status == 0 ? 'On Progres' : 'Complated' }}</span>
+
                                             </td>
+                                            @if ($item->status == 0 && $item->programer == Auth::user()->id)
+                                                <td class="text-end">
+                                                    <button wire:click="konfimasiRevisi({{ $item->id }})"
+                                                        class="btn btn-sm btn-light-success">
+                                                        Revisi
+                                                    </button>
+                                                </td>
+                                            @endif
+
                                         </tr>
                                     @endforeach
 
@@ -713,145 +719,29 @@
     </div>
 </div>
 
-<div wire:ignore.self class="modal fade" tabindex="-1" id="modal_edit">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Edit Project</h5>
+<!--begin::Modal - New Target-->
 
-                <!--begin::Close-->
-                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
-                    aria-label="Close">
-                    <span class="svg-icon svg-icon-2x"></span>
-                </div>
-                <!--end::Close-->
-            </div>
-
-            <div class="modal-body">
-                <form wire:submit.prevent="update({{ $project->id }})">
-
-                    <div class="mb-3">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span class="required">Level Project</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
-                                title=" Level Modul" data-bs-original-title="Level Modul"
-                                aria-label="Level Modul"></i>
-                        </label>
-                        <!--end::Label-->
-                        <select wire:model="level" required class="form-control form-control-solid">
-                            <option value=""> Select Level Project</option>
-                            <option value="1">Urgent</option>
-                            <option value="2">Medium</option>
-                            <option value="3">Low</option>
-
-                        </select>
-
-
-                        <div class="fv-plugins-message-container invalid-feedback"></div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                            <span class="required">Deadline Project</span>
-                            <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
-                                title=" Deadline Modul" data-bs-original-title="Deadline Modul"
-                                aria-label="Deadline Modul"></i>
-                        </label>
-                        <!--end::Label-->
-                        <input wire:model="tgl_deadline"
-                            class="form-control form-control-range form-control-solid" type="date" />
-                        <div class="fv-plugins-message-container invalid-feedback"></div>
-                    </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Save changes</button>
-            </div>
-            </form>
-
-        </div>
-    </div>
-</div>
-
-
-
-
-<div wire:ignore.self class="modal fade" tabindex="-1" id="add_modul">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add Modul</h5>
-
-                <!--begin::Close-->
-                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
-                    aria-label="Close">
-                    <i class="bi bi-x-lg"></i>
-                </div>
-                <!--end::Close-->
-            </div>
-
-            <div class="modal-body">
-                <div class="d-flex flex-column mb-8 fv-row fv-plugins-icon-container">
-                    <!--begin::Label-->
-                    <form wire:submit.prevent="save">
-
-                        <input type="hidden" wire:model="no_project">
-                        <div class="mb-3">
-
-                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                <span class="required">Nama Modul</span>
-                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
-                                    title=" Nama Modul" data-bs-original-title="Nama Modul"
-                                    aria-label="Nama Modul"></i>
-                            </label>
-                            <!--end::Label-->
-                            <input wire:model="nama" type="text" class="form-control form-control-solid"
-                                placeholder="Nama Modul" name="target_title">
-                            <div class="fv-plugins-message-container invalid-feedback"></div>
-                        </div>
-                        <div class="mb-3">
-
-                            <label class="d-flex align-items-center fs-6 fw-bold mb-2">
-                                <span class="required">Programmer</span>
-                                <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
-                                    title="" data-bs-original-title="Programmer"
-                                    aria-label="Programmer"></i>
-                            </label>
-                            {{-- <!--end::Label-->@json($programer2) --}}
-                            <select wire:model="programer2" wire:ignore class="form-select form-select-solid "
-                                data-placeholder="Select a Programer">
-                                <option value="">Select Programer...</option>
-                                @foreach ($programer as $key)
-                                    <option value="{{ $key->id }}">{{ $key->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                <button type="" wire:click.prevent="save()" class="btn btn-primary">Save changes</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-{{-- <button wire:click="cek({{ $project->id }})">
-        asdas
-    </button> --}}
 
 @livewireScripts
 <script type="text/javascript">
-    // window.addEventListener('swal', function(e) {
-    //     Swal.fire(e.detail);
-    // });
-    window.livewire.on('add_modul', () => {
-        $('#add_modul').modal('hide');
+    window.addEventListener('swal:revisi', event => {
+        swal.fire({
+                title: event.detail.title,
+                text: event.detail.text,
+                icon: event.detail.type,
+                showCancelButton: true,
+                reverseButtons: true
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    window.livewire.emit('revisi', event.detail.id);
+                }
+            });
     });
-    window.livewire.on('edit_pro', () => {
-        $('#modal_edit').modal('hide');
+
+
+    window.livewire.on('release', () => {
+        $('#modal_release').modal('hide');
     });
 </script>
 

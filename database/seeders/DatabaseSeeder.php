@@ -23,12 +23,12 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         $this->call(Userseeder::class);
         // $this->call(ProjectSeedeer::class);
-        User::factory()->count(20)->create();
+        // User::factory()->count(10)->create();
         client::factory()->count(5)->create();
         project::factory()->count(10)->create();
         Modul::factory()->count(20)->create();
-        Bug::factory()->count(5)->create();
-        Trial::factory()->count(5)->create();
+        // Bug::factory()->count(5)->create();
+        // Trial::factory()->count(5)->create();
         // User::factory()->count(20)->manager()->create();
         // User::factory()->count(20)->marketing()->create();
         // User::factory()->count(20)->leader()->create();

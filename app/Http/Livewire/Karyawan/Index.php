@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Karyawan;
 
-
+use App\Models\Bug;
 use App\Models\User;
 use App\Models\Kategori_karyawan;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -212,14 +212,13 @@ class Index extends Component
 
             //flash message
             session()->flash('message', 'Data Berhasil Diupdate.');
-            $this->emit('edit');
             // $this->alret()->warning('Title', 'Lorem Lorem Lorem');
             $this->resetInput();
             $this->ceklis = [];
+            $this->emit('edit');
 
             //redirect
-            // return redirect()->route('karyawan.index');
-
+            return redirect()->route('karyawan.index');
         }
     }
 
@@ -236,7 +235,7 @@ class Index extends Component
 
     public function delete($id)
     {
-        User::where('name', $id)->delete();
+        User::where('id', $id)->delete();
         $this->ceklis = [];
 
         // $this->dispatchBrowserEvent();

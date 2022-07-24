@@ -3,7 +3,7 @@
 
 <head>
     <base href="">
-    <title> {{ $tittle }} </title>
+    <title class=" text-capitalize"> {{ $tittle }} </title>
     {{-- <meta name="description"
         content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free." />
     <meta name="keywords"
@@ -16,8 +16,8 @@
         content="Metronic - Bootstrap 5 HTML, VueJS, React, Angular &amp; Laravel Admin Dashboard Theme" />
     <meta property="og:url" content="https://keenthemes.com/metronic" />
     <meta property="og:site_name" content="Keenthemes | Metronic" />
-    <link rel="canonical" href="Https://preview.keenthemes.com/metronic8" />
-    <link rel="shortcut icon" href="/assets/media/logos/favicon.ico" />
+    {{-- <link rel="canonical" href="Https://preview.keenthemes.com/metronic8" /> --}}
+    <link rel="shortcut icon" href="/assets/media/pnm.png" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <!--end::Fonts-->
@@ -116,11 +116,14 @@
                                 @elseif ($tittle == 'report')
                                     <a href="/report" class="btn btn-light-primary btn-sm"> Back</a>
                                 @elseif ($tittle == 'modul')
-                                    <a href="/projects/{{ $slug2 }}" class="btn btn-light-primary btn-sm">
+                                    <a href="/modul" class="btn btn-light-primary btn-sm">
                                         Back</a>
-                                @elseif ($tittle == 'Client')
-                                    <a href="{{ redirect()->back()->getTargetUrl() }}"
-                                        class="btn btn-light-primary btn-sm"> Back</a>
+                                @elseif ($tittle == 'Trial eror')
+                                    <a href="/trial-error" class="btn btn-light-primary btn-sm">
+                                        Back</a>
+                                @elseif ($tittle == 'Bug report')
+                                    <a href="/bug-report" class="btn btn-light-primary btn-sm">
+                                        Back</a>
                                 @endif
 
 
@@ -220,7 +223,21 @@
 
     @include('sweetalert::alert')
     {{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+    <script>
+        $(document).ready(function() {
+            window.livewire.emit('delete');
+        });
+        $(document).ready(function() {
+            window.livewire.emit('edit');
+        });
+        $(document).ready(function() {
+            window.livewire.emit('save');
+        });
 
+        window.livewire.on('show', () => {
+            $('#exampleModal').modal('show');
+        });
+    </script>
 
     @livewireScripts
     <x-livewire-alert::scripts />
@@ -256,6 +273,14 @@
 
     @include('sweetalert::alert')
     <script wire:ignore.self>
+        // window.addEventListener('alert', event => {
+        //     toastr[event.detail.type](event.detail.message,
+        //         event.detail.title ?? ''), toastr.options = {
+        //         "closeButton": true,
+        //         "progressBar": true,
+        //     }
+        // });
+
         $(document).ready(function() {
             $('.progress .progress-bar').css("width",
                 function() {
@@ -264,6 +289,7 @@
             )
         });
     </script>
+
     <script wire:ignore>
         window.addEventListener('swal:confirm', event => {
             swal.fire({

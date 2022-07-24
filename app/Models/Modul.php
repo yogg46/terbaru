@@ -18,15 +18,15 @@ class Modul extends Model
     protected $guarded  = ['id'];
     protected $primayKey = 'id';
     protected $table = 'moduls';
+
     protected static function boot()
     {
         parent::boot();
+        static::updating(function ($model) {
 
-        static::creating(function ($model) {
-
-            if ($model->total_progres == 100) {
+            if ($model->progres > 99) {
                 $model->status = 1;
-            } elseif ($model->total_progres > 0) {
+            } elseif ($model->progres > 0) {
                 $model->status = 0;
             }
         });

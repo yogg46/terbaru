@@ -2,7 +2,7 @@
     <div class="card-header">
         <!--begin::Card title-->
         <div class="card-title">
-            <h2 class="fw-bolder">Manager</h2>
+            <h2 class="fw-bolder"> Project Manager </h2>
         </div>
         <!--begin::Card title-->
     </div>
@@ -10,6 +10,6 @@
     <!--begin::Card body-->
     <div class="card-body pt-0">
         <!--begin::Description-->
-        <div class="text-gray-500 fw-bold fs-5 mb-5">Select or add a customer to a subscription:</div>
+        <div class="text-gray-500 fw-bold fs-5 mb-5">Welcome {{ Auth::user()->name }}</div>
     </div>
 </div>

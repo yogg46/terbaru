@@ -36,8 +36,7 @@
                         <!--begin::Nav-->
                         <div class="stepper-nav ps-lg-10">
                             <!--begin::Step 1-->
-                            <div
-                                class="stepper-item    {{ $step == 0 ? 'current' : ($step > 0 ? 'completed' : '') }}">
+                            <div class="stepper-item    {{ $step == 0 ? 'current' : ($step > 0 ? 'completed' : '') }}">
                                 <!--begin::Line-->
                                 <div class="stepper-line w-40px"></div>
                                 <!--end::Line-->
@@ -171,7 +170,7 @@
 
                                             <select wire:model="no_client"
                                                 class=" form-select select2 form-select-solid ">
-
+                                                <option value=""> Select Client </option>
                                                 @foreach ($client as $item)
                                                     <option value="{{ $item->id }}"> {{ $item->nama }} </option>
                                                 @endforeach
@@ -507,7 +506,7 @@
                                     <div class="fv-row mb-6">
                                         <!--begin::Label-->
                                         <label class="d-flex align-items-center fs-5 fw-bold mb-4">
-                                            <span class="required">Category</span>
+                                            <span class="required">Deadline</span>
                                             <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
                                                 title="Select your app category"></i>
                                         </label>
