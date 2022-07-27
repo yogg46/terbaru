@@ -4,16 +4,16 @@
         <div id="kt_content_container" class="container-xxl">
 
             <div class="card mb-5 mb-xl-8">
-                <div class="card-header border-0 pt-5">
+                {{-- <div class="card-header border-0 pt-5">
                     <h3 class="card-title align-items-start flex-column">
-                        <span class="card-label fw-bolder fs-3 mb-1">Report Project</span>
+                        <span class="card-label fw-bolder fs-3 mb-1"></span>
                         <span class="text-muted mt-1 fw-bold fs-7"></span>
 
                     </h3>
                     <div class="card-toolbar">
 
                     </div>
-                </div>
+                </div> --}}
 
                 <div class="card-body pt-3">
                     <table class="table align-middle gs-0 gy-9">
@@ -22,6 +22,7 @@
                             <tr>
                                 <th class="p-0 w-50px"></th>
                                 <th class="p-0 min-w-200px"></th>
+                                <th class="p-0 min-w-40px"></th>
                                 <th class="p-0 min-w-100px"></th>
                                 <th class="p-0 min-w-40px"></th>
                             </tr>
@@ -48,6 +49,23 @@
                                             class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{ $item->TrialProject->nama_project }}</a>
                                         <span
                                             class="text-muted fw-bold d-block fs-7">{{ $item->TrialProject->no_project }}</span>
+                                    </td>
+                                    <td>
+                                        <div class=" badge badge-sm badge-light-danger ">
+                                            {{ $item->TrialProject->status == 1
+                                                ? 'Project baru'
+                                                : ($item->TrialProject->status == 2
+                                                    ? 'On progres'
+                                                    : ($item->TrialProject->status == 3
+                                                        ? 'Bug report'
+                                                        : ($item->TrialProject->status == 4
+                                                            ? 'Trial error'
+                                                            : ($item->TrialProject->status == 5
+                                                                ? 'Revisi'
+                                                                : 'Realese')))) }}
+
+                                        </div>
+
                                     </td>
                                     <td>
                                         <div class="d-flex flex-column w-100 me-2">

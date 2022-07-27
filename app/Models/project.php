@@ -52,7 +52,11 @@ class project extends Model
             ],
         ];
     }
+    // protected $dates = [
+    //     'tgl_deadline'
+    // ];
 
+    // protected $dateFormat = 'Y-m-d H:i:s';
 
     public function sluggable(): array
     {

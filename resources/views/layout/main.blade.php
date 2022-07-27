@@ -160,7 +160,7 @@
 
                 </div> <!-- END: Main Container -->
 
-                <div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
+                {{-- <div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
                     <!--begin::Container-->
                     <div
                         class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
@@ -186,7 +186,7 @@
                         <!--end::Menu-->
                     </div>
                     <!--end::Container-->
-                </div>
+                </div> --}}
             </div> <!-- END: wrapper -->
 
 
@@ -203,8 +203,7 @@
     <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
         <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
         <span class="svg-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                fill="none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <rect opacity="0.5" x="13" y="6" width="13" height="2" rx="1"
                     transform="rotate(90 13 6)" fill="black" />
                 <path
@@ -281,6 +280,10 @@
         //     }
         // });
 
+        window.addEventListener('swal', function(e) {
+            Swal.fire(e.detail);
+        });
+
         $(document).ready(function() {
             $('.progress .progress-bar').css("width",
                 function() {
@@ -306,6 +309,36 @@
                 });
         });
 
+
+        window.addEventListener('swal:K_revisi', event => {
+            swal.fire({
+                    title: event.detail.title,
+                    text: event.detail.text,
+                    icon: event.detail.type,
+                    showCancelButton: true,
+                    reverseButtons: true
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('revisi', event.detail.id);
+                    }
+                });
+        });
+
+        window.addEventListener('swal:K_selesai', event => {
+            swal.fire({
+                    title: event.detail.title,
+                    text: event.detail.text,
+                    icon: event.detail.type,
+                    showCancelButton: true,
+                    reverseButtons: true
+                })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        window.livewire.emit('selesai', event.detail.id);
+                    }
+                });
+        });
 
 
         window.addEventListener('swal:confirmpass', event => {

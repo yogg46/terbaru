@@ -21,7 +21,7 @@ class ProjectFactory extends Factory
         $users = User::where('role', '3')->pluck('id');
         $client = client::all()->pluck('id');
         $leader = User::where('role', '4')->pluck('id');
-
+        $unixTimestamp = '1658859015';
         return [
 
             'nama_project' => $this->faker->jobTitle(),
@@ -30,10 +30,10 @@ class ProjectFactory extends Factory
             'no_project' => $this->faker->unique()->numerify('NMN-##-#-###'),
             'level' => Arr::random(['1', '2', '3']),
             'kategori' => Arr::random(['1', '2', '3']),
-            'tgl_buat' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
-            'tgl_deadline' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
-            'tgl_trial' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
-            'tgl_release' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
+            'tgl_buat' => $this->faker->dateTimeBetween('now', '+1 years')->format('d-m-Y'),
+            'tgl_deadline' => $this->faker->dateTimeBetween('now', '+1 years')->format('d-m-Y'),
+            'tgl_trial' => $this->faker->dateTimeBetween('now', '+1 years')->format('d-m-Y'),
+            'tgl_release' => $this->faker->dateTimeBetween('now', '+1 years')->format('d-m-Y'),
             'marketing' => $this->faker->randomElement($users),
             // 'leader' => $this->faker->randomElement($leader),
             'leader' => 2,

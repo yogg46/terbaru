@@ -6,11 +6,13 @@ use App\Models\Modul;
 use App\Models\project;
 use App\Models\Trial;
 use Illuminate\Support\Facades\DB;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class Show extends Component
 {
-    public $moduls;
+    use LivewireAlert;
+    public $moduls, $keterangan;
     public $progres;
     public $project;
 
@@ -39,19 +41,27 @@ class Show extends Component
 
     public function cek($tes)
     {
+        $tri = Trial::where('project_id', $this->moduls->no_project)->count();
+        // @dd($tri);
         $project = project::where('id', $tes)->first();
         $project->update([
             'total_progres' => $this->total_progres = round(Modul::where('no_project', $tes)->sum('progres') / Modul::where('no_project', $tes)->count())
         ]);
         if ($project->total_progres == 100) {
             $project->update(['status' => 4]);
-
-            $trial = new Trial;
-            $trial->nama = $this->moduls->ModulToProject->nama_project;
-            $trial->project_id = $this->moduls->ModulToProject->id;
-            $trial->status = 0;
-            $trial->save();
+            if ($tri == 0) {
+                $trial = new Trial;
+                $trial->nama = $this->moduls->ModulToProject->nama_project;
+                $trial->project_id = $this->moduls->ModulToProject->id;
+                $trial->status = 0;
+                $trial->save();
+            };
         };
+        $this->alert('success', 'Progres Berhasil Diupdate', [
+            'position' => 'top-right',
+            'timer' => 3000,
+            'toast' => true,
+        ]);
     }
 
     public function prog($id, $sum)
@@ -63,5 +73,16 @@ class Show extends Component
         $this->cek($sum);
 
         // return redirect()->back();
+    }
+    public function simKet()
+    {
+        $modul = Modul::find($this->moduls->id);
+        $modul->update(['keterangan' => $this->keterangan]);
+
+        $this->alert('success', 'Keterangan Berhasil Diupdate', [
+            'position' => 'top-right',
+            'timer' => 3000,
+            'toast' => true,
+        ]);
     }
 }

@@ -25,8 +25,8 @@ class DatabaseSeeder extends Seeder
         // $this->call(ProjectSeedeer::class);
         // User::factory()->count(10)->create();
         client::factory()->count(5)->create();
-        project::factory()->count(10)->create();
-        Modul::factory()->count(20)->create();
+        project::factory()->count(2)->create();
+        Modul::factory()->count(2)->create();
         // Bug::factory()->count(5)->create();
         // Trial::factory()->count(5)->create();
         // User::factory()->count(20)->manager()->create();

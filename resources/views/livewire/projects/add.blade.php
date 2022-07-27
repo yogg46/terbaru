@@ -514,10 +514,14 @@
                                         <!--begin:Options-->
                                         <div wire:ignore class="fv-row">
                                             <!--begin:Option-->
-                                            <input wire:model="tgl_deadline"
-                                                class="form-control form-control-range form-control-solid"
+                                            <input wire:model="tgl_deadline" id="tgl_deadline"
+                                                class="form-control form-control-range form-control-solid @error('tgl_deadline') is-invalid @enderror"
                                                 type="date" />
-
+                                            @error('tgl_deadline')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
 
                                             <!--end::Option-->
                                         </div>

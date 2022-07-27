@@ -17,6 +17,8 @@ class CreateModulsTable extends Migration
             $table->id();
             $table->string('nama');
             $table->string('slug');
+            $table->string('deadline')->nullable();
+            $table->string('keterangan')->nullable();
             $table->string('status')->default(0);
             $table->integer('progres');
             $table->unsignedBigInteger('programer')->constrained()

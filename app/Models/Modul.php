@@ -47,4 +47,8 @@ class Modul extends Model
     {
         return $this->belongsTo(User::class, 'programer')->withTrashed();
     }
+    public function ModulBug()
+    {
+        return $this->hasMany(Bug::class, 'modul_id')->withTrashed();
+    }
 }

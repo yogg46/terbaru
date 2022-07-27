@@ -84,7 +84,7 @@
                     </div>
                 @endif
 
-                @if (Auth::user()->role == 2 || Auth::user()->role == 3 || Auth::user()->role == 4)
+                @if (Auth::user()->role == 2 || Auth::user()->role == 3 || Auth::user()->role == 4 || Auth::user()->role == 5)
                     <div class="menu-item">
                         <a class="menu-link {{ $tittle == 'Projects' || $tittle == 'projects' || $tittle == 'project' ? 'active' : '' }}"
                             href="/projects">

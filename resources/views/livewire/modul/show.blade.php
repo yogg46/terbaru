@@ -58,7 +58,7 @@
                             <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                                 <!--begin::Number-->
                                 <div class="d-flex align-items-center">
-                                    <div class="fs-4 fw-bolder">{{ $moduls->ModulToProject->tgl_deadline }}</div>
+                                    <div class="fs-4 fw-bolder">{{ $moduls->deadline }}</div>
                                 </div>
                                 <!--end::Number-->
                                 <!--begin::Label-->
@@ -107,11 +107,25 @@
             <!--end::Nav wrapper-->
         </div>
     </div>
-    @if (Auth::user()->id == $moduls->programer && $moduls->progres < 100)
+    <div class="card mb-2 mb-xl-9">
+
+        <div class="card-boy mx-3 my-3">
+            <label class=" align-items-center ml-2 fs-5 fw-bold mb-2">
+                <span class="">Keterangan</span>
+
+            </label>
+            <textarea class="form-control form-control-white rounded-3"
+                {{ Auth::user()->id == $moduls->programer ? '' : 'readonly' }} placeholder="{{ $moduls->keterangan }}"
+                wire:change="simKet()" wire:model.lazy="keterangan" rows="4">
+
+            </textarea>
+        </div>
+    </div>
+    @if (Auth::user()->id == $moduls->programer)
         <div class="card mb-6 mb-xl-9">
             <!--begin::Body-->
             <div class="card-body my-3">
-                <form action="" wire:submit="prog({{ $moduls->id }},{{ $moduls->ModulToProject->id }})">
+                <form action="" wire:submit.prevent="prog({{ $moduls->id }},{{ $moduls->ModulToProject->id }})">
                     <div class="mb-5">
 
                         <span class="text-gray-800 text-hover-primary fs-5 mb-6 fw-bolder me-3">Update Progress
@@ -119,8 +133,9 @@
                     </div>
                     <div class="card mb-6 mb-xl-9 " style="width: 100%">
                         <span id="rangeValue">{{ $progres }}</span>
-                        <input wire:model="progres" type="range" class="range" name=""
-                            value="{{ $moduls->progres }}" min="{{ $moduls->progres }}" max="100"
+                        <input wire:change="prog({{ $moduls->id }},{{ $moduls->ModulToProject->id }})"
+                            wire:model.lazy="progres" type="range" class="range" name=""
+                            value="{{ $moduls->progres }}" min="0" max="100"
                             onmousemove="rangeSlider(this.value)" onchange="rangeSlide(this.value)">
                     </div>
                     <script wire:ignore.self type="text/javascript">

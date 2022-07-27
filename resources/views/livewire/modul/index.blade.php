@@ -95,6 +95,7 @@
         </div>
 
     </div> --}}
+    {{-- @json($pilihan) --}}
 
     <div class="row g-5 g-xl-8">
         <div class="card mb-5 mb-xl-8">
@@ -102,10 +103,20 @@
                 <h3 class="card-title align-items-start flex-column">
                     <span class="card-label fw-bolder fs-3 mb-1">Modul</span>
                     <span class="text-muted mt-1 fw-bold fs-7"></span>
-
                 </h3>
                 <div class="card-toolbar">
+                    {{-- {{ $pilih }} --}}
+                    <select wire:model.lazy="pilih" class=" form-control form-select-solid form-select">
+                        <option value="">
+                            Select Project
+                        </option>
+                        @foreach ($pilihan as $k => $t)
+                            <option value="{{ $t }}">
+                                {{ $k }}
+                            </option>
+                        @endforeach
 
+                    </select>
                 </div>
             </div>
 

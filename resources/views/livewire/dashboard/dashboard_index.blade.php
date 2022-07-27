@@ -14,24 +14,24 @@
 
 
 
-                @if (auth()->user()->role=='1')
-                @include('livewire.dashboard.admin')
+                @if (auth()->user()->role == '1')
+                    @include('livewire.dashboard.admin')
                 @endif
 
-                @if (auth()->user()->role=='2')
-                @include('livewire.dashboard.manager')
+                @if (auth()->user()->role == '2')
+                    @include('livewire.dashboard.manager')
                 @endif
 
-                @if (auth()->user()->role=='3')
-                @include('livewire.dashboard.marketing')
+                @if (auth()->user()->role == '3')
+                    @include('livewire.dashboard.marketing')
                 @endif
 
-                @if (auth()->user()->role=='4')
-                @include('livewire.dashboard.leader')
+                @if (auth()->user()->role == '4')
+                    @include('livewire.dashboard.leader')
                 @endif
 
-                @if (auth()->user()->role=='5')
-                @include('livewire.dashboard.programer')
+                @if (auth()->user()->role == '5')
+                    @include('livewire.dashboard.programer')
                 @endif
 
 
@@ -46,7 +46,7 @@
 
 
 
-            <div class="flex-column flex-lg-row-auto w-100 w-lg-250px w-xl-300px mb-10 order-1 order-lg-2">
+            {{-- <div class="flex-column flex-lg-row-auto w-100 w-lg-250px w-xl-300px mb-10 order-1 order-lg-2">
                 <!--begin::Card-->
                 <div class="card card-flush pt-3 mb-0" data-kt-sticky="true" data-kt-sticky-name="subscription-summary"
                     data-kt-sticky-offset="{default: false, lg: '200px'}"
@@ -66,7 +66,7 @@
 
                         <div class="separator separator-dashed mb-7"></div>
 
-                        @if (auth()->user()->hitam==0)
+                        @if (auth()->user()->hitam == 0)
 
                         <button class="btn btn-dark" wire:click.prevent="dark( {{auth()->user()->id}})">
                             Dark Mode
@@ -78,7 +78,7 @@
                         @endif
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>

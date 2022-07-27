@@ -19,6 +19,7 @@ class Index extends Component
     public $nama_project, $deskripsi_project, $no_client, $level, $kategori, $status, $tgl_buat, $tgl_deadline, $leader, $total_progres;
     public $marketing;
     public $select;
+    public $search = '';
     public $liat = 'leader';
     public $baru = null;
     // protected $listeners = ['save'];
@@ -28,22 +29,36 @@ class Index extends Component
     public function render()
     {
         if (Auth::user()->role == 1 || Auth::user()->role == 3) {
-            $project = project::search('status', $this->select)->paginate(9);
+            $project = project::search('status', $this->select)
+                ->search('nama_project', $this->search)
+                ->orderBy('status', 'asc')
+                ->orderBy('created_at', 'desc')
+                ->paginate(9);
         } elseif (Auth::user()->role == 4) {
             if ($this->select == 1 || is_null($this->select)) {
-                $project = project::search('status', $this->select)
+                $project = project::search('status', $this->select)->search('nama_project', $this->search)
                     ->Where('leader', Auth::user()->id)
                     ->orWhere($this->liat, $this->baru)
+                    ->orderBy('status', 'asc')
+                    ->orderBy('created_at', 'desc')
+
                     ->paginate(9);
             } else {
-                $project = project::search('status', $this->select)
+                $project = project::search('status', $this->select)->search('nama_project', $this->search)
+                    ->search('nama_project', $this->search)
                     ->Where('leader', Auth::user()->id)
+                    ->orderBy('status', 'asc')
+                    ->orderBy('created_at', 'desc')
+
                     ->paginate(9);
             };
         } elseif (Auth::user()->role == 5) {
             $project = project::whereHas('projectModul', function ($q) {
                 $q->where('programer', 'LIKE', Auth::user()->id);
             })->search('status', $this->select)
+                ->search('nama_project', $this->search)
+                ->orderBy('status', 'asc')
+                ->orderBy('created_at', 'desc')
                 ->paginate(9);
         };
 
@@ -168,9 +183,9 @@ class Index extends Component
     }
     public function submit3()
     {
-        $this->tgl_buat = now();
+        $this->tgl_buat = now()->format('d-m-Y');
         $this->validate([
-            'tgl_buat' => 'required',
+            'tgl_buat' => 'date',
             'tgl_deadline' => 'required',
 
         ]);

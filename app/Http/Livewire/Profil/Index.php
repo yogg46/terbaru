@@ -43,7 +43,7 @@ class Index extends Component
         'email' => 'required|email|unique:karyawan',
         'NIK' => 'required|min:16',
         'no_telepon' => 'required|min:10|max:12 |numeric',
-        'password' => 'required',
+        'password' => 'required|min:6',
         // 'role' => 'required',
     ];
     public function updated($field)
@@ -104,7 +104,7 @@ class Index extends Component
     public function gantiPass()
     {
         $this->validate([
-            'password' => 'required|confirmed',
+            'password' => 'required|confirmed|min:6',
         ]);
         if ($this->ids) {
             $User = User::find($this->ids);

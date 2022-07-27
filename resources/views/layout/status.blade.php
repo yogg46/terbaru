@@ -8,4 +8,4 @@
                 ? 'Trial error'
                 : ($item->status == 5
                     ? 'Revisi'
-                    : 'Realese')))) }}
+                    : 'Release')))) }}

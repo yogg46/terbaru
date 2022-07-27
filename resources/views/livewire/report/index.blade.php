@@ -22,6 +22,7 @@
                             <tr>
                                 <th class="p-0 w-50px"></th>
                                 <th class="p-0 min-w-200px"></th>
+                                <th class="p-0 min-w-40px"></th>
                                 <th class="p-0 min-w-100px"></th>
                                 <th class="p-0 min-w-40px"></th>
                             </tr>
@@ -47,6 +48,23 @@
                                         <a href="/report/{{ $item->slug }}"
                                             class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{ $item->nama_project }}</a>
                                         <span class="text-muted fw-bold d-block fs-7">{{ $item->no_project }}</span>
+                                    </td>
+                                    <td>
+                                        <div class=" badge badge-sm badge-light-danger ">
+                                            {{ $item->status == 1
+                                                ? 'Project baru'
+                                                : ($item->status == 2
+                                                    ? 'On progres'
+                                                    : ($item->status == 3
+                                                        ? 'Bug report'
+                                                        : ($item->status == 4
+                                                            ? 'Trial error'
+                                                            : ($item->status == 5
+                                                                ? 'Revisi'
+                                                                : 'Realese')))) }}
+
+                                        </div>
+
                                     </td>
                                     <td>
                                         <div class="d-flex flex-column w-100 me-2">

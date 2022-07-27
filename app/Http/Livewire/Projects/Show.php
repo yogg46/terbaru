@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Projects;
 
+use App\Models\Bug;
 use App\Models\client;
 use App\Models\Modul;
 use App\Models\project;
@@ -19,12 +20,13 @@ class Show extends Component
     public $pro;
     public $pro2;
     public $ds;
-    public $level, $tgl_deadline;
+    public $level, $tgl_deadline, $deadline, $catatan;
 
     // public $total_project;
     public $total_progres;
     public $sit = '';
     public $coba;
+    public $swit = 0;
 
     public $nama, $programer2, $no_project;
 
@@ -45,6 +47,8 @@ class Show extends Component
             'programer' =>  User::where('role', 5)->get(),
             'pro1' => $cek->groupBy('programer'),
             'modul' => $cek,
+            'bug' => Bug::where('project_id', $this->project->id)->get(),
+
         ])
             ->extends(
                 'layout.main',
@@ -55,6 +59,27 @@ class Show extends Component
             )
             ->section('isi_page');
     }
+    public function swt()
+    {
+        if ($this->swit == 0) {
+            $this->swit = 1;
+        };
+    }
+    public function swt2()
+    {
+        if ($this->swit == 1) {
+            $this->swit = 0;
+        };
+    }
+    // protected $rules = [
+    //     // 'client_id' => 'required',
+    //     // 'nama' => 'required|min:6',
+    //     // 'deadline' => 'before:' . $this->project->tgl_deadline,
+    //     'deadline' => 'date',
+    //     // 'cp' => 'required|min:12',
+    //     // 'no_kc' => 'required',
+
+    // ];
 
     public function cek($tes)
     {
@@ -73,12 +98,11 @@ class Show extends Component
         $project1 = project::find($this->ids);
         $project1->update(['leader' => Auth::user()->id, 'status' => 2]);
         // $project1->update(['status' => 2]);
-        if ($this->project->leader == Auth::user()->id) {
-            $this->dispatchBrowserEvent(
-                'alert',
-                ['type' => 'success',  'message' => 'Project Berhasil Diambil']
-            );
-        }
+        $this->alert('success', 'Data Berhasil Ditambahkan', [
+            'position' => 'top-right',
+            'timer' => 3000,
+            'toast' => true,
+        ]);
 
         // return redirect(url('/projects' . '/' . $slug1));
     }
@@ -89,14 +113,24 @@ class Show extends Component
         // $this->nama = null;
 
     }
+
+
     public function save()
     {
         // $slug1 = $this->project->slug;
+        $tgl = json_encode($this->project->tgl_deadline);
+        // @dd($tgl);
+        $this->validate([
+            'deadline' => 'required|before:' . $tgl,
+            'nama' => 'required',
+            'programer2' => 'required'
+        ]);
 
         $modul = new Modul;
 
         $modul->nama = $this->nama;
         $modul->programer = $this->programer2;
+        $modul->deadline = date('d-m-Y', strtotime($this->deadline));
         $modul->no_project = $this->project->id;
         $modul->progres = 0;
         $modul->save();
@@ -116,7 +150,7 @@ class Show extends Component
         $project1 = project::where('id', $id)->first();
         $this->ids = $project1->id;
         $project1 = project::find($this->ids);
-        $project1->update(['tgl_deadline' => $this->tgl_deadline, 'level' => $this->level]);
+        $project1->update(['tgl_deadline' => date('d-m-Y', strtotime($this->tgl_deadline)), 'level' => $this->level]);
         $this->alert('success', 'Data Berhasil Diupdate', [
             'position' => 'top-right',
             'timer' => 3000,
@@ -124,5 +158,16 @@ class Show extends Component
         ]);
         $this->emit('edit_pro');
         return redirect(url('/projects' . '/' . $slug1));
+    }
+    public function simKet()
+    {
+        $modul = project::find($this->project->id);
+        $modul->update(['catatan' => $this->catatan]);
+
+        $this->alert('success', 'Catatan Berhasil Diupdate', [
+            'position' => 'top-right',
+            'timer' => 3000,
+            'toast' => true,
+        ]);
     }
 }

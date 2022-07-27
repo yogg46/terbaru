@@ -110,7 +110,7 @@ class Index extends Component
         $this->validateOnly($field, [
             'client_id' => 'required',
             'nama' => 'required',
-            'alamat' => 'required|min:16',
+            'alamat' => 'required',
             'cp' => 'required|min:12',
             'no_kc' => 'required',
 
@@ -134,7 +134,7 @@ class Index extends Component
         $this->validate([
             'client_id' => 'required',
             'nama' => 'required',
-            'alamat' => 'required|min:16',
+            'alamat' => 'required',
             'cp' => 'required|min:12',
             'no_kc' => 'required',
 

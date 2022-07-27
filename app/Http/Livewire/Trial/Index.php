@@ -15,7 +15,7 @@ class Index extends Component
     public function render()
     {
         return view('livewire.trial.index', [
-            'trial' => Trial::paginate(9),
+            'trial' => Trial::orderBy('created_at', 'desc')->paginate(9),
             // 'trial' => Trial::with('TrialProject')->whereHas('TrialProject',function(Builder $query)
             // {
             //     $query->where('status',4);

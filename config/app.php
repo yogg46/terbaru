@@ -51,6 +51,8 @@ return [
     | your application so that it is used when running Artisan tasks.
     |
     */
+    'date_format' => 'd/m/Y',
+    'date_format_javascript' => 'DD/MM/YYYY',
 
     'url' => env('APP_URL', 'http://localhost'),
 

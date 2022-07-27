@@ -4,16 +4,7 @@
         <div id="kt_content_container" class="container-xxl">
 
             <div class="card mb-5 mb-xl-8">
-                <div class="card-header border-0 pt-5">
-                    <h3 class="card-title align-items-start flex-column">
-                        <span class="card-label fw-bolder fs-3 mb-1">Report Project</span>
-                        <span class="text-muted mt-1 fw-bold fs-7"></span>
 
-                    </h3>
-                    <div class="card-toolbar">
-
-                    </div>
-                </div>
 
                 <div class="card-body pt-3">
                     <table class="table align-middle gs-0 gy-9">
@@ -23,6 +14,7 @@
                                 <th class="p-0 w-50px"></th>
                                 <th class="p-0 min-w-200px"></th>
                                 <th class="p-0 min-w-100px"></th>
+
                                 <th class="p-0 min-w-40px"></th>
                             </tr>
                         </thead>
@@ -49,19 +41,19 @@
                                         <span class="text-muted fw-bold d-block fs-7">{{ $item->no_project }}</span>
                                     </td>
                                     <td>
-                                        <div class="d-flex flex-column w-100 me-2">
-                                            <div class="d-flex flex-stack mb-2">
-                                                <span wire:ignore.self class="text-muted me-2 fs-7 fw-bold"
-                                                    data-kt-countup="true"
-                                                    data-kt-countup-value="{{ $item->total_progres }}"
-                                                    data-kt-countup-suffix="%">
-                                                    0</span>
-                                            </div>
-                                            <div class="progress h-6px w-100">
-                                                <div wire:ignore.self class="progress-bar bg-primary" role="progressbar"
-                                                    style="width:0%" aria-valuenow="{{ $item->total_progres }}"
-                                                    aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
+                                        <div wire:ignore.self class="badge badge-circle  badge-light-danger"
+                                            data-bs-toggle="tooltip" data-bs-placement="right" title="Bug New ">
+                                            {{ $item->bug_baru }}
+                                        </div>
+
+                                        <div wire:ignore.self class="badge badge-circle  badge-light-warning"
+                                            data-bs-toggle="tooltip" data-bs-placement="right" title="Bug On Progress ">
+                                            {{ $item->bug_on }}
+                                        </div>
+
+                                        <div wire:ignore.self class="badge badge-circle  badge-light-success"
+                                            data-bs-toggle="tooltip" data-bs-placement="right" title="Bug Complated ">
+                                            {{ $item->bug_com }}
                                         </div>
                                     </td>
                                     <td class="text-end">

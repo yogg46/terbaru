@@ -28,6 +28,10 @@ class Bug extends Model
     {
         return $this->belongsTo(project::class, 'project_id')->withTrashed();
     }
+    public function BugModul()
+    {
+        return $this->belongsTo(Modul::class, 'modul_id')->withTrashed();
+    }
     public function BugProgramer()
     {
         return $this->belongsTo(User::class, 'programer')->withTrashed();

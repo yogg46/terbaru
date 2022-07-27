@@ -230,7 +230,7 @@
                         <!--begin::Toolbar-->
                         {{-- @json($project->leader) --}}
 
-                        @if (Auth::user()->id == $project->leader)
+                        {{-- @if (Auth::user()->id == $project->leader)
                             <div wire:ignore.self class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top"
                                 data-bs-trigger="hover" title="" data-bs-original-title="Click to add a Modul">
                                 <a href="#" class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal"
@@ -249,7 +249,7 @@
                                     <!--end::Svg Icon-->Add Bug
                                 </a>
                             </div>
-                        @endif
+                        @endif --}}
                         <!--end::Toolbar-->
                     </div>
                     <!--end::Header-->
@@ -265,7 +265,8 @@
                                     <tr>
                                         <th class="p-0 w-50px"></th>
                                         <th class="p-0 min-w-200px"></th>
-                                        <th class="p-0 min-w-100px"></th>
+                                        <th class="p-0 min-w-60px"></th>
+                                        <th class="p-0 min-w-40px"></th>
                                         <th class="p-0 min-w-40px"></th>
                                         <th class="p-0 min-w-40px"></th>
                                     </tr>
@@ -273,7 +274,7 @@
                                 <!--end::Table head-->
                                 <!--begin::Table body-->
                                 <tbody>
-                                    @foreach ($bug as $item)
+                                    @foreach ($bug2 as $item)
                                         <tr>
                                             <th>
                                                 <div class="symbol symbol-50px me-2" wire:ignore.self
@@ -289,13 +290,18 @@
                                                     </span>
                                                 </div>
                                             </th>
+                                            {{-- @dd($item->id) --}}
                                             <td>
-                                                <span wire:ignore.self data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom"
-                                                    title="Deadline : {{ $item->deadline }}"
+                                                <span wire:ignore.self
                                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{ $item->nama }}</span>
                                                 <span
                                                     class="text-muted fw-bold d-block fs-7">{{ $item->BugProgramer->name }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span wire:ignore.self
+                                                    class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{ $item->deadline }}</span>
+                                                <span class="text-muted fw-bold d-block fs-7">Deadline
                                                 </span>
                                             </td>
                                             <td>
@@ -309,17 +315,86 @@
                                             </td>
                                             <td class="text-end">
                                                 <span
-                                                    class="text-white  badge badge-danger fw-bolder  mb-1 fs-7">{{ $item->status == 0 ? 'On Progres' : 'Complated' }}</span>
-
+                                                    class="text-white  badge badge-danger fw-bolder  mb-1 fs-7">{{ $item->status == 0 ? 'New' : ($item->status == 1 ? 'On Progres' : 'Complated') }}</span>
+                                                {{-- <button type="button" wire:click='selesai({{ $item->id }})'
+                                                    class="btn btn-primary">Save
+                                                    changes</button> --}}
                                             </td>
                                             @if ($item->status == 0 && $item->programer == Auth::user()->id)
                                                 <td class="text-end">
-                                                    <button wire:click="konfimasiRevisi({{ $item->id }})"
+                                                    <button data-bs-toggle="modal" data-bs-target="#modal_revisi"
                                                         class="btn btn-sm btn-light-success">
                                                         Revisi
                                                     </button>
                                                 </td>
+                                                <div wire:ignore.self class="modal fade" tabindex="-1"
+                                                    id="modal_revisi">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Revisi</h5>
+
+                                                                <!--begin::Close-->
+                                                                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
+                                                                    data-bs-dismiss="modal" aria-label="Close">
+                                                                    <span class="svg-icon svg-icon-2x"></span>
+                                                                </div>
+                                                                <!--end::Close-->
+                                                            </div>
+
+                                                            <div class="modal-body">
+                                                                <p>Apakan Anda akan Memulai Revisi Bug</p>
+                                                            </div>
+
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-light"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                                <button type="button"
+                                                                    wire:click.prevent="baca({{ $item->id }})"
+                                                                    class="btn btn-primary">Save changes</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             @endif
+                                            @if ($item->status == 1 && $item->programer == Auth::user()->id)
+                                                <td class="text-end">
+                                                    <button data-bs-toggle="modal" data-bs-target="#modal_selesai"
+                                                        class="btn btn-sm btn-light-success">
+                                                        Selesai
+                                                    </button>
+                                                </td>
+                                                <div wire:ignore.self class="modal fade" tabindex="-1"
+                                                    id="modal_selesai">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title">Selesai</h5>
+
+                                                                <!--begin::Close-->
+                                                                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
+                                                                    data-bs-dismiss="modal" aria-label="Close">
+                                                                    <span class="svg-icon svg-icon-2x"></span>
+                                                                </div>
+                                                                <!--end::Close-->
+                                                            </div>
+
+                                                            <div class="modal-body">
+                                                                <p>Apakan Anda Sudah Merevisi Bug</p>
+                                                            </div>
+
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-light"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                                <button type="button"
+                                                                    wire:click.prevent="sim({{ $item->id }})"
+                                                                    class="btn btn-primary">Save changes</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+
 
                                         </tr>
                                     @endforeach
@@ -355,10 +430,10 @@
                                     <li data-bs-target="#kt_security_recent_alerts" data-bs-slide-to="1"
                                         class="ms-1">
                                     </li>
-                                    <li data-bs-target="#kt_security_recent_alerts" data-bs-slide-to="2"
+                                    {{-- <li data-bs-target="#kt_security_recent_alerts" data-bs-slide-to="2"
                                         class="ms-1">
-                                    </li>
-                                    <li data-bs-target="#kt_security_recent_alerts" data-bs-slide-to="3"
+                                    </li> --}}
+                                    <li data-bs-target="#kt_security_recent_alerts" data-bs-slide-to="2"
                                         class="ms-1 active" aria-current="true"></li>
                                 </ol>
                                 <!--end::Carousel Indicators-->
@@ -400,7 +475,7 @@
                                                                     ? 'Trial error'
                                                                     : ($project->status == 5
                                                                         ? 'Revisi'
-                                                                        : 'Realese')))) }}
+                                                                        : 'Release')))) }}
                                                 </div>
                                                 <div class="fw-bold text-white">Status Project</div>
                                             </div>
@@ -410,150 +485,7 @@
                                     </div>
                                     <!--end::Wrapper-->
                                 </div>
-                                <div class=" carousel-item">
-                                    <div class=" carousel-wrapper">
-                                        <div class="card bg-warning hoverable ms-2 me-2 card-xl-stretch mb-xl-8">
-                                            <div class=" card-body">
-                                                <div class="row g-0">
-                                                    <!--begin::Col-->
-                                                    <div class="col-6">
-                                                        <div class="d-flex align-items-center mb-9 me-2">
-                                                            <!--begin::Symbol-->
-                                                            <div class="symbol symbol-40px me-3">
-                                                                <div class="symbol-label bg-white bg-opacity-50">
-                                                                    <!--begin::Svg Icon | path: icons/duotune/abstract/abs043.svg-->
-                                                                    <span class="svg-icon svg-icon-1 svg-icon-dark">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none">
-                                                                            <path opacity="0.3"
-                                                                                d="M22 8H8L12 4H19C19.6 4 20.2 4.39999 20.5 4.89999L22 8ZM3.5 19.1C3.8 19.7 4.4 20 5 20H12L16 16H2L3.5 19.1ZM19.1 20.5C19.7 20.2 20 19.6 20 19V12L16 8V22L19.1 20.5ZM4.9 3.5C4.3 3.8 4 4.4 4 5V12L8 16V2L4.9 3.5Z"
-                                                                                fill="black"></path>
-                                                                            <path
-                                                                                d="M22 8L20 12L16 8H22ZM8 16L4 12L2 16H8ZM16 16L12 20L16 22V16ZM8 8L12 4L8 2V8Z"
-                                                                                fill="black"></path>
-                                                                        </svg>
-                                                                    </span>
-                                                                    <!--end::Svg Icon-->
-                                                                </div>
-                                                            </div>
-                                                            <!--end::Symbol-->
-                                                            <!--begin::Title-->
-                                                            <div>
-                                                                <div class="fs-8 text-white fw-bolder lh-1">
-                                                                    {{ $project->tgl_buat }}</div>
-                                                                <div class="fs-7 text-gray-600 fw-bold">Dibuat</div>
-                                                            </div>
-                                                            <!--end::Title-->
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Col-->
-                                                    <!--begin::Col-->
-                                                    <div class="col-6">
-                                                        <div class="d-flex align-items-center mb-9 ms-2">
-                                                            <!--begin::Symbol-->
-                                                            <div class="symbol symbol-40px me-3">
-                                                                <div class="symbol-label bg-white bg-opacity-50">
-                                                                    <!--begin::Svg Icon | path: icons/duotune/abstract/abs046.svg-->
-                                                                    <span class="svg-icon svg-icon-1 svg-icon-dark">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none">
-                                                                            <path
-                                                                                d="M8 22C7.4 22 7 21.6 7 21V9C7 8.4 7.4 8 8 8C8.6 8 9 8.4 9 9V21C9 21.6 8.6 22 8 22Z"
-                                                                                fill="black"></path>
-                                                                            <path opacity="0.3"
-                                                                                d="M4 15C3.4 15 3 14.6 3 14V6C3 5.4 3.4 5 4 5C4.6 5 5 5.4 5 6V14C5 14.6 4.6 15 4 15ZM13 19V3C13 2.4 12.6 2 12 2C11.4 2 11 2.4 11 3V19C11 19.6 11.4 20 12 20C12.6 20 13 19.6 13 19ZM17 16V5C17 4.4 16.6 4 16 4C15.4 4 15 4.4 15 5V16C15 16.6 15.4 17 16 17C16.6 17 17 16.6 17 16ZM21 18V10C21 9.4 20.6 9 20 9C19.4 9 19 9.4 19 10V18C19 18.6 19.4 19 20 19C20.6 19 21 18.6 21 18Z"
-                                                                                fill="black"></path>
-                                                                        </svg>
-                                                                    </span>
-                                                                    <!--end::Svg Icon-->
-                                                                </div>
-                                                            </div>
-                                                            <!--end::Symbol-->
-                                                            <!--begin::Title-->
-                                                            <div>
-                                                                <div class="fs-8 text-white fw-bolder lh-1">
-                                                                    {{ $project->tgl_deadline }}</div>
-                                                                <div class="fs-7 text-gray-600 fw-bold">Deadline</div>
-                                                            </div>
-                                                            <!--end::Title-->
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Col-->
-                                                    <!--begin::Col-->
-                                                    <div class="col-6">
-                                                        <div class="d-flex align-items-center me-2">
-                                                            <!--begin::Symbol-->
-                                                            <div class="symbol symbol-40px me-3">
-                                                                <div class="symbol-label bg-white bg-opacity-50">
-                                                                    <!--begin::Svg Icon | path: icons/duotune/abstract/abs022.svg-->
-                                                                    <span class="svg-icon svg-icon-1 svg-icon-dark">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none">
-                                                                            <path opacity="0.3"
-                                                                                d="M11.425 7.325C12.925 5.825 15.225 5.825 16.725 7.325C18.225 8.825 18.225 11.125 16.725 12.625C15.225 14.125 12.925 14.125 11.425 12.625C9.92501 11.225 9.92501 8.825 11.425 7.325ZM8.42501 4.325C5.32501 7.425 5.32501 12.525 8.42501 15.625C11.525 18.725 16.625 18.725 19.725 15.625C22.825 12.525 22.825 7.425 19.725 4.325C16.525 1.225 11.525 1.225 8.42501 4.325Z"
-                                                                                fill="black"></path>
-                                                                            <path
-                                                                                d="M11.325 17.525C10.025 18.025 8.425 17.725 7.325 16.725C5.825 15.225 5.825 12.925 7.325 11.425C8.825 9.92498 11.125 9.92498 12.625 11.425C13.225 12.025 13.625 12.925 13.725 13.725C14.825 13.825 15.925 13.525 16.725 12.625C17.125 12.225 17.425 11.825 17.525 11.325C17.125 10.225 16.525 9.22498 15.625 8.42498C12.525 5.32498 7.425 5.32498 4.325 8.42498C1.225 11.525 1.225 16.625 4.325 19.725C7.425 22.825 12.525 22.825 15.625 19.725C16.325 19.025 16.925 18.225 17.225 17.325C15.425 18.125 13.225 18.225 11.325 17.525Z"
-                                                                                fill="black"></path>
-                                                                        </svg>
-                                                                    </span>
-                                                                    <!--end::Svg Icon-->
-                                                                </div>
-                                                            </div>
-                                                            <!--end::Symbol-->
-                                                            <!--begin::Title-->
-                                                            <div>
-                                                                <div class="fs-8 text-white fw-bolder lh-1">
-                                                                    {{ $project->tgl_trial }}</div>
-                                                                <div class="fs-7 text-gray-600 fw-bold">Trial Error
-                                                                </div>
-                                                            </div>
-                                                            <!--end::Title-->
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Col-->
-                                                    <!--begin::Col-->
-                                                    <div class="col-6">
-                                                        <div class="d-flex align-items-center ms-2">
-                                                            <!--begin::Symbol-->
-                                                            <div class="symbol symbol-40px me-3">
-                                                                <div class="symbol-label bg-white bg-opacity-50">
-                                                                    <!--begin::Svg Icon | path: icons/duotune/abstract/abs045.svg-->
-                                                                    <span class="svg-icon svg-icon-1 svg-icon-dark">
-                                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                                            width="24" height="24"
-                                                                            viewBox="0 0 24 24" fill="none">
-                                                                            <path
-                                                                                d="M2 11.7127L10 14.1127L22 11.7127L14 9.31274L2 11.7127Z"
-                                                                                fill="black"></path>
-                                                                            <path opacity="0.3"
-                                                                                d="M20.9 7.91274L2 11.7127V6.81275C2 6.11275 2.50001 5.61274 3.10001 5.51274L20.6 2.01274C21.3 1.91274 22 2.41273 22 3.11273V6.61273C22 7.21273 21.5 7.81274 20.9 7.91274ZM22 16.6127V11.7127L3.10001 15.5127C2.50001 15.6127 2 16.2127 2 16.8127V20.3127C2 21.0127 2.69999 21.6128 3.39999 21.4128L20.9 17.9128C21.5 17.8128 22 17.2127 22 16.6127Z"
-                                                                                fill="black"></path>
-                                                                        </svg>
-                                                                    </span>
-                                                                    <!--end::Svg Icon-->
-                                                                </div>
-                                                            </div>
-                                                            <!--end::Symbol-->
-                                                            <!--begin::Title-->
-                                                            <div>
-                                                                <div class="fs-8 text-white fw-bolder lh-1">
-                                                                    {{ $project->tgl_release }}</div>
-                                                                <div class="fs-7 text-gray-600 fw-bold">Release</div>
-                                                            </div>
-                                                            <!--end::Title-->
-                                                        </div>
-                                                    </div>
-                                                    <!--end::Col-->
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                    </div>
-                                </div>
                                 <!--end::Item-->
                                 <!--begin::Item-->
                                 <div class="carousel-item active carousel-item-start">
@@ -612,6 +544,175 @@
                     </div>
                     <!--end::Body-->
                 </div>
+
+                <div class="card card-xxl-stretch-80 mb-5 mb-xl-10">
+                    <!--begin::Body-->
+                    <div class="card-header">
+                        <h4 class="card-title text-gray-400 fw-bold mb-0 pe-2">Timeline</h4>
+                        <div class="card-toolbar">
+
+                        </div>
+                    </div>
+                    <div class="card-body pt-5">
+
+                        <div class="card bg-warning hoverable ms-2 me-2 card-xl-stretch mb-xl-8">
+                            <div class=" card-body">
+                                <div class="row g-0">
+                                    <!--begin::Col-->
+                                    <div class="col-6">
+                                        <div class="d-flex align-items-center mb-9 me-2">
+                                            <!--begin::Symbol-->
+                                            <div class="symbol symbol-40px me-3">
+                                                <div class="symbol-label bg-white bg-opacity-50">
+                                                    <!--begin::Svg Icon | path: icons/duotune/abstract/abs043.svg-->
+                                                    <span class="svg-icon svg-icon-1 svg-icon-dark">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                            height="24" viewBox="0 0 24 24" fill="none">
+                                                            <path opacity="0.3"
+                                                                d="M22 8H8L12 4H19C19.6 4 20.2 4.39999 20.5 4.89999L22 8ZM3.5 19.1C3.8 19.7 4.4 20 5 20H12L16 16H2L3.5 19.1ZM19.1 20.5C19.7 20.2 20 19.6 20 19V12L16 8V22L19.1 20.5ZM4.9 3.5C4.3 3.8 4 4.4 4 5V12L8 16V2L4.9 3.5Z"
+                                                                fill="black"></path>
+                                                            <path
+                                                                d="M22 8L20 12L16 8H22ZM8 16L4 12L2 16H8ZM16 16L12 20L16 22V16ZM8 8L12 4L8 2V8Z"
+                                                                fill="black"></path>
+                                                        </svg>
+                                                    </span>
+                                                    <!--end::Svg Icon-->
+                                                </div>
+                                            </div>
+                                            <!--end::Symbol-->
+                                            <!--begin::Title-->
+                                            <div>
+                                                <div class="fs-8 text-white fw-bolder lh-1">
+                                                    {{ $project->tgl_buat }}</div>
+                                                <div class="fs-7 text-gray-600 fw-bold">Dibuat</div>
+                                            </div>
+                                            <!--end::Title-->
+                                        </div>
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-6">
+                                        <div class="d-flex align-items-center mb-9 ms-2">
+                                            <!--begin::Symbol-->
+                                            <div class="symbol symbol-40px me-3">
+                                                <div class="symbol-label bg-white bg-opacity-50">
+                                                    <!--begin::Svg Icon | path: icons/duotune/abstract/abs046.svg-->
+                                                    <span class="svg-icon svg-icon-1 svg-icon-dark">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                            height="24" viewBox="0 0 24 24" fill="none">
+                                                            <path
+                                                                d="M8 22C7.4 22 7 21.6 7 21V9C7 8.4 7.4 8 8 8C8.6 8 9 8.4 9 9V21C9 21.6 8.6 22 8 22Z"
+                                                                fill="black"></path>
+                                                            <path opacity="0.3"
+                                                                d="M4 15C3.4 15 3 14.6 3 14V6C3 5.4 3.4 5 4 5C4.6 5 5 5.4 5 6V14C5 14.6 4.6 15 4 15ZM13 19V3C13 2.4 12.6 2 12 2C11.4 2 11 2.4 11 3V19C11 19.6 11.4 20 12 20C12.6 20 13 19.6 13 19ZM17 16V5C17 4.4 16.6 4 16 4C15.4 4 15 4.4 15 5V16C15 16.6 15.4 17 16 17C16.6 17 17 16.6 17 16ZM21 18V10C21 9.4 20.6 9 20 9C19.4 9 19 9.4 19 10V18C19 18.6 19.4 19 20 19C20.6 19 21 18.6 21 18Z"
+                                                                fill="black"></path>
+                                                        </svg>
+                                                    </span>
+                                                    <!--end::Svg Icon-->
+                                                </div>
+                                            </div>
+                                            <!--end::Symbol-->
+                                            <!--begin::Title-->
+                                            <div>
+                                                <div class="fs-8 text-white fw-bolder lh-1">
+                                                    {{ $project->tgl_deadline }}</div>
+                                                <div class="fs-7 text-gray-600 fw-bold">Deadline</div>
+                                            </div>
+                                            <!--end::Title-->
+                                        </div>
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-6">
+                                        <div class="d-flex align-items-center me-2">
+                                            <!--begin::Symbol-->
+                                            <div class="symbol symbol-40px me-3">
+                                                <div class="symbol-label bg-white bg-opacity-50">
+                                                    <!--begin::Svg Icon | path: icons/duotune/abstract/abs022.svg-->
+                                                    <span class="svg-icon svg-icon-1 svg-icon-dark">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                            height="24" viewBox="0 0 24 24" fill="none">
+                                                            <path opacity="0.3"
+                                                                d="M11.425 7.325C12.925 5.825 15.225 5.825 16.725 7.325C18.225 8.825 18.225 11.125 16.725 12.625C15.225 14.125 12.925 14.125 11.425 12.625C9.92501 11.225 9.92501 8.825 11.425 7.325ZM8.42501 4.325C5.32501 7.425 5.32501 12.525 8.42501 15.625C11.525 18.725 16.625 18.725 19.725 15.625C22.825 12.525 22.825 7.425 19.725 4.325C16.525 1.225 11.525 1.225 8.42501 4.325Z"
+                                                                fill="black"></path>
+                                                            <path
+                                                                d="M11.325 17.525C10.025 18.025 8.425 17.725 7.325 16.725C5.825 15.225 5.825 12.925 7.325 11.425C8.825 9.92498 11.125 9.92498 12.625 11.425C13.225 12.025 13.625 12.925 13.725 13.725C14.825 13.825 15.925 13.525 16.725 12.625C17.125 12.225 17.425 11.825 17.525 11.325C17.125 10.225 16.525 9.22498 15.625 8.42498C12.525 5.32498 7.425 5.32498 4.325 8.42498C1.225 11.525 1.225 16.625 4.325 19.725C7.425 22.825 12.525 22.825 15.625 19.725C16.325 19.025 16.925 18.225 17.225 17.325C15.425 18.125 13.225 18.225 11.325 17.525Z"
+                                                                fill="black"></path>
+                                                        </svg>
+                                                    </span>
+                                                    <!--end::Svg Icon-->
+                                                </div>
+                                            </div>
+                                            <!--end::Symbol-->
+                                            <!--begin::Title-->
+                                            <div>
+                                                <div class="fs-8 text-white fw-bolder lh-1">
+                                                    {{ $project->tgl_trial }}</div>
+                                                <div class="fs-7 text-gray-600 fw-bold">Trial Error
+                                                </div>
+                                            </div>
+                                            <!--end::Title-->
+                                        </div>
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-6">
+                                        <div class="d-flex align-items-center ms-2">
+                                            <!--begin::Symbol-->
+                                            <div class="symbol symbol-40px me-3">
+                                                <div class="symbol-label bg-white bg-opacity-50">
+                                                    <!--begin::Svg Icon | path: icons/duotune/abstract/abs045.svg-->
+                                                    <span class="svg-icon svg-icon-1 svg-icon-dark">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                            height="24" viewBox="0 0 24 24" fill="none">
+                                                            <path
+                                                                d="M2 11.7127L10 14.1127L22 11.7127L14 9.31274L2 11.7127Z"
+                                                                fill="black"></path>
+                                                            <path opacity="0.3"
+                                                                d="M20.9 7.91274L2 11.7127V6.81275C2 6.11275 2.50001 5.61274 3.10001 5.51274L20.6 2.01274C21.3 1.91274 22 2.41273 22 3.11273V6.61273C22 7.21273 21.5 7.81274 20.9 7.91274ZM22 16.6127V11.7127L3.10001 15.5127C2.50001 15.6127 2 16.2127 2 16.8127V20.3127C2 21.0127 2.69999 21.6128 3.39999 21.4128L20.9 17.9128C21.5 17.8128 22 17.2127 22 16.6127Z"
+                                                                fill="black"></path>
+                                                        </svg>
+                                                    </span>
+                                                    <!--end::Svg Icon-->
+                                                </div>
+                                            </div>
+                                            <!--end::Symbol-->
+                                            <!--begin::Title-->
+                                            <div>
+                                                <div class="fs-8 text-white fw-bolder lh-1">
+                                                    {{ $project->tgl_release }}</div>
+                                                <div class="fs-7 text-gray-600 fw-bold">Release</div>
+                                            </div>
+                                            <!--end::Title-->
+                                        </div>
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card card-xxl-stretch-20 mb-5 mb-xl-10">
+                    <div class="card-header">
+                        <h4 class="card-title text-gray-400 fw-bold mb-0 pe-2">Catatan</h4>
+                        <div class="card-toolbar">
+
+                        </div>
+                    </div>
+                    <div class="card-body pt-5">
+
+                        <textarea class="form-control form-control-white rounded-3"
+                            {{ Auth::user()->id == $project->leader ? '' : 'readonly' }} placeholder="{{ $project->catatan }}"
+                            wire:change="simKet()" wire:model.lazy="catatan" rows="4">
+
+                        </textarea>
+
+                    </div>
+                </div>
+
+
+
                 <!--end::Security recent alerts-->
                 <!--begin::Security guidelines-->
                 <div class="card card-xxl-stretch-80 mb-5 mb-xl-10">
@@ -724,22 +825,12 @@
 
 @livewireScripts
 <script type="text/javascript">
-    window.addEventListener('swal:revisi', event => {
-        swal.fire({
-                title: event.detail.title,
-                text: event.detail.text,
-                icon: event.detail.type,
-                showCancelButton: true,
-                reverseButtons: true
-            })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    window.livewire.emit('revisi', event.detail.id);
-                }
-            });
+    window.livewire.on('revisi', () => {
+        $('#modal_revisi').modal('hide');
     });
-
-
+    window.livewire.on('selesai', () => {
+        $('#modal_selesai').modal('hide');
+    });
     window.livewire.on('release', () => {
         $('#modal_release').modal('hide');
     });

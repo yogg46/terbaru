@@ -21,11 +21,33 @@ class Index extends Component
     public function render()
     {
         if (Auth::user()->role == 5) {
-            $bb = project::with('ProjectBug')->where('status', 3)->whereHas('ProjectBug', function (Builder $query) {
-                $query->where('programer', auth()->user()->id);
-            })->orWhere('leader', auth()->user()->id)->paginate(9);
+            $bb = project::with('ProjectBug')
+                ->where('status', 3)
+                ->whereHas('ProjectBug', function (Builder $query) {
+                    $query->where('programer', auth()->user()->id)->orderBy('created_at', 'desc');
+                })
+                ->withCount([
+                    'ProjectBug',
+                    'ProjectBug as bug_baru' => function (Builder $query) {
+                        $query->where('status', 0);
+                    }
+                ])
+                ->withCount([
+                    'ProjectBug',
+                    'ProjectBug as bug_on' => function (Builder $query) {
+                        $query->where('status', 1);
+                    }
+                ])
+                ->withCount([
+                    'ProjectBug',
+                    'ProjectBug as bug_com' => function (Builder $query) {
+                        $query->where('status', 2);
+                    }
+                ])
+                ->orWhere('leader', auth()->user()->id)
+                ->paginate(9);
         } elseif (Auth::user()->role == 4) {
-            $bb = project::with('ProjectBug')->where('status', 3)->where('leader', auth()->user()->id)->paginate(9);
+            $bb = project::with('ProjectBug')->where('status', 3)->where('leader', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(9);
         }
 
 

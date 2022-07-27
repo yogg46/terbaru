@@ -21,13 +21,14 @@ class CreateProjectsTable extends Migration
             $table->unsignedBigInteger('no_client')->constrained()
                 ->onUpdate('cascade');
             $table->string('no_project');
+            $table->string('catatan')->nullable();
             $table->string('status')->default(1);
             $table->string('level')->default(1);
             $table->string('kategori')->default(1);
-            $table->date('tgl_buat')->nullable();
-            $table->date('tgl_deadline')->nullable();
-            $table->date('tgl_trial')->nullable();
-            $table->date('tgl_release')->nullable();
+            $table->string('tgl_buat')->nullable();
+            $table->string('tgl_deadline')->nullable();
+            $table->string('tgl_trial')->nullable();
+            $table->string('tgl_release')->nullable();
             $table->unsignedBigInteger('marketing')->constrained()
                 ->onUpdate('cascade');
             $table->unsignedBigInteger('leader')->constrained()
