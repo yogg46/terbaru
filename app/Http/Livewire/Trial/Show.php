@@ -5,8 +5,10 @@ namespace App\Http\Livewire\Trial;
 use App\Models\Bug;
 use App\Models\Modul;
 use App\Models\project;
+use App\Models\Release;
 use App\Models\Trial;
 use App\Models\User;
+use App\Models\Version;
 use Carbon\Carbon;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -16,7 +18,10 @@ class Show extends Component
     use LivewireAlert;
 
     public $project, $trial, $catatan;
+    public $swit = 0;
     public $nama, $deadline, $programer, $deskripsi, $status, $modul_id;
+    public $butu = 0;
+    public $sekar;
 
     public function mount($slug)
     {
@@ -41,6 +46,8 @@ class Show extends Component
                 'modul' => Modul::where('no_project', $this->project->id)->get(),
                 'programmer' =>  Modul::where('no_project', $this->project->id)->pluck('programer'),
                 'buger' =>  Bug::where('project_id', $this->project->id)->pluck('programer')->toArray(),
+                'versi' => Version::where('project_id', $this->project->id)->get(),
+                'bug_re' => Release::where('project_id', $this->project->id)->get(),
 
 
             ]
@@ -53,18 +60,32 @@ class Show extends Component
         )
             ->section('isi_page');
     }
+    public function swt()
+    {
+        return $this->swit = 1;
+    }
 
+    public function swt2()
+    {
+        return $this->swit = 0;
+    }
+
+    public function swt3()
+    {
+        return $this->swit = 2;
+    }
     public function resetInput()
     {
         $this->nama = null;
         $this->programer = null;
         $this->deskripsi = null;
         $this->deadline = null;
+        $this->modul_id = null;
         // $this->nama = null;
 
     }
 
-    public function save()
+    public function save2()
     {
         // $this->validate([
         //     'nama' => 'required',
@@ -76,15 +97,16 @@ class Show extends Component
 
         $this->programer = implode("", Modul::where('id', $this->modul_id)->pluck('programer')->toArray());
 
-        $bug = new Bug;
-        $bug->nama = $this->nama;
-        $bug->deskripsi = $this->deskripsi;
-        $bug->deadline = date('d-m-Y', strtotime($this->deadline));
-        $bug->modul_id = $this->modul_id;
-        $bug->programer = $this->programer;
-        $bug->project_id = $this->project->id;
-        $bug->status = 0;
-        $bug->save();
+        Bug::create([
+            'nama' => $this->nama,
+            'deskripsi' => $this->deskripsi,
+            'deadline' => date('d-m-Y', strtotime($this->deadline)),
+            'modul_id' => $this->modul_id,
+            'programer' => $this->programer,
+            'project_id' => $this->project->id,
+            'status' => 0,
+        ]);
+
         $this->emit('addbug');
         $this->resetInput();
         $this->alert('success', 'Data Berhasil Ditambahkan', [
@@ -97,6 +119,37 @@ class Show extends Component
         $project->update(['status' => 3]);
         // $project->update(['status' => 3, 'total_progres' => 111,]);
     }
+
+
+
+    public function store()
+    {
+        $this->programer = implode("", Modul::where('id', $this->modul_id)->pluck('programer')->toArray());
+
+        $versi = Version::where('project_id', $this->project->id)->orderBy('id', 'desc')->first();
+
+        Release::create([
+            'nama' => $this->nama,
+            'deskripsi' => $this->deskripsi,
+            'deadline' => date('d-m-Y', strtotime($this->deadline)),
+            'modul_id' => $this->modul_id,
+            'versi' => $versi->id,
+            'programer' => $this->programer,
+            'project_id' => $this->project->id,
+            'status' => 0,
+        ]);
+
+        $this->emit('revisi');
+        $this->resetInput();
+        $this->alert('success', 'Data Berhasil Ditambahkan', [
+            'position' => 'top-right',
+            'timer' => 3000,
+            'toast' => true,
+        ]);
+    }
+
+
+
 
     public function simKet()
     {
@@ -114,12 +167,43 @@ class Show extends Component
     {
         $project = project::where('id', $id)->first();
         $project->update(['status' => 6, 'tgl_release' => Carbon::now()->format('d-m-Y')]);
+        // Version::create([
+        //     'project_id' => $id,
+        //     'tgl' => Carbon::now()->format('d-m-Y')
+        // ]);
+        $this->sekar =  Carbon::now()->format('d-m-Y');
+        $version = new Version;
+        $version->project_id = $id;
+        $version->tgl = $this->sekar;
+        $version->save();
+
         $this->emit('release');
         $this->alert('success', 'Project Berhasil Direlease', [
             'position' => 'top-right',
             'timer' => 3000,
             'toast' => true,
         ]);
-        return redirect(url('/bug-report/' . $this->project->slug));
+        return redirect(url('/trial-error/' . $this->project->slug));
+    }
+    public function release2($id)
+    {
+        $project = project::where('id', $id)->first();
+        $project->update(['status' => 5, 'tgl_release' => Carbon::now()->format('d-m-Y')]);
+
+        $this->sekar =  Carbon::now()->format('d-m-Y');
+
+
+        $version = new Version;
+        $version->project_id = $id;
+        $version->tgl = $this->sekar;
+        $version->save();
+
+        $this->emit('release');
+        $this->alert('success', 'Project Berhasil Direlease', [
+            'position' => 'top-right',
+            'timer' => 3000,
+            'toast' => true,
+        ]);
+        return redirect(url('/trial-error/' . $this->project->slug));
     }
 }

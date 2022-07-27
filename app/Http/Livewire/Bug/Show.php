@@ -5,8 +5,10 @@ namespace App\Http\Livewire\Bug;
 use App\Models\Bug;
 use App\Models\Modul;
 use App\Models\project;
+use App\Models\Release;
 use App\Models\Trial;
 use App\Models\User;
+use App\Models\Version;
 use Carbon\Carbon;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -17,6 +19,7 @@ class Show extends Component
     public $listeners = ['revisi', 'selesai'];
     public $catatan;
     public $bug, $project;
+    public $swit = 0;
 
 
     public function mount($slug)
@@ -33,6 +36,8 @@ class Show extends Component
             'bug2' => Bug::where('project_id', $this->project->id)->get(),
             'pro' => User::where('role', 5)->get(),
             'buger' =>  Bug::where('project_id', $this->project->id)->pluck('programer')->toArray(),
+            'versi' => Version::where('project_id', $this->project->id)->get(),
+
 
 
             'pro1' => $cek->groupBy('programer'),
@@ -46,6 +51,23 @@ class Show extends Component
         )
             ->section('isi_page');
     }
+
+
+    public function swt()
+    {
+        return $this->swit = 1;
+    }
+
+    public function swt2()
+    {
+        return $this->swit = 0;
+    }
+
+    public function swt3()
+    {
+        return $this->swit = 2;
+    }
+
 
     public function konfimasiSelesai($ids)
     {
@@ -135,6 +157,23 @@ class Show extends Component
         return redirect(url('/bug-report/' . $this->project->slug));
     }
 
+    public function bacat($id)
+    {
+        $project = project::where('id', $id)->first();
+
+        $bugg = Release::find($id);
+        $bugg->update(['status' => 1,]);
+        // $this->emit('revisi');
+        $this->swit = 1;
+
+        $this->alert('success', 'Bug Dimulai Revisi', [
+            'position' => 'top-right',
+            'timer' => 3000,
+            'toast' => true,
+        ]);
+        return redirect(url('/bug-report/' . $this->project->slug));
+    }
+
     public function sim($id)
     {
         $project = project::where('id', $id)->first();
@@ -142,6 +181,22 @@ class Show extends Component
         $buggs = Bug::find($id);
         $buggs->update(['status' => 2]);
         // $this->emit('selesai');
+        $this->alert('success', 'Bug Berhasil DiSelesaikan', [
+            'position' => 'top-right',
+            'timer' => 3000,
+            'toast' => true,
+        ]);
+        return redirect(url('/bug-report/' . $this->project->slug));
+    }
+
+    public function simet($id)
+    {
+        $project = project::where('id', $id)->first();
+
+        $buggs = Release::find($id);
+        $buggs->update(['status' => 2]);
+        // $this->emit('selesai');
+        $this->swit = 1;
         $this->alert('success', 'Bug Berhasil DiSelesaikan', [
             'position' => 'top-right',
             'timer' => 3000,

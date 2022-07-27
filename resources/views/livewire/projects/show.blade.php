@@ -224,6 +224,11 @@
                                         class="nav-link justify-content-center text-active-gray-800 {{ $swit == 1 ? 'active' : '' }}"
                                         data-bs-toggle="tab" role="tab">Bug</a>
                                 </li>
+                                <li class="nav-item active" role="presentation">
+                                    <a wire:click.prevent="swt3()"
+                                        class="nav-link justify-content-center text-active-gray-800 {{ $swit == 2 ? 'active' : '' }}"
+                                        data-bs-toggle="tab" role="tab">Release Bug</a>
+                                </li>
 
                             </ul>
 
@@ -244,8 +249,8 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none">
                                                 <rect opacity="0.5" x="11.364" y="20.364" width="16"
-                                                    height="2" rx="1" transform="rotate(-90 11.364 20.364)"
-                                                    fill="black"></rect>
+                                                    height="2" rx="1"
+                                                    transform="rotate(-90 11.364 20.364)" fill="black"></rect>
                                                 <rect x="4.36396" y="11.364" width="16" height="2"
                                                     rx="1" fill="black"></rect>
                                             </svg>
@@ -260,7 +265,7 @@
                     </div>
                     <!--end::Header-->
                     <!--begin::Body-->
-                    <div class="card-body pt-7 pb-0 px-0">
+                    <div class="card-body hover-scroll h-400px  pt-7 pb-0 px-0">
                         <!--begin::Tab content-->
                         <div class=" me-9 ms-9">
 
@@ -405,6 +410,236 @@
                                 </tbody>
                                 <!--end::Table body-->
                             </table>
+                            @if ($swit == 2)
+                                <div class="timeline  scroll-y scroll">
+                                    @foreach ($versi as $key)
+                                        <div class="timeline-item">
+                                            <!--begin::Timeline line-->
+                                            <div class="timeline-line w-40px "></div>
+                                            <!--end::Timeline line-->
+                                            <!--begin::Timeline icon-->
+                                            <div class="timeline-icon symbol symbol-circle symbol-40px me-4">
+                                                <div class="symbol-label bg-light-primary">
+
+                                                    <span class="svg-icon svg-icon-2 svg-icon-primary">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                            height="24" viewBox="0 0 24 24" fill="none">
+                                                            <path opacity="0.3"
+                                                                d="M21.25 18.525L13.05 21.825C12.35 22.125 11.65 22.125 10.95 21.825L2.75 18.525C1.75 18.125 1.75 16.725 2.75 16.325L4.04999 15.825L10.25 18.325C10.85 18.525 11.45 18.625 12.05 18.625C12.65 18.625 13.25 18.525 13.85 18.325L20.05 15.825L21.35 16.325C22.35 16.725 22.35 18.125 21.25 18.525ZM13.05 16.425L21.25 13.125C22.25 12.725 22.25 11.325 21.25 10.925L13.05 7.62502C12.35 7.32502 11.65 7.32502 10.95 7.62502L2.75 10.925C1.75 11.325 1.75 12.725 2.75 13.125L10.95 16.425C11.65 16.725 12.45 16.725 13.05 16.425Z"
+                                                                fill="black"></path>
+                                                            <path
+                                                                d="M11.05 11.025L2.84998 7.725C1.84998 7.325 1.84998 5.925 2.84998 5.525L11.05 2.225C11.75 1.925 12.45 1.925 13.15 2.225L21.35 5.525C22.35 5.925 22.35 7.325 21.35 7.725L13.05 11.025C12.45 11.325 11.65 11.325 11.05 11.025Z"
+                                                                fill="black"></path>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                            <!--end::Timeline icon-->
+                                            <!--begin::Timeline content-->
+                                            <div class="timeline-content mb-10 mt-n1">
+                                                <!--begin::Timeline heading-->
+                                                <div class="pe-3 mb-5">
+                                                    <!--begin::Title-->
+                                                    <div class="fs-5 fw-bold mb-2">Project <span
+                                                            class="text-primary text-hover-info">
+                                                            {{ $key->VersiProject->nama_project }}
+                                                        </span> di
+                                                        release tgl
+                                                        {{ $key->tgl }}</div>
+                                                    <!--end::Title-->
+                                                    <!--begin::Description-->
+
+                                                    <!--end::Description-->
+                                                </div>
+                                                <!--end::Timeline heading-->
+                                                <!--begin::Timeline details-->
+                                                <div class="overflow-auto pb-5">
+                                                    <!--begin::Record-->
+
+
+                                                    <table class="table  align-middle gs-0 ">
+                                                        <!--begin::Table head-->
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="p-0 w-50px"></th>
+                                                                <th class="p-0 min-w-200px"></th>
+                                                                <th class="p-0 min-w-100px"></th>
+                                                                <th class="p-0 min-w-40px"></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            @if ($loop->first)
+                                                                <tr>
+                                                                    <div
+                                                                        class="notice d-flex bg-light-primary rounded border-primary border border-dashed min-w-lg-600px flex-shrink-0 p-6">
+                                                                        <!--begin::Icon-->
+                                                                        <!--begin::Svg Icon | path: icons/duotune/coding/cod004.svg-->
+                                                                        <span
+                                                                            class="svg-icon svg-icon-2tx svg-icon-primary me-4">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                width="24" height="24"
+                                                                                viewBox="0 0 24 24" fill="none">
+                                                                                <path opacity="0.3"
+                                                                                    d="M19.0687 17.9688H11.0687C10.4687 17.9688 10.0687 18.3687 10.0687 18.9688V19.9688C10.0687 20.5687 10.4687 20.9688 11.0687 20.9688H19.0687C19.6687 20.9688 20.0687 20.5687 20.0687 19.9688V18.9688C20.0687 18.3687 19.6687 17.9688 19.0687 17.9688Z"
+                                                                                    fill="black"></path>
+                                                                                <path
+                                                                                    d="M4.06875 17.9688C3.86875 17.9688 3.66874 17.8688 3.46874 17.7688C2.96874 17.4688 2.86875 16.8688 3.16875 16.3688L6.76874 10.9688L3.16875 5.56876C2.86875 5.06876 2.96874 4.46873 3.46874 4.16873C3.96874 3.86873 4.56875 3.96878 4.86875 4.46878L8.86875 10.4688C9.06875 10.7688 9.06875 11.2688 8.86875 11.5688L4.86875 17.5688C4.66875 17.7688 4.36875 17.9688 4.06875 17.9688Z"
+                                                                                    fill="black"></path>
+                                                                            </svg>
+                                                                        </span>
+                                                                        <!--end::Svg Icon-->
+                                                                        <!--end::Icon-->
+                                                                        <!--begin::Wrapper-->
+                                                                        <div
+                                                                            class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+                                                                            <!--begin::Content-->
+                                                                            <div class="mb-3 mb-md-0 fw-bold">
+                                                                                <h4 class="text-gray-900 fw-bolder">
+                                                                                    Project Dirilis </h4>
+                                                                                <div class="fs-6 text-gray-700 pe-7">
+                                                                                </div>
+                                                                            </div>
+                                                                            <!--end::Content-->
+                                                                            <!--begin::Action-->
+
+                                                                            <!--end::Action-->
+                                                                        </div>
+                                                                        <!--end::Wrapper-->
+                                                                    </div>
+                                                                </tr>
+                                                            @endif
+                                                            @if ($key->VersiRelease->count())
+                                                                @foreach ($key->VersiRelease as $item)
+                                                                    <tr>
+                                                                        <th>
+                                                                            <div class="symbol symbol-50px me-2"
+                                                                                wire:ignore.self>
+                                                                                <span class="symbol-label">
+                                                                                    <span
+                                                                                        class="symbol-label bg-primary fs-2 text-inverse-warning fw-bolder">
+
+                                                                                        {{ Str::substr($item->nama, 0, 2) }}
+
+                                                                                    </span>
+                                                                                </span>
+                                                                            </div>
+                                                                        </th>
+                                                                        <td>
+                                                                            <span
+                                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-6">
+                                                                                {{ $item->nama }}
+                                                                            </span>
+                                                                            <span
+                                                                                class="text-muted fw-bold d-block fs-7">
+                                                                                {{ $item->ReleaseModul->ModulProgramer->name }}
+                                                                            </span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span wire:ignore
+                                                                                class="text-dark fw-bold d-block  fs-6"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="bottom"
+                                                                                title="{{ $item->deskripsi }}">
+                                                                                {{ Str::substr($item->deskripsi, 0, 10) }}
+
+                                                                                {{-- Str::substr($project->deskripsi_project, 0, 110) . '...' --}}
+                                                                            </span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <span
+                                                                                class="text-dark fw-bolder text-hover-primary mb-1 fs-7">
+                                                                                {{ $item->deadline }}
+                                                                            </span>
+                                                                            <span
+                                                                                class="text-muted fw-bold d-block fs-7">Deadline
+                                                                            </span>
+                                                                        </td>
+
+                                                                        <td class="text-end">
+                                                                            <span
+                                                                                class="text-white  badge badge-danger fw-bolder  mb-1 fs-7">
+
+                                                                                {{ $item->status == 0 ? 'New' : ($item->status == 1 ? 'On Progres' : 'Complated') }}
+                                                                            </span>
+
+                                                                        </td>
+                                                                        {{-- @if ($item->status == 0 && $item->programer == Auth::user()->id)
+                                                                    <td class="text-end">
+                                                                        <button wire:click="konfimasiRevisi({{ $item->id }})"
+                                                                            class="btn btn-sm btn-light-success">
+                                                                            Revisi
+                                                                        </button>
+                                                                    </td>
+                                                                @endif --}}
+
+                                                                    </tr>
+                                                                @endforeach
+                                                            @else
+                                                                @if (!$loop->first)
+                                                                    <tr>
+                                                                        <div
+                                                                            class="notice d-flex bg-light-primary rounded border-primary border border-dashed min-w-lg-600px flex-shrink-0 p-6">
+                                                                            <!--begin::Icon-->
+                                                                            <!--begin::Svg Icon | path: icons/duotune/coding/cod004.svg-->
+                                                                            <span
+                                                                                class="svg-icon svg-icon-2tx svg-icon-primary me-4">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                                    width="24" height="24"
+                                                                                    viewBox="0 0 24 24"
+                                                                                    fill="none">
+                                                                                    <path opacity="0.3"
+                                                                                        d="M19.0687 17.9688H11.0687C10.4687 17.9688 10.0687 18.3687 10.0687 18.9688V19.9688C10.0687 20.5687 10.4687 20.9688 11.0687 20.9688H19.0687C19.6687 20.9688 20.0687 20.5687 20.0687 19.9688V18.9688C20.0687 18.3687 19.6687 17.9688 19.0687 17.9688Z"
+                                                                                        fill="black"></path>
+                                                                                    <path
+                                                                                        d="M4.06875 17.9688C3.86875 17.9688 3.66874 17.8688 3.46874 17.7688C2.96874 17.4688 2.86875 16.8688 3.16875 16.3688L6.76874 10.9688L3.16875 5.56876C2.86875 5.06876 2.96874 4.46873 3.46874 4.16873C3.96874 3.86873 4.56875 3.96878 4.86875 4.46878L8.86875 10.4688C9.06875 10.7688 9.06875 11.2688 8.86875 11.5688L4.86875 17.5688C4.66875 17.7688 4.36875 17.9688 4.06875 17.9688Z"
+                                                                                        fill="black"></path>
+                                                                                </svg>
+                                                                            </span>
+                                                                            <!--end::Svg Icon-->
+                                                                            <!--end::Icon-->
+                                                                            <!--begin::Wrapper-->
+                                                                            <div
+                                                                                class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+                                                                                <!--begin::Content-->
+                                                                                <div class="mb-3 mb-md-0 fw-bold">
+                                                                                    <h4
+                                                                                        class="text-gray-900 fw-bolder">
+                                                                                        Tidak Ada Bug </h4>
+                                                                                    <div
+                                                                                        class="fs-6 text-gray-700 pe-7">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <!--end::Content-->
+                                                                                <!--begin::Action-->
+
+                                                                                <!--end::Action-->
+                                                                            </div>
+                                                                            <!--end::Wrapper-->
+                                                                        </div>
+                                                                    </tr>
+                                                                @endif
+                                                            @endif
+
+                                                        </tbody>
+                                                    </table>
+
+
+
+                                                    <!--end::Record-->
+                                                    <!--begin::Record-->
+
+                                                    <!--end::Record-->
+                                                </div>
+                                                <!--end::Timeline details-->
+                                            </div>
+                                            <!--end::Timeline content-->
+                                        </div>
+                                    @endforeach
+
+                                </div>
+                            @endif
                         </div>
                         <!--end::Tab content-->
                     </div>

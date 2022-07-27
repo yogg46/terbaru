@@ -125,7 +125,7 @@
                 @endif
                 @if (Auth::user()->role == 4)
                     <div class="menu-item">
-                        <a class="menu-link {{ $tittle == 'Trial Error' || $tittle == 'Trial error' ? 'active' : '' }}"
+                        <a class="menu-link {{ $tittle == 'Trial Error' || $tittle == 'Trial eror' ? 'active' : '' }}"
                             href="/trial-error">
                             <span class="menu-icon">
                                 <!--begin::Svg Icon | path: icons/duotune/communication/com001.svg-->

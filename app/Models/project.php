@@ -93,4 +93,12 @@ class project extends Model
     {
         return $this->hasMany(Trial::class, 'project_id')->withTrashed();
     }
+    public function ProjectRelease()
+    {
+        return $this->hasMany(Release::class, 'project_id')->withTrashed();
+    }
+    public function ProjectVersi()
+    {
+        return $this->hasMany(Version::class, 'project_id')->withTrashed();
+    }
 }

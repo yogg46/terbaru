@@ -7,6 +7,7 @@ use App\Models\client;
 use App\Models\Modul;
 use App\Models\project;
 use App\Models\User;
+use App\Models\Version;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -48,6 +49,8 @@ class Show extends Component
             'pro1' => $cek->groupBy('programer'),
             'modul' => $cek,
             'bug' => Bug::where('project_id', $this->project->id)->get(),
+            'versi' => Version::where('project_id', $this->project->id)->get(),
+
 
         ])
             ->extends(
@@ -59,18 +62,30 @@ class Show extends Component
             )
             ->section('isi_page');
     }
+
     public function swt()
     {
-        if ($this->swit == 0) {
-            $this->swit = 1;
-        };
+        return $this->swit = 1;
     }
+
     public function swt2()
     {
-        if ($this->swit == 1) {
-            $this->swit = 0;
-        };
+        return $this->swit = 0;
     }
+
+    public function swt3()
+    {
+        return $this->swit = 2;
+    }
+    public function swt4()
+    {
+        return $this->swit = 3;
+    }
+    public function swt5()
+    {
+        return $this->swit = 4;
+    }
+
     // protected $rules = [
     //     // 'client_id' => 'required',
     //     // 'nama' => 'required|min:6',
@@ -78,7 +93,6 @@ class Show extends Component
     //     'deadline' => 'date',
     //     // 'cp' => 'required|min:12',
     //     // 'no_kc' => 'required',
-
     // ];
 
     public function cek($tes)

@@ -3,8 +3,27 @@
         <!--begin::Container-->
         <div id="kt_content_container" class="container-xxl">
 
-            <div class="card mb-5 mb-xl-8">
 
+            <div class="card mb-5 mb-xl-8">
+                <div class="card-header border-0 pt-5">
+
+                    <div class="card-toolbar">
+                        <select wire:model.lazy="pilih" class=" form-control form-select-solid form-select">
+                            <option disabled>
+                                Select Bug
+                            </option>
+                            {{-- @foreach ($pilihan as $k => $t) --}}
+                            <option value="3">
+                                Bug
+                            </option>
+                            <option value="5">
+                                Release Bug
+                            </option>
+                            {{-- @endforeach --}}
+
+                        </select>
+                    </div>
+                </div>
 
                 <div class="card-body pt-3">
                     <table class="table align-middle gs-0 gy-9">

@@ -51,4 +51,8 @@ class Modul extends Model
     {
         return $this->hasMany(Bug::class, 'modul_id')->withTrashed();
     }
+    public function ModulRelease()
+    {
+        return $this->hasMany(Bug::class, 'modul_id')->withTrashed();
+    }
 }
