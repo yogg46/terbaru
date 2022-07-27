@@ -47,7 +47,24 @@ class Index extends Component
                 ->orWhere('leader', auth()->user()->id)
                 ->paginate(9);
         } elseif (Auth::user()->role == 4) {
-            $bb = project::with('ProjectBug')->where('status', 3)->where('leader', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(9);
+            $bb = project::with('ProjectBug')->where('status', 3)->where('leader', auth()->user()->id)->withCount([
+                'ProjectBug',
+                'ProjectBug as bug_baru' => function (Builder $query) {
+                    $query->where('status', 0);
+                }
+            ])
+                ->withCount([
+                    'ProjectBug',
+                    'ProjectBug as bug_on' => function (Builder $query) {
+                        $query->where('status', 1);
+                    }
+                ])
+                ->withCount([
+                    'ProjectBug',
+                    'ProjectBug as bug_com' => function (Builder $query) {
+                        $query->where('status', 2);
+                    }
+                ])->orderBy('created_at', 'desc')->paginate(9);
         }
 
 

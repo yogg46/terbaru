@@ -387,7 +387,7 @@
 
                                                 <td class="text-end">
                                                     <span
-                                                        class="text-white  badge badge-danger fw-bolder  mb-1 fs-7">{{ $item->status == 0 ? 'New' : ($item->status == 0 ? 'On Progres' : 'Complated') }}</span>
+                                                        class="text-white  badge badge-danger fw-bolder  mb-1 fs-7">{{ $item->status == 0 ? 'New' : ($item->status == 1 ? 'On Progres' : 'Complated') }}</span>
 
                                                 </td>
                                                 {{-- @if ($item->status == 0 && $item->programer == Auth::user()->id)

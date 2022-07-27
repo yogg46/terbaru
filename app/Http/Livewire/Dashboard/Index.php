@@ -2,8 +2,12 @@
 
 namespace App\Http\Livewire\Dashboard;
 
+use App\Models\Bug;
 use App\Models\LoginActicity;
+use App\Models\Modul;
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Index extends Component
@@ -22,13 +26,17 @@ class Index extends Component
         $sus = User::where('status', '0')->count();
         $act = User::where('status', '1')->count();
         $tot = User::count();
+
         return view('livewire.dashboard.dashboard_index', [
             'tot' => $tot,
             'act' => $act,
             'sus' => $sus,
             'dark' => $dark,
+            'bug_pro' => Bug::where('programer', Auth::user()->id)->where('status', 0)->orderBy('created_at', 'asc')->get(),
+            'mod_pro' => Modul::where('programer', Auth::user()->id)->where('progres', 0)->orderBy('created_at', 'asc')->get(),
             'coba3' => User::where('role', '3')->pluck('id'),
             'log1' => LoginActicity::all()->sortByDesc('id'),
+            'sekarang' =>  Carbon::now(),
         ])
             ->extends(
                 'layout.main',
