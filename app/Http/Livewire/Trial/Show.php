@@ -79,7 +79,7 @@ class Show extends Component
         $bug = new Bug;
         $bug->nama = $this->nama;
         $bug->deskripsi = $this->deskripsi;
-        $bug->deadline = $this->deadline;
+        $bug->deadline = date('d-m-Y', strtotime($this->deadline));
         $bug->modul_id = $this->modul_id;
         $bug->programer = $this->programer;
         $bug->project_id = $this->project->id;

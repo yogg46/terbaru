@@ -288,13 +288,18 @@
                                                     </span>
                                                 </div>
                                             </th>
+                                            {{-- @dd($item->id) --}}
                                             <td>
-                                                <span wire:ignore.self data-bs-toggle="tooltip"
-                                                    data-bs-placement="bottom"
-                                                    title="Deadline : {{ $item->deadline }}"
+                                                <span wire:ignore.self
                                                     class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{ $item->nama }}</span>
                                                 <span
                                                     class="text-muted fw-bold d-block fs-7">{{ $item->BugProgramer->name }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span wire:ignore.self
+                                                    class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{ $item->deadline }}</span>
+                                                <span class="text-muted fw-bold d-block fs-7">Deadline
                                                 </span>
                                             </td>
                                             <td>
@@ -308,8 +313,10 @@
                                             </td>
                                             <td class="text-end">
                                                 <span
-                                                    class="text-white  badge badge-danger fw-bolder  mb-1 fs-7">{{ $item->status == 0 ? 'On Progres' : 'Complated' }}</span>
-
+                                                    class="text-white  badge badge-danger fw-bolder  mb-1 fs-7">{{ $item->status == 0 ? 'New' : ($item->status == 1 ? 'On Progres' : 'Complated') }}</span>
+                                                {{-- <button type="button" wire:click='selesai({{ $item->id }})'
+                                                    class="btn btn-primary">Save
+                                                    changes</button> --}}
                                             </td>
                                         </tr>
                                     @endforeach
